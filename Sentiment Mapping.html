@@ -43,8 +43,8 @@
     transition: background-color 280ms ease, color 280ms ease;
   }
   .display { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.02em; line-height: 1.04; }
-  .display-mega { font-size: clamp(42px, 6vw, 80px); letter-spacing: -0.03em; line-height: 1.0; }
-  .display-md { font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 20px; }
+  .display-mega { font-size: clamp(34px, 8vw, 80px); letter-spacing: -0.03em; line-height: 1.0; }
+  .display-md { font-size: clamp(20px, 5vw, 30px); letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 16px; }
   .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
   @media (max-width: 720px) { .container { padding: 0 20px; } }
 
@@ -57,8 +57,14 @@
     backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
     border: 1px solid var(--hairline);
     box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 8px 32px -16px rgba(15,15,14,0.16);
-    width: calc(100% - 32px); max-width: 680px;
+    width: calc(100% - 24px); max-width: 680px;
     transition: all 280ms ease;
+  }
+  @media (max-width: 480px) {
+    .sub-nav { padding: 8px 16px; gap: 12px; top: 12px; }
+    .sub-nav-back { font-size: 10px; letter-spacing: 0.05em; }
+    .sub-nav-title { font-size: 10px; }
+    .sub-nav img { height: 18px !important; }
   }
   [data-theme="dark"] .sub-nav {
     background: color-mix(in oklch, var(--canvas) 60%, transparent);
@@ -79,7 +85,11 @@
 
   /* Hero */
   .sub-hero {
-    padding: 160px 0 96px; position: relative;
+    padding: 140px 0 80px; position: relative;
+  }
+  @media (max-width: 480px) {
+    .sub-hero { padding: 100px 0 60px; }
+    .sub-hero h1 { max-width: 100%; }
   }
   .sub-hero-label {
     font-family: var(--font-mono); font-size: 11px; font-weight: 600;
@@ -118,11 +128,14 @@
     list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px;
   }
   .sub-items li {
-    font-size: 15.5px; color: var(--body); line-height: 1.55; padding-left: 22px; position: relative;
+    font-size: 15px; color: var(--body); line-height: 1.55; padding-left: 20px; position: relative;
   }
   .sub-items li::before {
     content: '→'; position: absolute; left: 0; color: var(--muted);
-    font-family: var(--font-mono); font-size: 13px;
+    font-family: var(--font-mono); font-size: 12px;
+  }
+  @media (max-width: 480px) {
+    .sub-items li { padding-left: 16px; font-size: 14px; }
   }
 
   /* Back link */

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<title>Cyber-Secured Campaign Infrastructure — AAMA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Serif:wght@300;400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --canvas: #F4F1EC; --canvas-soft: #FAF8F4; --canvas-deep: #0F0F0E;
+    --surface-card: #FFFFFF; --surface-strong: #ECE7DE;
+    --ink: #0F0F0E; --ink-soft: #2A2A28; --body: #4A4843;
+    --muted: #807C73; --muted-soft: #A8A39A;
+    --hairline: #DCD7CC; --hairline-soft: #E8E3D8; --hairline-strong: #BFB8A9;
+    --mint: #A4D2C5; --forest: #1A3A39;
+    --on-dark: #FFFFFF; --on-dark-soft: #A8A39A; --on-dark-hairline: #2A2A28;
+    --font-display: 'IBM Plex Serif', 'Fraunces', serif;
+    --font-body: 'IBM Plex Sans', 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    --logo-filter: none;
+  }
+  [data-theme="dark"] {
+    --canvas: #0F0F0E; --canvas-soft: #161614; --canvas-deep: #F4F1EC;
+    --surface-card: #1A1A18; --surface-strong: #242420;
+    --ink: #F4F1EC; --ink-soft: #DCD7CC; --body: #A8A39A;
+    --muted: #807C73; --muted-soft: #4A4843;
+    --hairline: #242420; --hairline-soft: #1A1A18; --hairline-strong: #38362F;
+    --on-dark-hairline: #DCD7CC;
+    --logo-filter: brightness(0) invert(1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--canvas); color: var(--ink);
+    font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+    letter-spacing: 0.005em;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 280ms ease, color 280ms ease;
+  }
+  .display { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.02em; line-height: 1.04; }
+  .display-mega { font-size: clamp(42px, 6vw, 80px); letter-spacing: -0.03em; line-height: 1.0; }
+  .display-md { font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 20px; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 720px) { .container { padding: 0 20px; } }
+
+  /* Nav */
+  .sub-nav {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 50;
+    display: flex; align-items: center; gap: 20px;
+    padding: 10px 22px; border-radius: 9999px;
+    background: color-mix(in oklch, var(--canvas) 72%, transparent);
+    backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--hairline);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 8px 32px -16px rgba(15,15,14,0.16);
+    width: calc(100% - 32px); max-width: 680px;
+    transition: all 280ms ease;
+  }
+  [data-theme="dark"] .sub-nav {
+    background: color-mix(in oklch, var(--canvas) 60%, transparent);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 32px -16px rgba(0,0,0,0.5);
+  }
+  .sub-nav a { text-decoration: none; display: flex; align-items: center; }
+  .sub-nav-back {
+    font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    transition: color 160ms ease;
+  }
+  .sub-nav-back:hover { color: var(--ink); }
+  .sub-nav-title {
+    font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
+    margin-left: auto;
+  }
+
+  /* Hero */
+  .sub-hero {
+    padding: 160px 0 96px; position: relative;
+  }
+  .sub-hero-label {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    margin-bottom: 32px; display: flex; align-items: center; gap: 12px;
+  }
+  .sub-hero-label .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--forest);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--mint) 50%, transparent);
+  }
+  .sub-hero h1 { margin: 0 0 28px; max-width: 18ch; }
+  .sub-hero p { font-size: 19px; color: var(--body); max-width: 56ch; margin: 0; line-height: 1.5; }
+
+  /* Phases */
+  .sub-phases { padding: 0 0 96px; display: flex; flex-direction: column; gap: 0; }
+  .sub-phase {
+    padding: 48px 0; border-top: 1px solid var(--hairline); position: relative;
+  }
+  .sub-phase-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
+  }
+  .sub-phase-label {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest);
+    background: color-mix(in oklch, var(--mint) 50%, transparent);
+    padding: 5px 10px; border-radius: 9999px;
+  }
+  [data-theme="dark"] .sub-phase-label {
+    background: color-mix(in oklch, var(--forest) 60%, transparent); color: var(--mint);
+  }
+  .sub-phase-period {
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.06em;
+  }
+  .sub-items {
+    list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px;
+  }
+  .sub-items li {
+    font-size: 15.5px; color: var(--body); line-height: 1.55; padding-left: 22px; position: relative;
+  }
+  .sub-items li::before {
+    content: '→'; position: absolute; left: 0; color: var(--muted);
+    font-family: var(--font-mono); font-size: 13px;
+  }
+
+  /* Back link */
+  .sub-back-cta {
+    padding: 48px 0 96px; text-align: center;
+  }
+  .sub-back-cta a {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink);
+    text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 4px;
+    transition: gap 200ms ease;
+  }
+  .sub-back-cta a:hover { gap: 14px; }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(24px);
+    transition: opacity 800ms cubic-bezier(.2,.8,.2,1), transform 800ms cubic-bezier(.2,.8,.2,1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  ::selection { background: var(--mint); color: var(--forest); }
+</style>
+
+<script>
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.addEventListener('DOMContentLoaded', () => {
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+  });
+</script>
+</head>
+<body>
+
+<nav class="sub-nav">
+  <a href="index.html" class="sub-nav-back">← Home</a>
+  <a href="index.html" style="flex-shrink:0">
+    <img src="assets/logo-main.png" alt="AAMA" style="height:24px;filter:var(--logo-filter, none)" />
+  </a>
+  <span class="sub-nav-title">ENGINE / 03</span>
+</nav>
+
+<div class="container">
+  <section class="sub-hero reveal">
+    <div class="sub-hero-label"><span class="dot"></span> ENGINE / 03</div>
+    <h1 class="display display-mega">Hardening the perimeter around democratic process.</h1>
+    <p>Air-gapped war rooms, end-to-end encrypted message logistics, and red-team rehearsed disinformation defence.</p>
+  </section>
+
+  <div class="sub-phases">
+    
+      <div class="sub-phase reveal">
+        <div class="sub-phase-head">
+          <div class="sub-phase-label">Perimeter</div>
+          <div class="sub-phase-period">Physical + digital isolation</div>
+        </div>
+        <h3 class="display display-md">Air-Gapped War Rooms</h3>
+        <ul class="sub-items">
+          <li>Physically isolated campaign nerve centres with no external network connectivity</li>
+          <li>Hardware-enforced data diodes for one-way intelligence ingestion</li>
+          <li>Biometric access control and audit logging on all terminals</li>
+          <li>Faraday-caged meeting rooms for sensitive strategy sessions</li>
+        </ul>
+      </div>
+
+      <div class="sub-phase reveal">
+        <div class="sub-phase-head">
+          <div class="sub-phase-label">Comms</div>
+          <div class="sub-phase-period">End-to-end · zero-knowledge</div>
+        </div>
+        <h3 class="display display-md">Encrypted Message Logistics</h3>
+        <ul class="sub-items">
+          <li>Custom messaging layer with forward-secrecy key rotation</li>
+          <li>Field coordinator app with offline-capable encrypted sync</li>
+          <li>Disappearing message protocols for time-sensitive directives</li>
+          <li>Multi-device key management without centralised trust authority</li>
+        </ul>
+      </div>
+
+      <div class="sub-phase reveal">
+        <div class="sub-phase-head">
+          <div class="sub-phase-label">Defence</div>
+          <div class="sub-phase-period">Adversarial simulation</div>
+        </div>
+        <h3 class="display display-md">Disinformation Red-Teaming</h3>
+        <ul class="sub-items">
+          <li>Pre-election red-team exercises simulating coordinated disinformation attacks</li>
+          <li>Deepfake detection pipeline for candidate imagery and audio</li>
+          <li>Bot-network identification and attribution across social platforms</li>
+          <li>Rapid response playbooks with pre-approved counter-narrative templates</li>
+        </ul>
+      </div>
+
+      <div class="sub-phase reveal">
+        <div class="sub-phase-head">
+          <div class="sub-phase-label">Ops</div>
+          <div class="sub-phase-period">Continuous monitoring</div>
+        </div>
+        <h3 class="display display-md">Operational Security</h3>
+        <ul class="sub-items">
+          <li>24/7 security operations centre during campaign periods</li>
+          <li>Threat intelligence feeds from regional cyber-security networks</li>
+          <li>Incident response team with < 15-minute activation SLA</li>
+          <li>Post-election forensic audit and evidence preservation</li>
+        </ul>
+      </div>
+  </div>
+
+  <div class="sub-back-cta reveal">
+    <a href="index.html"><span>←</span> Back to AAMA Home</a>
+  </div>
+</div>
+
+</body>
+</html>

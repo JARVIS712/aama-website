@@ -128,7 +128,7 @@ function Hero({ heroBg, t, lang }) {
           <span className="dot" aria-hidden="true"></span>
           <span>{t.hero.eyebrow}</span>
         </div>
-        <h1 className="display display-mega hero-h1 reveal" style={{ width: "746px", fontSize: "64px" }}>
+        <h1 className="display display-mega hero-h1 reveal">
           {t.hero.h1a}<br />
           {t.hero.h1b}<em>{t.hero.h1c}</em>
         </h1>

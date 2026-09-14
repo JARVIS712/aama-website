@@ -203,11 +203,15 @@ function ParticleMesh({ variant = 'mesh', intensity = 'subtle' }) {
       }
     }
 
-    function loop() {
+    function draw() {
       if (variant === 'orbs') drawOrbs();else
       if (variant === 'topo') drawTopo();else
       if (variant === 'voronoi') drawVoronoi();else
       drawMesh();
+    }
+
+    function loop() {
+      draw();
       rafRef.current = requestAnimationFrame(loop);
     }
 
@@ -215,6 +219,8 @@ function ParticleMesh({ variant = 'mesh', intensity = 'subtle' }) {
     window.addEventListener('resize', resize);
     canvas.addEventListener('mousemove', onMove);
     canvas.addEventListener('mouseleave', onLeave);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) draw();else
     loop();
 
     return () => {
@@ -359,103 +365,4 @@ function BentoTalksViz() {
 
 }
 
-// ===== Founder portraits (generative) =====
-function PortraitCode() {
-  // Janakan M. — code mesh / lattice
-  return (
-    <svg viewBox="0 0 360 220" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: '100%' }}>
-      <defs>
-        <radialGradient id="codeOrb" cx="0.5" cy="0.5" r="0.7">
-          <stop offset="0%" stopColor="var(--mint)" stopOpacity="0.16" />
-          <stop offset="30%" stopColor="var(--mint)" stopOpacity="0.10" />
-          <stop offset="60%" stopColor="var(--mint)" stopOpacity="0.04" />
-          <stop offset="100%" stopColor="var(--mint)" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <rect width="360" height="220" fill="transparent" />
-      <ellipse cx="180" cy="120" rx="200" ry="140" fill="url(#codeOrb)" />
-      {/* mesh lattice */}
-      {(() => {
-        const cols = 14,rows = 8;
-        const w = 360,h = 220;
-        const pts = [];
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
-            const seed = Math.sin(c * 1.7 + r * 2.3);
-            const cx = 24 + c * (w - 48) / (cols - 1);
-            const cy = 30 + r * (h - 60) / (rows - 1) + seed * 4;
-            pts.push({ x: cx, y: cy, r: 1 + Math.abs(seed) * 1.6 });
-          }
-        }
-        const lines = [];
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
-            const i = r * cols + c;
-            if (c < cols - 1) lines.push([pts[i], pts[i + 1]]);
-            if (r < rows - 1) lines.push([pts[i], pts[i + cols]]);
-          }
-        }
-        return (
-          <g>
-            {lines.map(([a, b], i) =>
-            <line key={'l' + i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="var(--ink)" strokeWidth="0.4" opacity="0.32" />
-            )}
-            {pts.map((p, i) =>
-            <circle key={'p' + i} cx={p.x} cy={p.y} r={p.r} fill="var(--ink)" opacity={0.3 + Math.random() * 0.5}>
-                <animate attributeName="opacity" values="0.3;0.85;0.3" dur={`${2.4 + i % 5 * 0.3}s`} repeatCount="indefinite" begin={`${i % 7 * 0.18}s`} />
-              </circle>
-            )}
-          </g>);
-
-      })()}
-      {/* glyph: monogram */}
-      <text x="32" y="200" fontFamily="JetBrains Mono" fontSize="10" fontWeight="600" fill="var(--muted)" letterSpacing="0.18em">JM ── 01</text>
-      <text x="328" y="200" fontFamily="JetBrains Mono" fontSize="10" fontWeight="600" fill="var(--muted)" letterSpacing="0.1em" textAnchor="end">/CODE</text>
-    </svg>);
-
-}
-
-function PortraitGround() {
-  // Janakan S. — signal waves / topographic lines
-  return (
-    <svg viewBox="0 0 360 220" preserveAspectRatio="xMidYMid meet" style={{ width: '100%', height: '100%' }}>
-      <defs>
-        <radialGradient id="groundOrb" cx="0.5" cy="0.5" r="0.7">
-          <stop offset="0%" stopColor="var(--mint)" stopOpacity="0.14" />
-          <stop offset="30%" stopColor="var(--mint)" stopOpacity="0.08" />
-          <stop offset="60%" stopColor="var(--mint)" stopOpacity="0.03" />
-          <stop offset="100%" stopColor="var(--mint)" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <rect width="360" height="220" fill="transparent" />
-      <ellipse cx="180" cy="120" rx="200" ry="140" fill="url(#groundOrb)" />
-      {/* topographic concentric arcs */}
-      {(() => {
-        const arcs = [];
-        const cx = 180,cy = 130;
-        for (let i = 0; i < 14; i++) {
-          const rx = 30 + i * 18;
-          const ry = 8 + i * 7;
-          arcs.push(
-            <ellipse key={'a' + i} cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke="var(--ink)" strokeWidth="0.6" opacity={0.45 - i * 0.025} />
-          );
-        }
-        return arcs;
-      })()}
-      {/* radio signal pulses */}
-      {[0, 1, 2].map((i) =>
-      <g key={i} transform={`translate(180 130)`}>
-          <circle r="6" fill="var(--ink)" opacity="0.85" />
-          <circle r="6" fill="none" stroke="var(--ink)" strokeWidth="0.7" opacity="0.6">
-            <animate attributeName="r" from="6" to="80" dur="3.2s" begin={`${i * 1.06}s`} repeatCount="indefinite" />
-            <animate attributeName="opacity" from="0.6" to="0" dur="3.2s" begin={`${i * 1.06}s`} repeatCount="indefinite" />
-          </circle>
-        </g>
-      )}
-      <text x="32" y="200" fontFamily="JetBrains Mono" fontSize="10" fontWeight="600" fill="var(--muted)" letterSpacing="0.18em">JS ── 02</text>
-      <text x="328" y="200" fontFamily="JetBrains Mono" fontSize="10" fontWeight="600" fill="var(--muted)" letterSpacing="0.1em" textAnchor="end">/GROUND</text>
-    </svg>);
-
-}
-
-Object.assign(window, { ParticleMesh, PillarViz, BentoNewsViz, BentoTalksViz, PortraitCode, PortraitGround });
+Object.assign(window, { ParticleMesh, PillarViz, BentoNewsViz, BentoTalksViz });

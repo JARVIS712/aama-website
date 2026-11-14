@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Budget 2027 explorer · AAMA</title>
+<meta name="description" content="An interactive guide to Sri Lanka's Budget 2027: where the money comes from, where it goes, what is new, who it affects, and what comes next. Built from the 81st Budget Speech." />
+<link rel="icon" type="image/png" href="../assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/budget.css" />
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+
+<nav class="nav" aria-label="Site">
+  <a class="wordmark" href="../index.html"><span class="wordmark-glyph"></span>AAMA</a>
+  <span class="nav-sep" aria-hidden="true">/</span>
+  <span class="nav-title">Budget 2027</span>
+  <div class="nav-r">
+    <a class="nav-link" href="#/sources">Sources</a>
+    <button class="icon-btn" id="theme-btn" data-act="theme" aria-label="Switch to dark mode">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="9" r="3.4"/><path d="M9 1.6v1.8M9 14.6v1.8M1.6 9h1.8M14.6 9h1.8M3.8 3.8l1.3 1.3M12.9 12.9l1.3 1.3M3.8 14.2l1.3-1.3M12.9 5.1l1.3-1.3"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="container top-pad">
+  <div id="tabs-anchor"></div>
+  <nav class="tabs" aria-label="Sections">
+    <a data-view="overview" href="#/overview">Overview</a>
+    <a data-view="flow" href="#/flow">Money flow</a>
+    <a data-view="sectors" href="#/sectors">Sectors</a>
+    <a data-view="initiatives" href="#/initiatives">Initiatives</a>
+    <a data-view="map" href="#/map">Where</a>
+    <a data-view="new" href="#/new">What’s new</a>
+    <a data-view="future" href="#/future">What next</a>
+    <a data-view="me" href="#/me">For me</a>
+    <a data-view="land" href="#/land">Land</a>
+    <a data-view="markets" href="#/markets">Markets</a>
+    <a data-view="sources" href="#/sources">Sources</a>
+  </nav>
+  <main id="view" tabindex="-1"></main>
+</div>
+
+<footer class="foot">
+  <div class="container">
+    <p><b>Unofficial explainer by AAMA.</b> Built from the 81st Budget Speech (12 November 2026, Ministry of Finance, Planning and Economic Development) and Annexures I–VII. Figures are as stated in those documents; the Government’s Budget Estimates remain the authoritative source.</p>
+    <p>Land and market views are editorial analysis for information only. They are not valuation, investment, tax or legal advice, and not predictions of prices.</p>
+  </div>
+</footer>
+
+<script src="data/meta.js"></script>
+<script src="data/fiscal.js"></script>
+<script src="data/annex.js"></script>
+<script src="data/init-a.js"></script>
+<script src="data/init-b.js"></script>
+<script src="data/init-c.js"></script>
+<script src="data/policy.js"></script>
+<script src="data/personas.js"></script>
+<script src="data/lens.js"></script>
+<script src="js/core.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/views-1.js"></script>
+<script src="js/views-2.js"></script>
+<script src="js/views-3.js"></script>
+</body>
+</html>

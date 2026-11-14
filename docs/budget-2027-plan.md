@@ -28,7 +28,7 @@ Built as a dependency-free static app (HTML + CSS + vanilla JS + plain-object da
 | Future of initiatives | What next (25 dated events, 15 targets, "what could slip") | Strong | Dates are the speech's; no delivery forecast |
 | Effect on others | For me (16 personas, 70 before→after rows, 4 calculators) | Strong | Not personal advice |
 | Land price effect | Land lens (18 corridors) | **Analysis** | Ranks catalysts; no price data yet |
-| Stocks up in 2 years | Market lens (13 sectors, 55 drivers) | **Analysis** | Exposure, **not** forecasts. See §6. |
+| Stocks up in 2 years | Market lens (13 sectors, 55 drivers), sector-only | **Analysis** | Exposure, **not** forecasts; no companies named. See §6. |
 
 ## 3. Information architecture
 
@@ -47,7 +47,7 @@ Every initiative opens a **drawer**: allocation, new money, total cost, loans un
 | `init-a/b/c.js` | Initiatives from the narrative: amount, total cost, new money, loans, status, funder, body, places, years, groups, annexure link | 276 |
 | `policy.js` | Tax measures, laws pipeline, dated events, numeric targets | 18 · 29 · 25 · 15 |
 | `personas.js` | Before→after rows tagged by who they affect | 70 |
-| `lens.js` | **Analysis layer**: land catalysts, market sectors/drivers, listed-company starter list | 18 · 13 |
+| `lens.js` | **Analysis layer**: land catalysts, market sectors/drivers | 18 · 13 |
 
 Design rules baked into the data:
 
@@ -79,12 +79,9 @@ Design rules baked into the data:
   - *Land signal* = commitment (1–3) + effect on land (1–3) + timing (1–3) → High / Medium / Watch.
   - *Market score* = Σ direction × strength × evidence weight (funded & dated 1.0 · funded/needs partner 0.6 · intent only 0.3), filterable by horizon (12m / 24m / beyond) and evidence level.
 - Each driver lists its risks; macro forces (inflation 8.3%, IMF programme ends March 2027, heavy borrowing) are shown separately.
-- **No "stocks that will go up" list.** The company list is a "research starter list" of well-known listed names with a business line touching a measure, each marked *clear link* / *possible link*. **These names are from general knowledge and are unverified** — each needs checking against the latest annual report (segment revenue, balance sheet) before publication.
+- **Sector-only.** No stocks or companies are named on the page (decision taken). A draft starter list is kept internally in `docs/company-starter-list-INTERNAL.md`, unverified, for any future phase.
 
-**Decisions for you / legal:**
-1. Is AAMA comfortable publishing named listed companies at all? (SEC Sri Lanka investment-adviser rules; AAMA is a media agency.) Fallback: ship sector view only (flip off the `co` arrays).
-2. Who signs off the land and market scores? Suggest an external analyst + legal read before launch.
-3. Confirm we never publish ethnicity-wise spending estimates.
+**Decisions:** (1) sector view only — *taken*. (2) Land and market scores go to an external analyst and legal for confirmation — see `docs/land-market-review-pack.pdf`. (3) We never publish ethnicity-wise spending estimates.
 
 ## 7. Design decisions
 
@@ -99,7 +96,7 @@ Design rules baked into the data:
 | Phase | Scope | Notes |
 |---|---|---|
 | **0 — done** | Prototype above | 11 views, data, validator |
-| **1 — verify (1 wk)** | Line-by-line check of all 276 initiatives against the speech; verify place tags against gazette/Survey maps; compliance & analyst read of Land/Markets; decide company list | Blocks launch |
+| **1 — verify (1 wk)** | Line-by-line check of all 276 initiatives against the speech; verify place tags against gazette/Survey maps; compliance & analyst read of Land/Markets | Blocks launch |
 | **2 — data depth (2–3 wk)** | Load **Budget Estimates Vol I–III** → true ministry/programme/district figures; Citizens' Budget; Tax Expenditure Statement; Medium-Term Debt Strategy | Unlocks "by department" |
 | **3 — per-person & geo (2 wk)** | Census 2012/2024 district population → per-capita district view; district polygons; optional ethnic-composition overlay (descriptive only, editorial rules first) | |
 | **4 — evidence for Land/Markets (2–3 wk)** | Official land-price series; interchange maps; CSE price/fundamentals for named firms; refresh scores | |

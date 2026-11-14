@@ -62,10 +62,7 @@
         const part = (dir, title) => { const xs = ds.filter((d) => Math.sign(d.dir) === dir); return xs.length ? `<h4 class="mini">${title}</h4><ul class="drv">${xs.map((d) => `<li><div class="dh"><b>${esc(d.t)}</b><span class="chips">${chip(EVL[d.ev], 'ev-' + d.ev)}${chip(HL[d.h])}${chip('strength ' + d.str + '/3')}</span></div><p>${esc(d.why)}</p><p class="risk"><b>Risk:</b> ${esc(d.risk)}</p>${d.refs.length ? `<div class="chips">${chipsFor(d.refs, 6)}${d.refs.filter((r) => BX.taxById[r]).map((r) => `<span class="chip">${esc(BX.taxById[r].k)} · tax</span>`).join('')}</div>` : ''}</li>`).join('')}</ul>` : ''; };
         const amt = sum([...new Set(m.drivers.flatMap((d) => d.refs))].map((id) => I[id]).filter((i) => i && i.cnt), (i) => i.a);
         $('#mdetail').innerHTML = `<h3 class="display display-md">${esc(m.name)}</h3><p class="muted">Score <b>${rows.find((r) => r.m.id === sel).v.toFixed(1)}</b> · linked 2027 allocations ${fmt.rs(amt)}</p>
-          ${part(1, 'Tailwinds')}${part(-1, 'Headwinds')}${part(0, 'Neutral or unclear')}${!ds.length ? '<p class="muted">No drivers at this horizon and evidence level.</p>' : ''}
-          ${m.co && m.co.length ? `<h4 class="mini">Listed companies with business in this area <span class="tag an">Research starter list</span></h4>
-            <div class="cos">${m.co.map((c) => `<div class="co"><b>${esc(c.n)}</b><span>${esc(c.why)}</span><em class="conf ${c.conf}">${c.conf === 'med' ? 'Clear business link' : 'Possible link'}</em></div>`).join('')}</div>
-            <p class="fine">Names show where a listed company has a business line touching these measures. They are not forecasts or recommendations; each needs checking against the latest annual report (segment revenue, debt, valuation) before use. Unverified draft.</p>` : ''}`;
+          ${part(1, 'Tailwinds')}${part(-1, 'Headwinds')}${part(0, 'Neutral or unclear')}${!ds.length ? '<p class="muted">No drivers at this horizon and evidence level.</p>' : ''}`;
         $$('[data-hz]', root).forEach((b) => b.classList.toggle('on', b.dataset.hz == h)); $$('[data-evf]', root).forEach((b) => b.classList.toggle('on', b.dataset.evf === ev));
       };
       actions.mkt = (id) => { sel = id; Router.param('s', id); draw(); $('#mdetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); };

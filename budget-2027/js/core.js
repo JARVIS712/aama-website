@@ -133,7 +133,8 @@
       if (cur && cur.destroy) cur.destroy();
       curName = view; const r = root(); r.innerHTML = '';
       cur = views[view].mount(r, params) || {};
-      document.title = (views[view].title || 'Budget 2027 explorer') + ' · AAMA';
+      if (!r.querySelector('h1')) { const h = r.querySelector('.vh h2'); if (h) { const n = document.createElement('h1'); n.className = h.className; n.innerHTML = h.innerHTML; h.replaceWith(n); } }   // one h1 per view
+      document.title = view === 'overview' ? 'Sri Lanka Budget 2027 explorer · AAMA' : (views[view].title || 'Explorer') + ' · Sri Lanka Budget 2027 · AAMA';
       $$('.tabs [data-view]').forEach((a) => { const on = a.dataset.view === view; a.classList.toggle('on', on); on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); const t = $('.tabs'); if (on && t && !opts.noscroll) { const l = a.offsetLeft - 24; t.scrollTo({ left: l, behavior: 'smooth' }); } });
       if (!opts.keepScroll && scrollY > 0) scrollTo({ top: 0, behavior: 'instant' });
       r.focus({ preventScroll: true });

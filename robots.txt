@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /uploads/
+Disallow: /budget-2027/tools/
+
+Sitemap: https://www.aama.lk/sitemap.xml

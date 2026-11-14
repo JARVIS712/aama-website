@@ -1,0 +1,44 @@
+// Generates the 1200x630 social-preview images:  assets/og-aama.png  and  budget-2027/og.png
+// Run: PW=$(npm root -g)/playwright node docs/make-og.mjs
+import path from 'node:path'; import {fileURLToPath} from 'node:url'; import {createRequire} from 'node:module';
+const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
+const { chromium } = createRequire(import.meta.url)(process.env.PW || 'playwright');
+
+const base = `
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+  *{box-sizing:border-box;margin:0}
+  body{width:1200px;height:630px;background:#F4F1EC;color:#0F0F0E;font-family:Inter,system-ui,sans-serif;position:relative;overflow:hidden}
+  .orb{position:absolute;right:-140px;top:-160px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#A4D2C5 0%,rgba(164,210,197,.35) 45%,transparent 70%)}
+  .wrap{position:absolute;inset:0;padding:64px 72px;display:flex;flex-direction:column}
+  .brand{display:flex;align-items:center;gap:14px;font-family:Fraunces,serif;font-weight:300;font-size:34px;letter-spacing:-.02em}
+  .glyph{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#A4D2C5,transparent 65%),#0F0F0E}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:#6B675E;margin-top:auto}
+  h1{font-family:Fraunces,serif;font-weight:300;font-size:72px;line-height:1.04;letter-spacing:-.03em;margin-top:18px;max-width:980px}
+  .sub{font-size:26px;color:#4A4843;margin-top:22px}
+  .chips{display:flex;gap:16px;margin-top:30px}
+  .chip{background:#fff;border:1px solid #DCD7CC;border-radius:18px;padding:14px 22px}
+  .chip b{display:block;font-size:34px;font-weight:600;letter-spacing:-.02em}
+  .chip span{font-size:16px;color:#6B675E}
+  .url{position:absolute;right:72px;bottom:56px;font-family:'JetBrains Mono',monospace;font-size:18px;color:#6B675E}
+</style>`;
+
+const cards = {
+  [path.join(root, 'assets', 'og-aama.png')]: `${base}<div class="orb"></div><div class="wrap">
+    <div class="brand"><span class="glyph"></span>AAMA</div>
+    <div class="eyebrow">Aadhi Media Agency · Sri Lanka</div>
+    <h1>Political media and campaign infrastructure.</h1>
+    <div class="sub">Predictive modelling, trilingual sentiment tracking and secured campaign operations.</div></div><div class="url">aama.lk</div>`,
+  [path.join(root, 'budget-2027', 'og.png')]: `${base}<div class="orb"></div><div class="wrap">
+    <div class="brand"><span class="glyph"></span>AAMA</div>
+    <div class="eyebrow">Budget 2027 explorer · 81st Budget Speech</div>
+    <h1>Where the Budget gets its money, where it goes, and who it affects.</h1>
+    <div class="chips"><div class="chip"><b>Rs 6.18tn</b><span>Revenue and grants</span></div><div class="chip"><b>Rs 7.93tn</b><span>Total spending</span></div><div class="chip"><b>Rs 1.75tn</b><span>Deficit, 4.5% of GDP</span></div></div></div><div class="url">aama.lk/budget-2027</div>`
+};
+
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
+for (const [file, html] of Object.entries(cards)) {
+  await p.setContent(html, { waitUntil: 'networkidle' }); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(300);
+  await p.screenshot({ path: file }); console.log('wrote', path.relative(root, file));
+}
+await b.close();

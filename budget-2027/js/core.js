@@ -104,9 +104,11 @@
     if (top + r.height > innerHeight - pad) top = y - r.height - 12;
     tip.style.left = Math.max(pad, left) + 'px'; tip.style.top = Math.max(pad, top) + 'px';
   }
-  document.addEventListener('mouseover', (e) => { const t = e.target.closest('[data-tip]'); if (t) showTip(t, e.clientX, e.clientY); });
-  document.addEventListener('mousemove', (e) => { if (!tip.hidden) { const t = e.target.closest('[data-tip]'); if (t) showTip(t, e.clientX, e.clientY); } });
-  document.addEventListener('mouseout', (e) => { if (e.target.closest('[data-tip]')) tip.hidden = true; });
+  /* Mouse only: touch fires emulated mouse events with no "out", which would leave a tooltip stuck after a tap. */
+  document.addEventListener('pointerover', (e) => { if (e.pointerType !== 'mouse') return; const t = e.target.closest('[data-tip]'); if (t) showTip(t, e.clientX, e.clientY); });
+  document.addEventListener('pointermove', (e) => { if (e.pointerType !== 'mouse' || tip.hidden) return; const t = e.target.closest('[data-tip]'); if (t) showTip(t, e.clientX, e.clientY); });
+  document.addEventListener('pointerout', (e) => { if (e.pointerType === 'mouse' && e.target.closest('[data-tip]')) tip.hidden = true; });
+  document.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') tip.hidden = true; }, { passive: true });
   document.addEventListener('focusin', (e) => { const t = e.target.closest('[data-tip]'); if (t) { const r = t.getBoundingClientRect(); showTip(t, r.left + r.width / 2, r.top + r.height / 2); } });
   document.addEventListener('focusout', () => { tip.hidden = true; });
   document.addEventListener('scroll', () => { tip.hidden = true; }, { passive: true });
@@ -182,7 +184,7 @@
         ${land.length ? `<h3 class="mini">Land catalysts <span class="tag an">AAMA analysis</span></h3><ul class="plain">${land.map((l) => `<li><a href="#/land?l=${l.id}">${esc(l.name)}</a></li>`).join('')}</ul>` : ''}
         ${mk.length ? `<h3 class="mini">Market read-through <span class="tag an">AAMA analysis</span></h3><ul class="plain">${mk.map(([m, d]) => `<li><a href="#/markets?s=${m.id}">${esc(m.name)}</a> — ${d.dir > 0 ? 'tailwind' : d.dir < 0 ? 'headwind' : 'neutral'}</li>`).join('')}</ul>` : ''}
         <div class="dr-f"><button class="btn ghost" data-act="copyLink">Copy link</button><a class="btn ghost" href="#/sources">How we got this</a></div>
-        <p class="fine">Source: 81st Budget Speech 2027, ${esc(i.ref || '')}. Amounts are as stated in the speech and annexures; place tags and groups are AAMA’s mapping.</p>
+        <p class="fine">Source: ${/^Citizens/.test(i.ref || '') ? esc(i.ref) : '81st Budget Speech 2027, ' + esc(i.ref || '')}. Amounts are as stated in the speech and annexures; place tags and groups are AAMA’s mapping.</p>
       </div>`;
     if (!dr.classList.contains('open')) { lastFocus = document.activeElement; }
     dr.classList.add('open'); scrim.classList.add('open'); dr.setAttribute('aria-hidden', 'false'); document.body.classList.add('lock'); dr.scrollTop = 0; $('.dr-b', dr).scrollTop = 0;

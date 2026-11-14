@@ -18,7 +18,7 @@ Built as a dependency-free static app (HTML + CSS + vanilla JS + plain-object da
 |---|---|---|---|
 | Spend by **district** | Where → District map | Partial | Speech only places named projects (+ flat Rs 2,000M per district). Not a district budget. |
 | Spend by **province** | Where → Provinces | Partial | Same; nationwide lines (≈76% of rupees) can't be placed. |
-| Spend by **department** | Where → Ministries | Partial | Sector → lead ministry mapping. Official ministry totals live in the **Estimates Vol I–III** (not yet loaded). |
+| Spend by **department** | Sectors → Official totals; Where → Ministries | Partial, now strong at sector level | **Citizens' Budget loaded:** official totals for 12 sectors with sub-sectors, capital/recurrent split and ~250 key activities. Ministry-by-ministry totals still live in the **Estimates Vol I–III** (not yet loaded). |
 | Spend by **ethnicity** | Where → Communities | **Not available** | Not in the speech or annexures; I did not have the Estimates or Citizens' Budget to check, but know of no official breakdown (confirm against them). We show only what the speech names (faith-wise counts of damaged worship places, plantation/North-East/Buddhist-education items) plus geography, with an explicit "province ≠ ethnicity" note. **Recommend we never publish an estimate.** |
 | Where the money goes | Money flow | Complete | Annexure III/IV |
 | Where it comes from | Money flow; funding-source chart | Complete | Taxes, borrowing, donors per initiative |
@@ -60,6 +60,17 @@ Design rules baked into the data:
 
 **Coverage:** itemised lines total Rs 1.66tn ≈ 21% of Rs 7.93tn spending. The rest is interest (33%), salaries, running costs and transfers the speech doesn't itemise. The Sources page says so.
 
+## 4a. Citizens' Budget 2027 (added after the first build)
+
+The Department of National Budget's **Citizens' Budget** (45 pp., dated Nov 2026) gives official 2027 sector totals from the Estimates. Loaded in `data/estimates.js`, shown under **Sectors → Official totals**.
+
+- **It was prepared before the speech.** It omits the speech's new proposals (e.g. it shows Rs 3.2bn "preparatory" for Kurunegala–Dambulla and Rs 2.0bn for Ruwanpura, where the speech adds Rs 30bn and Rs 27bn; it has no rail electrification).
+- **Reconciliation (validated in `tools/validate.mjs`):** 12 sector totals Rs 4,707.4bn + Annexure II Rs 363.1bn = **Rs 5,070.5bn**, against Annexure IV total primary expenditure **Rs 5,070bn**. Interest (Rs 2,643bn) and repayments (Rs 2,207bn) = debt service Rs 4,850bn sit outside the sectors. Revenue Rs 6,180bn matches Annexure III. The capital/recurrent split differs from Annexure IV's by about Rs 30bn; the totals agree.
+- **Sector view changed:** the first tab is now the official totals (area = Estimates total; colour = capital share). The speech-based treemap is kept as the second tab, since it still shows what the speech announced. The Annexure II → sector mapping is AAMA's judgement; item #56 (tri-forces, police and prisons allowances, Rs 34.8bn) is shown separately because its split is not published.
+- **New facts the speech did not give:** public pensions Rs 425bn for 730,000 pensioners (social protection is the largest sector, Rs 913bn); tri-forces salaries Rs 234bn; school salaries Rs 408bn; school uniforms Rs 38.2bn; 25 ministries, 100 departments, 9 Provincial Councils, 25 District Secretariats; public-sector cadre by profession; macro assumptions (growth 4–5%, inflation anchored at 5% by Q2 2027, unemployment < 5%).
+- **Provincial council election:** Rs 8.7bn is provided for "conducting provincial council election" (Citizens' Budget p.27). Added as an initiative and a timeline watch item. This is money, not a date: the Election Commission sets the date and the electoral-system law is pending. (My earlier note that the Budget gave no signal on provincial elections was wrong; the speech is silent, the Estimates are not.)
+- **Still not answered:** district-wise and ethnicity-wise spending (the Citizens' Budget has neither) and ministry-by-ministry totals.
+
 ## 5. Things the speech says that are worth a story (found while encoding)
 
 1. **Revenue is planned at 15.8% of GDP in 2027, below the "not less than 16%" medium-term floor** in §3 (16.5% in 2026).
@@ -99,7 +110,7 @@ Design rules baked into the data:
 |---|---|---|
 | **0 — done** | Prototype above | 11 views, data, validator |
 | **1 — verify (1 wk)** | Line-by-line check of all 276 initiatives against the speech; verify place tags against gazette/Survey maps; compliance & analyst read of Land/Markets | Blocks launch |
-| **2 — data depth (2–3 wk)** | Load **Budget Estimates Vol I–III** → true ministry/programme/district figures; Citizens' Budget; Tax Expenditure Statement; Medium-Term Debt Strategy | Unlocks "by department" |
+| **2 — data depth (2–3 wk)** | Load **Budget Estimates Vol I–III** → true ministry/programme/district figures; Tax Expenditure Statement; Medium-Term Debt Strategy. (Citizens' Budget already loaded.) | Unlocks "by ministry" |
 | **3 — per-person & geo (2 wk)** | Census 2012/2024 district population → per-capita district view; district polygons; optional ethnic-composition overlay (descriptive only, editorial rules first) | |
 | **4 — evidence for Land/Markets (2–3 wk)** | Official land-price series; interchange maps; CSE price/fundamentals for named firms; refresh scores | |
 | **5 — launch (1 wk)** | Sinhala & Tamil (use the Treasury's official translations for initiative names; reuse the site's font stack); OG images per view; analytics; link from ama.lk nav; publish | |

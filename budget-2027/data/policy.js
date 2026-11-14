@@ -64,6 +64,7 @@ B27.EVENTS = [
  {d:'2027-02-02',t:'Mannar Basin oil & gas bids open',type:'tender',ids:['nrg-lic']},
  {d:'2027-02',t:'El Niño expected to peak (WMO)',type:'target',ids:['agr-elnino']},
  {d:'2027-Q1',t:'Digital Economy Bill expected to pass; trains reach Kandy',type:'law',ids:['dig-moe','trn-upc']},
+ {d:'2027',t:'Rs 8.7bn is provided in the 2027 Estimates for conducting a provincial council election. No date is set; the Election Commission decides it, and the electoral-system law is pending',type:'watch',ids:['adm-pcelec']},
  {d:'2027-03',t:'IMF Extended Fund Facility concludes; committee to assess a successor programme',type:'target',ids:[]},
  {d:'2027-04-01',t:'Tax changes effective; Tourism Development Levy abolished; teacher-trainee, Pirivena, field-officer & private-degree allowances rise',type:'eff',ids:['tax-pit','edu-trainee','edu-piri','pay-field','edu-loan']},
  {d:'2027-H1',t:'Customs Ordinance amendment; R&D Bill; digital procurement guidelines; Colombo North Port feasibility; NSW opens to exporters',type:'law',ids:['ind-nsw','mar-north']},

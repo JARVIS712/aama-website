@@ -254,7 +254,7 @@ button.hrow:hover { background: var(--surface-strong); }
 .pairbar { display: grid; gap: 4px; margin-top: 12px; } .pairbar i { display: block; height: 10px; border-radius: 0 4px 4px 0; min-width: 2px; }
 
 /* land */
-.landlist { display: grid; gap: 14px; margin-top: 4px; } .land { scroll-margin-top: 96px; } .land.open { box-shadow: 0 0 0 2px var(--ink); }
+.landlist { display: grid; gap: 14px; margin-top: 4px; } .land { scroll-margin-top: 96px; } .sd, #mdetail { scroll-margin-top: 92px; } .land.open { box-shadow: 0 0 0 2px var(--ink); }
 .land header { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 14px; }
 .sigbadge { display: flex; flex-direction: column; align-items: center; min-width: 92px; padding: 8px 12px; border-radius: 12px; font: 600 14px var(--font-body); } .sigbadge small { font: 500 10.5px var(--font-mono); opacity: .8; margin-top: 2px; }
 .sigbadge.hi { background: var(--q7); color: var(--q7t); } .sigbadge.md { background: var(--q4); color: var(--q4t); } .sigbadge.lo { background: var(--surface-strong); color: var(--ink-soft); }

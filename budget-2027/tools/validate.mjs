@@ -3,7 +3,7 @@
 import vm from 'node:vm'; import fs from 'node:fs'; import path from 'node:path'; import {fileURLToPath} from 'node:url';
 const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data');
 const ctx = {}; ctx.window = ctx; vm.createContext(ctx);
-for (const f of ['meta','fiscal','annex','init-a','init-b','init-c','policy','lens']) vm.runInContext(fs.readFileSync(path.join(dir, f + '.js'), 'utf8'), ctx, {filename: f});
+for (const f of ['meta','fiscal','annex','estimates','init-a','init-b','init-c','policy','lens']) vm.runInContext(fs.readFileSync(path.join(dir, f + '.js'), 'utf8'), ctx, {filename: f});
 const B = ctx.B27; let fails = 0; const bad = (m) => { fails++; console.log('  ✗', m); }; const ok = (m) => console.log('  ✓', m);
 const sum = (a) => a.reduce((s, x) => s + (x || 0), 0);
 
@@ -79,6 +79,25 @@ console.log('\nLand & market rubric');
 B.LAND.forEach(l => { const s = l.commit + l.effect + l.timing; if (s < 3 || s > 9) bad('land score ' + l.id); });
 B.MKT.forEach(m => m.drivers.forEach(d => { if (!B.EVW[d.ev]) bad('bad ev ' + m.id); }));
 ok('rubric values in range');
+
+console.log("\nCitizens' Budget (Estimates before the speech)");
+const E = B.EST; const secTotal = sum(E.sectors.map(s => s.total));
+console.log(`  · 12 sector totals = Rs ${secTotal.toFixed(1)}bn`);
+E.sectors.forEach(s => {
+  if (Math.abs(s.cap + s.rec - s.total) > 0.6) bad(`${s.k}: capital + recurrent ${(s.cap + s.rec).toFixed(1)} ≠ total ${s.total}`);
+  const subSum = sum(s.sub.map(x => x[1])) + (s.unlisted || 0);
+  if (Math.abs(subSum - s.total) > 1.0) bad(`${s.k}: sub-sectors ${subSum.toFixed(1)} ≠ total ${s.total}`);
+  s.sub.forEach(x => { if (x.length > 2 && Math.abs(x[2] + x[3] - x[1]) > 0.2) bad(`${s.k}/${x[0]}: cap+rec ≠ total`); });
+});
+ok('sector capital+recurrent and sub-sector sums tie to stated totals');
+const mapped = B.ANX2.every(r => E.anx2map[r[0]]); mapped ? ok('every Annexure II proposal is mapped to a sector') : bad('unmapped Annexure II proposals');
+const a2tot = sum(B.ANX2.map(r => (r[2] || 0) + (r[3] || 0))) / 1000;
+const recon = secTotal + a2tot;
+Math.abs(recon - B.A4.primaryExp) < 1.5 ? ok(`sectors ${secTotal.toFixed(1)} + Annexure II ${a2tot.toFixed(1)} = ${recon.toFixed(1)} ≈ Annexure IV primary expenditure ${B.A4.primaryExp}`) : bad(`reconciliation off: ${recon.toFixed(1)} vs ${B.A4.primaryExp}`);
+Math.abs(E.revenue.total - B.A3.revGrants[2]) < 1 ? ok('revenue 6,180 matches Annexure III') : bad('revenue mismatch');
+E.debtService === B.A4.debtService ? ok('debt service 4,850 matches Annexure IV') : bad('debt service mismatch');
+const capSec = sum(E.sectors.map(s => s.cap)), capA2 = sum(B.ANX2.map(r => r[3] || 0)) / 1000;
+console.log(`  · capital: sectors ${capSec.toFixed(1)} + Annexure II ${capA2.toFixed(1)} = ${(capSec + capA2).toFixed(1)} vs Annexure IV capital ${B.A4.capital} (classification differs by ~30; totals tie)`);
 
 console.log(fails ? `\n${fails} problem(s)` : '\nAll checks passed');
 process.exit(fails ? 1 : 0);

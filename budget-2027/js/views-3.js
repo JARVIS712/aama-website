@@ -82,7 +82,7 @@
 
   /* ───────────────────── SOURCES & METHOD ───────────────────── */
   const ASK = [
-    ['Spending by department / ministry', 'Partial', 'Sector → lead ministry only. Official ministry-wise totals need Budget Estimates Vol. I–III.'],
+    ['Spending by department / ministry', 'Partial', 'Official totals for 12 sectors, with sub-sectors and key activities, from the Citizens’ Budget. Ministry-by-ministry totals need Budget Estimates Vol. I–III.'],
     ['Spending by province', 'Partial', 'Provinces named in the speech; nationwide lines can’t be split.'],
     ['Spending by district', 'Partial', 'Named projects only plus the flat Rs 2,000M per district.'],
     ['Spending by ethnicity', 'Not available', 'Not in the speech or annexures, and no official source known to us. We show what the speech names, plus geography.'],
@@ -100,11 +100,11 @@
     title: 'Sources & method',
     mount(root) {
       const docs = ['Budget Speech 2027', 'Budget Estimates 2027 (Volumes I, II & III)', 'Fiscal Management Report 2027', 'Macro Fiscal Framework 2027', 'Medium Term Debt Management Strategy 2027–2031', 'Mid-Year Fiscal Position Report 2026', 'Annual Report 2025', 'Tax Expenditure Statement 2026', 'Citizens’ Budget 2027', 'Cadre Information of Public Sector 2026'];
-      const used = [true, false, false, false, false, false, false, false, false, false];
+      const used = [true, false, false, false, false, false, false, false, true, false];
       const rows = Object.values(sectorStats).filter((s) => s.size > 0).sort((a, b) => b.size - a.size);
       root.innerHTML = `${head('Sources & method', 'How this was built, and what is missing')}
-        <div class="two"><div class="card"><h3 class="mini">The ten Budget documents</h3><ul class="docs">${docs.map((d, i) => `<li class="${used[i] ? 'on' : ''}"><i></i>${i === 0 ? '<a href="https://www.treasury.gov.lk/api/file/ea495202-fcb1-4c78-b34e-58389cb20738" target="_blank" rel="noopener noreferrer">' + esc(d) + ' (Treasury, opens in a new tab)</a>' : esc(d)}<span>${used[i] ? 'Used (speech + Annexures I–VII)' : 'Not yet loaded'}</span></li>`).join('')}</ul>
-          <p class="fine">The Estimates (Volumes I–III) are the source for ministry-, programme- and district-level numbers and are the next data load.</p></div>
+        <div class="two"><div class="card"><h3 class="mini">The ten Budget documents</h3><ul class="docs">${docs.map((d, i) => `<li class="${used[i] ? 'on' : ''}"><i></i>${i === 0 ? '<a href="https://www.treasury.gov.lk/api/file/ea495202-fcb1-4c78-b34e-58389cb20738" target="_blank" rel="noopener noreferrer">' + esc(d) + ' (Treasury, opens in a new tab)</a>' : esc(d)}<span>${used[i] ? (i === 8 ? 'Used (sector totals, key activities, cadre)' : 'Used (speech + Annexures I–VII)') : 'Not yet loaded'}</span></li>`).join('')}</ul>
+          <p class="fine">The Citizens’ Budget gives official sector totals but not ministry-by-ministry figures. Those are in the Estimates (Volumes I–III), the next data load. The Citizens’ Budget was prepared before the speech and omits its new proposals; the Sectors page adds them back.</p></div>
           <div class="card"><h3 class="mini">Your questions → what we can answer today</h3><ul class="ask">${ASK.filter(([q]) => BX.LENSES || !/Land price|Share-price/.test(q)).map(([q, s, n]) => `<li><span class="ak ${s.toLowerCase().replace(/ /g, '')}">${s}</span><div><b>${esc(q)}</b><p>${esc(n)}</p></div></li>`).join('')}</ul></div></div>
         <section class="sec tight"><h3 class="display display-md">Rules we follow</h3><div class="cards3">
           <article class="card insight"><h3>Every number has a source</h3><p>Amounts come from the speech or its annexures. Rupees are never invented; USD items converted at Rs 300.6 (implied by the speech’s own Ditwah figures) are marked.</p></article>

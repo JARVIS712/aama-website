@@ -38,7 +38,7 @@
             <p class="fine">Province totals mix directly located and shared projects, so they are indicative. The Rs 2,000M per district programme is nationwide and not included here.</p>`;
         } else if (tab === 'ministry') {
           const rows = Object.values(sectorStats).filter((s) => s.item > 0).sort((a, b) => b.item - a.item);
-          body.innerHTML = `<p class="lede sm">Itemised allocations grouped by the responsible ministry or agency. The speech names the implementing body for most lines; we map each sector to its lead ministry. Official ministry-wise totals are in Budget Estimates Vol. I–III.</p>
+          body.innerHTML = `<p class="lede sm">Itemised allocations grouped by the responsible ministry or agency. The speech names the implementing body for most lines; we map each sector to its lead ministry. For official sector totals see <a href="#/sectors">Sectors</a>; ministry-by-ministry totals are in Budget Estimates Vol. I–III.</p>
             ${C.hbars(rows.map((s) => ({ label: B.SECTORS[s.key].org, sub: B.SECTORS[s.key].label + ' · ' + s.n + ' lines', v: s.item, fill: slot(s.theme), act: 'goSector', arg: s.key, tip: `${B.SECTORS[s.key].org}|${fmt.rs(s.item)} itemised` })))}`;
         } else {
           const nE = g.prov.N.v + g.prov.E.v, tot = Object.values(g.prov).reduce((s, x) => s + x.v, 0);
@@ -106,7 +106,7 @@
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const dlabel = (d) => { let m; if ((m = d.match(/^(\d{4})-(\d{2})-(\d{2})$/))) return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; if ((m = d.match(/^(\d{4})-(\d{2})$/))) return `${MONTHS[+m[2] - 1]} ${m[1]}`; if ((m = d.match(/^(\d{4})-(Q\d|H\d)$/))) return `${m[2]} ${m[1]}`; return d; };
   const dkey = (d) => { let m; if ((m = d.match(/^(\d{4})-(\d{2})-(\d{2})$/))) return +m[1] * 100 + +m[2] + +m[3] / 100; if ((m = d.match(/^(\d{4})-(\d{2})$/))) return +m[1] * 100 + +m[2]; if ((m = d.match(/^(\d{4})-Q(\d)$/))) return +m[1] * 100 + +m[2] * 3 + .5; if ((m = d.match(/^(\d{4})-H(\d)$/))) return +m[1] * 100 + +m[2] * 6 + .5; return +d.slice(0, 4) * 100 + 12.9; };
-  const EVT = { eff: ['Takes effect', 'var(--c3)'], law: ['Law', 'var(--c7)'], build: ['Construction', 'var(--c1)'], tender: ['Tender / RFP', 'var(--c2)'], target: ['Target', 'var(--c5)'] };
+  const EVT = { watch: ['Watch', 'var(--c8)'], eff: ['Takes effect', 'var(--c3)'], law: ['Law', 'var(--c7)'], build: ['Construction', 'var(--c1)'], tender: ['Tender / RFP', 'var(--c2)'], target: ['Target', 'var(--c5)'] };
   BX.views.future = {
     title: 'What comes next',
     mount(root, p) {

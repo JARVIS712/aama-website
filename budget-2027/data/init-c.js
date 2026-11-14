@@ -39,6 +39,9 @@ B27.INIT = (B27.INIT || []).concat([
 {id:'jus-wari',  t:'Expand Wariyapola & Watareka prisons',                       s:'jus',a:1000,st:'ongoing',f:'tre',o:'Dept of Prisons',p:'Kurunegala,Colombo',y:[2027,2028],g:'households',ref:'§29',ax7:61},
 {id:'jus-matara',t:'Relocate Matara prison to Kotawilawatta',                    s:'jus',a:500,st:'new',f:'tre',o:'Dept of Prisons',p:'Matara',y:[2027,2030],g:'households',ref:'§29',ax7:60},
 
+/* ───────── From the Citizens' Budget (Estimates), not in the speech ───────── */
+{id:'adm-pcelec',t:'Conducting a provincial council election',s:'adm',a:8700,st:'ongoing',f:'tre',o:'Election Commission',p:'*',y:[2027,2027],g:'households',ref:'Citizens’ Budget, p.27',m:'Listed under “Strengthen democratic participation”. The Election Commission sets the date, and the law on the electoral system is still pending. Neither is in the speech or the Estimates.'},
+
 /* ───────── §38 Ditwah ───────── */
 {id:'dit-sup',   t:'Ditwah reconstruction — 2027 Supplementary Estimate (unspent portion of the Rs 500bn approved)',s:'dis',a:260000,st:'ongoing',f:'sup',o:'Treasury / Reconstruction agencies',p:'*',y:[2026,2028],g:'displaced',ref:'§38',m:'Financed from the cash buffer. Damage estimate USD 3.4bn (Rs 1.022tn)'}
 ]);

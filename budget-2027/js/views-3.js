@@ -85,7 +85,7 @@
     ['Spending by department / ministry', 'Partial', 'Sector → lead ministry only. Official ministry-wise totals need Budget Estimates Vol. I–III.'],
     ['Spending by province', 'Partial', 'Provinces named in the speech; nationwide lines can’t be split.'],
     ['Spending by district', 'Partial', 'Named projects only plus the flat Rs 2,000M per district.'],
-    ['Spending by ethnicity', 'Not available', 'No official data exists; we show what the speech names and geography only.'],
+    ['Spending by ethnicity', 'Not available', 'Not in the speech or annexures, and no official source known to us. We show what the speech names, plus geography.'],
     ['Where the money goes', 'Complete', 'Annexure III, IV.'],
     ['Where it comes from', 'Complete', 'Annexure III, IV, I; donors per initiative.'],
     ['Amount per initiative', 'Strong', counted.length + ' funded lines; some items have no rupee figure.'],
@@ -103,7 +103,7 @@
       const used = [true, false, false, false, false, false, false, false, false, false];
       const rows = Object.values(sectorStats).filter((s) => s.size > 0).sort((a, b) => b.size - a.size);
       root.innerHTML = `${head('Sources & method', 'How this was built, and what is missing')}
-        <div class="two"><div class="card"><h3 class="mini">The ten Budget documents</h3><ul class="docs">${docs.map((d, i) => `<li class="${used[i] ? 'on' : ''}"><i></i>${esc(d)}<span>${used[i] ? 'Used (speech + Annexures I–VII)' : 'Not yet loaded'}</span></li>`).join('')}</ul>
+        <div class="two"><div class="card"><h3 class="mini">The ten Budget documents</h3><ul class="docs">${docs.map((d, i) => `<li class="${used[i] ? 'on' : ''}"><i></i>${i === 0 ? '<a href="https://www.treasury.gov.lk/api/file/ea495202-fcb1-4c78-b34e-58389cb20738" target="_blank" rel="noopener noreferrer">' + esc(d) + ' (Treasury, opens in a new tab)</a>' : esc(d)}<span>${used[i] ? 'Used (speech + Annexures I–VII)' : 'Not yet loaded'}</span></li>`).join('')}</ul>
           <p class="fine">The Estimates (Volumes I–III) are the source for ministry-, programme- and district-level numbers and are the next data load.</p></div>
           <div class="card"><h3 class="mini">Your questions → what we can answer today</h3><ul class="ask">${ASK.filter(([q]) => BX.LENSES || !/Land price|Share-price/.test(q)).map(([q, s, n]) => `<li><span class="ak ${s.toLowerCase().replace(/ /g, '')}">${s}</span><div><b>${esc(q)}</b><p>${esc(n)}</p></div></li>`).join('')}</ul></div></div>
         <section class="sec tight"><h3 class="display display-md">Rules we follow</h3><div class="cards3">

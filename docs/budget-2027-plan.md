@@ -19,7 +19,7 @@ Built as a dependency-free static app (HTML + CSS + vanilla JS + plain-object da
 | Spend by **district** | Where → District map | Partial | Speech only places named projects (+ flat Rs 2,000M per district). Not a district budget. |
 | Spend by **province** | Where → Provinces | Partial | Same; nationwide lines (≈76% of rupees) can't be placed. |
 | Spend by **department** | Where → Ministries | Partial | Sector → lead ministry mapping. Official ministry totals live in the **Estimates Vol I–III** (not yet loaded). |
-| Spend by **ethnicity** | Where → Communities | **Not available** | No Sri Lankan budget document publishes this. We show only what the speech names (faith-wise counts of damaged worship places, plantation/North-East/Buddhist-education items) plus geography, with an explicit "province ≠ ethnicity" note. **Recommend we never publish an estimate.** |
+| Spend by **ethnicity** | Where → Communities | **Not available** | Not in the speech or annexures; I did not have the Estimates or Citizens' Budget to check, but know of no official breakdown (confirm against them). We show only what the speech names (faith-wise counts of damaged worship places, plantation/North-East/Buddhist-education items) plus geography, with an explicit "province ≠ ethnicity" note. **Recommend we never publish an estimate.** |
 | Where the money goes | Money flow | Complete | Annexure III/IV |
 | Where it comes from | Money flow; funding-source chart | Complete | Taxes, borrowing, donors per initiative |
 | How much per initiative | Initiatives explorer (266 lines) | Strong | Some lines have no rupee figure (shown as such) |
@@ -63,7 +63,7 @@ Design rules baked into the data:
 ## 5. Things the speech says that are worth a story (found while encoding)
 
 1. **Revenue is planned at 15.8% of GDP in 2027, below the "not less than 16%" medium-term floor** in §3 (16.5% in 2026).
-2. **Interest is still 43% of revenue** (Rs 2,643bn) and exceeds salaries + subsidies' growth; interest + salaries + subsidies = ~90% of revenue.
+2. **Interest is still 43% of revenue** (Rs 2,643bn) and is larger than either the salary bill (Rs 1,410bn) or the subsidies line (Rs 1,472bn); interest + salaries + subsidies = ~90% of revenue.
 3. **About 22% of 2027 spending is financed by borrowing / cash drawdown** (deficit Rs 1,753bn = 4.5% of GDP, up from 3.7%).
 4. Primary surplus falls 5.4% → 2.3% of GDP; public investment rises 35% to Rs 2tn (5.1% of GDP).
 5. Income-tax relief costs only Rs 16bn (0.3% of revenue); calculator reproduces the speech's Rs 750–15,750 range exactly.

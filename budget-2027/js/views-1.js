@@ -47,13 +47,13 @@
         <div class="hero-grid">
           <div>
             <div class="eyebrow mono">81st Budget Speech · 12 November 2026</div>
-            <h1 class="display display-xl">Where every rupee of Budget&nbsp;2027 comes from, goes, and what it changes.</h1>
-            <p class="lede">An interactive guide built line by line from the speech and its seven annexures: ${list.length} initiatives, ${B.ANX2.length} new proposals, ${B.TAX.length} tax measures and ${B.LAWS.length} laws, with every figure traceable to its source.</p>
+            <h1 class="display display-xl">Where Budget&nbsp;2027 gets its money, where it spends it, and who it affects.</h1>
+            <p class="lede">Built line by line from the speech and its seven annexures: ${list.length} initiatives, ${B.ANX2.length} new proposals, ${B.TAX.length} tax measures and ${B.LAWS.length} laws. Each one carries its section reference.</p>
           </div>
           <div class="hero-fig"><div class="hf-l">Total spending, 2027</div><div class="hf-v">${fmt.bn(F.spend)}</div><div class="hf-s">Rs 7,673bn Budget + Rs 260bn Ditwah supplementary · 20.3% of GDP</div></div>
         </div>
         <div class="stats">
-          ${stat('Revenue', fmt.bn(F.rev), '15.8% of GDP — below the 16% floor the speech sets')}
+          ${stat('Revenue', fmt.bn(F.rev), '15.8% of GDP, below the 16% floor the speech sets')}
           ${stat('Deficit', fmt.bn(F.def), '4.5% of GDP · financed by borrowing')}
           ${stat('Interest bill', fmt.bn(F.int), `${F.intShare.toFixed(0)}% of every rupee of revenue`)}
           ${stat('Public investment', fmt.bn(F.inv), `5.1% of GDP · +${F.invGrowth.toFixed(0)}% vs 2026`)}
@@ -63,12 +63,12 @@
       </section>
 
       <section class="sec">
-        ${head('Start with your question', 'What do you want to know?')}
+        ${head('Jump to', 'Questions this page answers')}
         <div class="qgrid">${QUESTIONS.filter(([, v]) => BX.LENSES || (v !== 'land' && v !== 'markets')).map(([q, v, s], n) => `<a class="qcard" href="#/${v}"><span class="qn mono">${String(n + 1).padStart(2, '0')}</span><span class="qt">${esc(q)}</span><span class="qs">${esc(s)}</span></a>`).join('')}</div>
       </section>
 
       <section class="sec">
-        ${head('The shape of the Budget', 'Rs 100 of revenue, and Rs 100 spent', 'Interest, salaries and subsidies take almost all of what the Government collects, so investment is largely paid for by borrowing.')}
+        ${head('Revenue and spending', 'Rs 100 of revenue, and Rs 100 spent', 'Interest, salaries and subsidies take almost all of what the Government collects, so investment is largely paid for by borrowing.')}
         <div class="two">
           <div class="card"><h3 class="mini">Where Rs 100 of revenue goes first</h3>${tallBar(rev100.concat([['Left over', left, 'var(--c3)', '#fff']]), F.rev)}
             <p class="fine">Interest + salaries + subsidies = Rs ${((F.int + F.sal + F.sub) / F.rev * 100).toFixed(0)} of every Rs 100. Source: Annexure III (2027 column).</p></div>
@@ -78,14 +78,14 @@
       </section>
 
       <section class="sec">
-        ${head('Reading the numbers', 'Six things worth knowing')}
+        ${head('Findings', 'What the figures show')}
         <div class="cards3">
           <article class="card insight">${tag('analysis')}<h3>Revenue sits below the speech’s own floor</h3><p>Section 3 targets revenue of “not less than 16% of GDP”. Annexure III plans 15.8% for 2027 (16.5% in 2026).</p></article>
-          <article class="card insight">${tag('analysis')}<h3>Interest still takes ${F.intShare.toFixed(0)}% of revenue</h3><p>Down from 79.1% in 2022 and 45.9% in 2025, but Rs 2,643bn is still more than salaries and subsidies on current Annexure III figures.</p></article>
-          <article class="card insight">${tag('fact')}<h3>Public investment jumps to Rs 2 trillion</h3><p>Rs 1,750bn in the Budget plus Rs 250bn of Ditwah reconstruction: 5.1% of GDP, up from 4.1% in 2026.</p></article>
-          <article class="card insight">${tag('fact')}<h3>Inflation is back at 8.3%</h3><p>From 2.1% in December 2025. The speech blames fuel prices and the Middle East conflict, and flags El Niño peaking in February 2027.</p></article>
-          <article class="card insight">${tag('fact')}<h3>The IMF programme ends in March</h3><p>A committee led by the Deputy Finance Minister is examining whether, and what type of, new programme to seek.</p></article>
-          <article class="card insight">${tag('analysis')}<h3>Relief is real but small</h3><p>Income-tax cuts cost Rs 16bn in 2027, 0.3% of revenue. A taxpayer gains Rs 750–15,750 a month.</p></article>
+          <article class="card insight">${tag('analysis')}<h3>Interest still takes ${F.intShare.toFixed(0)}% of revenue</h3><p>Down from 79.1% in 2022 and 45.9% in 2025. At Rs 2,643bn it is still larger than the salary bill (Rs 1,410bn) and the subsidies and transfers line (Rs 1,472bn) taken separately.</p></article>
+          <article class="card insight">${tag('fact')}<h3>Public investment rises to Rs 2 trillion</h3><p>Rs 1,750bn in the Budget plus Rs 250bn of Ditwah reconstruction: 5.1% of GDP, up from 4.1% in 2026.</p></article>
+          <article class="card insight">${tag('fact')}<h3>Inflation reached 8.3% in October</h3><p>It was 2.1% in December 2025. The speech attributes the rise to fuel prices and the Middle East conflict, and says El Niño will peak in February 2027.</p></article>
+          <article class="card insight">${tag('fact')}<h3>The IMF programme ends in March</h3><p>A committee headed by the Deputy Finance Minister is examining whether to seek another programme, and of what type.</p></article>
+          <article class="card insight">${tag('analysis')}<h3>Income-tax relief costs 0.3% of revenue</h3><p>Rs 16bn in 2027 (Annexure I). Each taxpayer keeps Rs 750 to Rs 15,750 more a month.</p></article>
         </div>
       </section>`;
     }
@@ -126,12 +126,12 @@
       const row = (n, key, pct) => { const a = A[key], g = (pct ? '' : ''); const chg = a[2] - a[1], rel = a[1] ? chg / Math.abs(a[1]) * 100 : 0; return `<tr><th scope="row">${n}</th><td>${C.spark([a[0], a[1], a[2]])}</td><td class="num">${fmt.n(a[0])}</td><td class="num">${fmt.n(a[1])}</td><td class="num"><b>${fmt.n(a[2])}</b></td><td class="num ${chg >= 0 ? '' : ''}">${chg >= 0 ? '+' : '−'}${fmt.n(Math.abs(chg))} <span class="muted">(${rel >= 0 ? '+' : '−'}${Math.abs(rel).toFixed(1)}%)</span></td></tr>`; };
       const gdpRow = (n, key) => { const a = B.A3gdp[key]; return `<tr><th scope="row">${n}</th><td>${C.spark([a[0], a[1], a[2]])}</td><td class="num">${a[0]}%</td><td class="num">${a[1]}%</td><td class="num"><b>${a[2]}%</b></td><td class="num"><span class="muted">${a[3]}% with suppl.</span></td></tr>`; };
       const g = B.A4;
-      root.innerHTML = `${head('Where it comes from · Where it goes', 'Follow the money', 'Annexure III of the speech, redrawn. Switch between the Budget alone and the Budget with the Rs 260bn Ditwah reconstruction supplementary.')}
+      root.innerHTML = `${head('Where it comes from · Where it goes', 'Revenue and spending, 2027', 'Annexure III as a chart. Show the Budget alone, or add the Rs 260bn Ditwah reconstruction supplementary.')}
         <div class="controls">${seg('Basis', [['budget', 'Budget only'], ['all', '+ Ditwah supplementary']], basis === 0 ? 'budget' : 'all', 'basis')}
           ${seg('View', [['chart', 'Chart'], ['table', 'Table']], 'chart', 'fmode')}</div>
         <div id="flowviz" class="viz"></div>
 
-        <section class="sec tight"><h3 class="display display-md">2025 → 2027 in one table</h3>
+        <section class="sec tight"><h3 class="display display-md">Revenue and spending, 2025 to 2027</h3>
           <div class="tscroll"><table class="dt trend"><thead><tr><th scope="col">Rs billion</th><th scope="col"><span class="sr">Trend</span></th><th class="num" scope="col">2025 prov.</th><th class="num" scope="col">2026 rev.</th><th class="num" scope="col">2027 Budget</th><th class="num" scope="col">Change vs 2026</th></tr></thead><tbody>
             ${row('Total revenue', 'revenue')}${row('  Income tax', 'incomeTax')}${row('  Goods & services taxes', 'goodsTax')}${row('  Trade taxes', 'tradeTax')}${row('  Non-tax revenue', 'nonTax')}
             ${row('Total expenditure', 'expenditure')}${row('  Salaries & wages', 'salaries')}${row('  Interest', 'interest')}${row('  Subsidies & transfers', 'subsidies')}${row('  Public investment', 'investment')}
@@ -215,7 +215,7 @@
     mount(root, p) {
       const opt = (m, all) => `<option value="">${all}</option>` + Object.entries(m).map(([k, v]) => `<option value="${k}">${esc(typeof v === 'string' ? v : v.label)}</option>`).join('');
       const places = `<option value="">Anywhere</option><option value="NAT">Nationwide</option>` + `<optgroup label="Province">${Object.entries(B.PROV).map(([k, v]) => `<option value="P:${k}">${v}</option>`).join('')}</optgroup><optgroup label="District">${BX.distNames.slice().sort().map((d) => `<option value="${d}">${d}</option>`).join('')}</optgroup>`;
-      root.innerHTML = `${head('How much for which initiative', 'Search all ' + counted.length + ' funded lines', 'Every allocation, loan scheme and project the speech puts a number or a date on. Click any row for the full picture.')}
+      root.innerHTML = `${head('How much for which initiative', 'Search all ' + counted.length + ' funded lines', 'Every allocation, loan scheme and project the speech gives a number or a date. Click a row for details.')}
         <div class="filters" role="search">
           <label class="f f-q"><span class="sr">Search</span><input type="search" id="q" placeholder="Search: expressway, fertiliser, Jaffna, ADB…" value="${esc(p.q || '')}" autocomplete="off"></label>
           <label class="f"><span>Sector</span><select data-f="s">${opt(B.SECTORS, 'All sectors')}</select></label>
@@ -244,7 +244,7 @@
       };
       const sorters = { '': (a, b) => (b.a || 0) - (a.a || 0), cost: (a, b) => (b.tc || b.a || 0) - (a.tc || a.a || 0), start: (a, b) => (a.y0 || 9999) - (b.y0 || 9999) || (b.a || 0) - (a.a || 0), az: (a, b) => a.t.localeCompare(b.t) };
       const rowHtml = (i) => `<button class="row" data-act="open" data-arg="${i.id}">
-          <span class="r-t"><span class="r-title">${esc(i.t)}</span><span class="r-meta">${dot(i.theme)}${esc(C.SHORT[i.s])} · ${esc(i.o)}</span></span>
+          <span class="r-t"><span class="r-title">${esc(i.t)}</span><span class="r-meta">${dot(i.theme)}${esc(C.SHORT[i.s])} · ${esc(i.o)}<span class="r-wm">${i.national ? 'Nationwide' : esc((i.dists.length ? i.dists.slice(0, 2).join(', ') + (i.dists.length > 2 ? ' +' + (i.dists.length - 2) : '') : i.provs.map((x) => B.PROV[x]).join(', ')) || '')}${i.y ? ' · ' + (i.y0 === i.y1 ? i.y0 : i.y0 + '–' + String(i.y1).slice(2)) : ''}</span></span></span>
           <span class="r-w">${i.national ? 'Nationwide' : esc((i.dists.length ? i.dists.slice(0, 2).join(', ') + (i.dists.length > 2 ? ' +' + (i.dists.length - 2) : '') : i.provs.map((x) => B.PROV[x]).join(', ')) || '—')}</span>
           <span class="r-y mono">${i.y ? (i.y0 === i.y1 ? i.y0 : i.y0 + '–' + String(i.y1).slice(2)) : ''}</span>
           <span class="r-s">${chip(B.STATUS[i.st].replace(' this Budget', ''), 'st-' + i.st)}</span>

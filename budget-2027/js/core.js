@@ -133,7 +133,7 @@
       cur = views[view].mount(r, params) || {};
       document.title = (views[view].title || 'Budget 2027 explorer') + ' · AAMA';
       $$('.tabs [data-view]').forEach((a) => { const on = a.dataset.view === view; a.classList.toggle('on', on); on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); const t = $('.tabs'); if (on && t && !opts.noscroll) { const l = a.offsetLeft - 24; t.scrollTo({ left: l, behavior: 'smooth' }); } });
-      if (!opts.keepScroll) { const top = $('#tabs-anchor'); const off = innerWidth <= 900 ? 70 : 76; if (top && scrollY > top.offsetTop - off) scrollTo({ top: Math.max(0, top.offsetTop - off), behavior: 'instant' }); }
+      if (!opts.keepScroll && scrollY > 0) scrollTo({ top: 0, behavior: 'instant' });
       r.focus({ preventScroll: true });
     } else if (cur && cur.update) cur.update(params);
     drawer(params.i);

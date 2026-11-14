@@ -26,7 +26,7 @@
               <div class="card mapside">${d ? `<h3 class="display display-md">${esc(sel)}</h3><p class="muted">${B.PROV[B.DIST[sel].p]} Province · ${d.n} projects name this district · ${fmt.rs(d.v)} ${split ? 'incl. equal shares of shared projects' : 'single-district projects only'}</p>
                 ${C.hbars(items.filter((i) => i.a).slice(0, 10).map((i) => ({ label: i.t, v: i.a, fill: slot(i.theme), act: 'open', arg: i.id, sub: i.dists.length > 1 ? 'Shared with ' + (i.dists.length - 1) + ' other district' + (i.dists.length > 2 ? 's' : '') : '' })), { compact: true })}`
                 : `<h3 class="display display-md">How to read this</h3><p>Each tile is a district. Colour shows the rupees (or number of projects) the speech <b>names that district for</b>. It is not a full district budget.</p><p class="muted">Tap a tile for its projects.</p>`}</div></div>
-            <div class="callouts">${stat('Placed in a district', fmt.rs(dTot), `${(dTot / totalA * 100).toFixed(0)}% of itemised allocations`)}${stat('Province-level', fmt.rs(sum(counted.filter((i) => !i.national && i.provLevel), (i) => i.a)), 'Named by province, not district — see Provinces')}${stat('Nationwide', fmt.rs(nat), `${(nat / totalA * 100).toFixed(0)}% — e.g. Aswesuma, salaries, subsidies`)}</div>
+            <div class="callouts">${stat('Placed in a district', fmt.rs(dTot), `${(dTot / totalA * 100).toFixed(0)}% of itemised allocations`)}${stat('Province-level', fmt.rs(sum(counted.filter((i) => !i.national && i.provLevel), (i) => i.a)), 'Named by province, not district (see Provinces)')}${stat('Nationwide', fmt.rs(nat), `${(nat / totalA * 100).toFixed(0)}%, such as Aswesuma, salaries and subsidies`)}</div>
             <p class="fine">Only projects the speech places in a named district are mapped. Projects touching several districts are listed in each; with “split equally” on (default) their rupees are shared evenly, otherwise they are left out of the tiles. District tags are AAMA’s reading of place names in the speech. The official district-wise figures are in the Budget Estimates (Volumes I–III), which are not yet loaded.</p>`;
           $('#sp').onchange = (e) => { split = e.target.checked; Router.param('sp', split ? '' : '0'); draw(); };
           $('#dd').onchange = (e) => { ddp = e.target.checked; Router.param('ddp', ddp ? '1' : ''); draw(); };
@@ -43,7 +43,7 @@
         } else {
           const nE = g.prov.N.v + g.prov.E.v, tot = Object.values(g.prov).reduce((s, x) => s + x.v, 0);
           const faith = [['Buddhist', 758], ['Hindu', 272], ['Muslim', 199], ['Christian', 99]];
-          body.innerHTML = `<div class="callout warn"><b>There is no ethnicity-wise breakdown of the Budget.</b> No Sri Lankan budget document, including the speech, the Estimates or the Citizens’ Budget, publishes spending by ethnic group, and we won’t estimate one. What the speech does name is shown below, plus geography. Province is not ethnicity, and nothing here implies who benefits.</div>
+          body.innerHTML = `<div class="callout warn"><b>The speech and its annexures give no spending breakdown by ethnicity.</b> We know of no official one in the other Budget documents either, and we will not estimate one. Below are the items the speech names for specific communities, plus geography. A province is not an ethnic group, and nothing here shows who benefits.</div>
             <div class="two">
               <div class="card"><h3 class="mini">Places of worship damaged by Ditwah (1,328)</h3>${C.hbars(faith.map(([n, v]) => ({ label: n, v, fill: 'var(--c1)', value: fmt.n(v) })), { fmtv: fmt.n })}<p class="fine">Rs 722M budgeted for rehabilitation, plus Rs 40M (Buddha Sasana Fund) and Rs 523M (Central Cultural Fund); the speech does not split the rupees by faith. §31</p></div>
               <div class="card"><h3 class="mini">Named for specific communities or regions</h3><ul class="plain tight">
@@ -61,7 +61,7 @@
       actions.pickDist = (d) => { sel = sel === d ? '' : d; Router.param('d', sel); draw(); };
       actions.goSector = (k) => Router.go('initiatives', { s: k });
       subH.where = (k) => { tab = k; Router.param('t', k === 'district' ? '' : k); $$('.subtabs button', root).forEach((b) => { const on = b.dataset.arg.endsWith(':' + k); b.classList.toggle('on', on); b.setAttribute('aria-selected', on); }); draw(); };
-      root.innerHTML = `${head('Where the money lands', 'District, province, ministry and community', 'The speech places individual projects in named places, but does not publish a full district budget. This view maps what it does say.')}
+      root.innerHTML = `${head('Where the money lands', 'District, province, ministry and community', 'The speech places individual projects in named places but publishes no district budget. This view maps those projects.')}
         ${tabsHtml('where', [['district', 'District map'], ['province', 'Provinces'], ['ministry', 'Ministries & agencies'], ['community', 'Communities']], tab)}<div id="wbody"></div>`;
       draw();
     }
@@ -124,7 +124,7 @@
         return `<div class="dumb" role="img" aria-label="${t.t}: now ${t.now}${t.unit}, target ${t.to}${t.unit} by ${t.by}"><span class="dl" style="left:${Math.min(sx(t.now), sx(t.to))}%;width:${Math.abs(sx(t.to) - sx(t.now))}%"></span><i class="d1" style="left:${sx(t.now)}%"></i><i class="d2" style="left:${sx(t.to)}%"></i></div><div class="dv2"><span>Now <b>${fmt.n(t.now)}${esc(t.unit)}</b></span><span>${t.by} target <b>${fmt.n(t.to)}${esc(t.unit)}</b></span></div>`;
       };
       const dep = { ppp: counted.filter((i) => i.f === 'ppp').length, dev: counted.filter((i) => i.f === 'dev').length, soe: counted.filter((i) => i.f === 'soe').length, tre: counted.filter((i) => i.f === 'tre' || i.f === 'sup').length };
-      root.innerHTML = `${head('What comes next', 'Dates, targets and the future of each initiative', 'Every dated milestone and numeric target in the speech, in order. Click a tag to open the initiative behind it.')}
+      root.innerHTML = `${head('What comes next', 'Milestones and targets', 'Every dated milestone and numeric target in the speech, in order. Click a tag to open the initiative behind it.')}
         <div class="stats">${stat('Dated milestones', B.EVENTS.length, 'Effective dates, builds, tenders')}${stat('Measurable targets', B.TARGETS.length, 'With a number and a year')}${stat('Need private partners', dep.ppp, 'Lines relying on PPP / investors')}${stat('Donor-financed', dep.dev, 'Loans or grants from partners')}</div>
         <section class="sec tight"><h3 class="display display-md">Timeline</h3>
           <div class="chips filt tlf"><button class="chip" data-act="tlf" data-arg="">All</button>${Object.entries(EVT).map(([k, [l, c]]) => `<button class="chip" data-act="tlf" data-arg="${k}"><i class="dot" style="background:${c}"></i>${l}</button>`).join('')}</div>
@@ -176,7 +176,7 @@
         $$('.pgrid .pc', root).forEach((b) => b.classList.toggle('on', b.dataset.arg === per.id));
       };
       actions.persona = (k) => { gid = k; Router.param('g', k); draw(); $('#pbody').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); };
-      root.innerHTML = `${head('How it affects me', 'Pick who you are', 'Before-and-after numbers from the speech for each group, plus calculators you can try. These are the Budget’s announced changes, not a personal tax or benefits assessment.')}
+      root.innerHTML = `${head('How it affects me', 'Find your group', 'Before-and-after numbers from the speech for each group, plus calculators you can try. These are the Budget’s announced changes, not a personal tax or benefits assessment.')}
         <div class="pgrid">${B.PERSONAS.map((x) => `<button class="pc" data-act="persona" data-arg="${x.id}"><b>${esc(x.label)}</b><span>${esc(x.blurb)}</span></button>`).join('')}</div>
         <div id="pbody" class="card pbody"></div>
         <section class="sec tight"><h3 class="display display-md">Calculators</h3>${calcs()}</section>`;

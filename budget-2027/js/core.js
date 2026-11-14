@@ -1,6 +1,7 @@
 /* Budget 2027 explorer — core: indexes, formatters, router, tooltip, drawer. No dependencies. */
 (function () {
   const B = window.B27;
+  const LENSES = !!(B.CONFIG && B.CONFIG.showLenses) && !!B.LAND && !!B.MKT;   // Land & Market lenses
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -117,7 +118,8 @@
     const [path, q] = h.split('?');
     const view = path.replace(/^\//, '').split('/')[0] || 'overview';
     const params = {}; new URLSearchParams(q || '').forEach((v, k) => params[k] = v);
-    return { view: views[view] ? view : 'overview', params };
+    const hidden = !LENSES && (view === 'land' || view === 'markets');
+    return { view: views[view] && !hidden ? view : 'overview', params };
   }
   function build(view, params) {
     const qs = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== '' && v != null && v !== false)).toString();
@@ -155,7 +157,7 @@
     const i = id && I[id];
     if (!i) { if (dr.classList.contains('open')) { dr.classList.remove('open'); scrim.classList.remove('open'); dr.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lock'); if (lastFocus) lastFocus.focus({ preventScroll: true }); } return; }
     const ax = []; if (i.ax2) ax.push(`Annexure II · #${i.ax2}`); if (i.ax7) ax.push(`Annexure VII · #${i.ax7}`);
-    const land = B.LAND.filter((l) => l.ids.includes(i.id)); const mk = []; B.MKT.forEach((m) => m.drivers.forEach((d) => { if (d.refs.includes(i.id)) mk.push([m, d]); }));
+    const land = LENSES ? B.LAND.filter((l) => l.ids.includes(i.id)) : []; const mk = []; (LENSES ? B.MKT : []).forEach((m) => m.drivers.forEach((d) => { if (d.refs.includes(i.id)) mk.push([m, d]); }));
     const evs = B.EVENTS.filter((e) => e.ids.includes(i.id));
     const kv = (k, v) => v ? `<div class="kv"><dt>${k}</dt><dd>${v}</dd></div>` : '';
     const where = i.national ? 'Nationwide' : [...i.dists, ...i.provs.filter((p) => i.provLevel).map((p) => B.PROV[p] + ' Province')].join(', ') || '—';
@@ -205,7 +207,7 @@
   const slot = (theme) => `var(--c${B.THEMES[theme].slot})`;
   const slotText = (theme) => B.THEMES[theme].slot === 4 ? '#0b0b0b' : '#ffffff';
 
-  window.BX = { B, $, $$, esc, fmt, I, list, counted, sum, sectorStats, geo, taxById, ax2by, ax7by, ax2link, ax7link, actions, views, Router, seg, tag, chip, initBtn, shortTitle, slot, slotText, distNames, trim };
+  window.BX = { LENSES, B, $, $$, esc, fmt, I, list, counted, sum, sectorStats, geo, taxById, ax2by, ax7by, ax2link, ax7link, actions, views, Router, seg, tag, chip, initBtn, shortTitle, slot, slotText, distNames, trim };
 
   /* theme + boot */
   window.addEventListener('DOMContentLoaded', () => {
@@ -213,6 +215,7 @@
     let th = 'light'; try { th = localStorage.getItem('aama-theme') || 'light'; } catch (e) {}
     root.setAttribute('data-theme', th);
     actions.theme = () => { th = th === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', th); try { localStorage.setItem('aama-theme', th); } catch (e) {} const b = $('#theme-btn'); if (b) b.setAttribute('aria-label', th === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'); };
+    if (!LENSES) { $$('[data-lens]').forEach((e) => e.parentNode.removeChild(e)); const n = $('#lens-note'); if (n) n.parentNode.removeChild(n); }
     handle({ noscroll: true });
   });
 })();

@@ -37,8 +37,8 @@
     <a data-view="new" href="#/new">What’s new</a>
     <a data-view="future" href="#/future">What next</a>
     <a data-view="me" href="#/me">For me</a>
-    <a data-view="land" href="#/land">Land</a>
-    <a data-view="markets" href="#/markets">Markets</a>
+    <a data-view="land" data-lens href="#/land">Land</a>
+    <a data-view="markets" data-lens href="#/markets">Markets</a>
     <a data-view="sources" href="#/sources">Sources</a>
   </nav>
   <main id="view" tabindex="-1"></main>
@@ -47,10 +47,11 @@
 <footer class="foot">
   <div class="container">
     <p><b>Unofficial explainer by AAMA.</b> Built from the 81st Budget Speech (12 November 2026, Ministry of Finance, Planning and Economic Development) and Annexures I–VII. Figures are as stated in those documents; the Government’s Budget Estimates remain the authoritative source.</p>
-    <p>Land and market views are editorial analysis for information only. They are not valuation, investment, tax or legal advice, and not predictions of prices.</p>
+    <p id="lens-note">Land and market views are editorial analysis for information only. They are not valuation, investment, tax or legal advice, and not predictions of prices.</p>
   </div>
 </footer>
 
+<script src="data/config.js"></script>
 <script src="data/meta.js"></script>
 <script src="data/fiscal.js"></script>
 <script src="data/annex.js"></script>
@@ -59,7 +60,7 @@
 <script src="data/init-c.js"></script>
 <script src="data/policy.js"></script>
 <script src="data/personas.js"></script>
-<script src="data/lens.js"></script>
+<script>if (window.B27.CONFIG.showLenses) document.write('<script src="data/lens.js"><\/script>');</script>
 <script src="js/core.js"></script>
 <script src="js/charts.js"></script>
 <script src="js/views-1.js"></script>

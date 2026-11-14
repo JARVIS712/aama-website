@@ -64,7 +64,7 @@
 
       <section class="sec">
         ${head('Start with your question', 'What do you want to know?')}
-        <div class="qgrid">${QUESTIONS.map(([q, v, s], n) => `<a class="qcard" href="#/${v}"><span class="qn mono">${String(n + 1).padStart(2, '0')}</span><span class="qt">${esc(q)}</span><span class="qs">${esc(s)}</span></a>`).join('')}</div>
+        <div class="qgrid">${QUESTIONS.filter(([, v]) => BX.LENSES || (v !== 'land' && v !== 'markets')).map(([q, v, s], n) => `<a class="qcard" href="#/${v}"><span class="qn mono">${String(n + 1).padStart(2, '0')}</span><span class="qt">${esc(q)}</span><span class="qs">${esc(s)}</span></a>`).join('')}</div>
       </section>
 
       <section class="sec">

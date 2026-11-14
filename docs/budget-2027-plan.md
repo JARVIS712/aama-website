@@ -83,6 +83,8 @@ Design rules baked into the data:
 
 **Decisions:** (1) sector view only — *taken*. (2) Land and market scores go to an external analyst and legal for confirmation — see `docs/land-market-review-pack.pdf`. (3) We never publish ethnicity-wise spending estimates.
 
+**Publishing switch.** `budget-2027/data/config.js` → `showLenses` (default **false**). While false, the Land and Markets tabs, links and URLs are hidden and `data/lens.js` is not loaded or deployed. After sign-off: set it to `true`, include `data/lens.js` in the deploy, redeploy.
+
 ## 7. Design decisions
 
 - **Visual language:** reuses ama.lk tokens (warm canvas, Fraunces display for headings, Inter body, JetBrains Mono for figures/labels, forest + mint accents, pill nav, light/dark toggle sharing the `aama-theme` key).

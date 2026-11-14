@@ -83,7 +83,7 @@ Design rules baked into the data:
 
 **Decisions:** (1) sector view only — *taken*. (2) Land and market scores go to an external analyst and legal for confirmation — see `docs/land-market-review-pack.pdf`. (3) We never publish ethnicity-wise spending estimates.
 
-**Publishing switch.** `budget-2027/data/config.js` → `showLenses` (default **false**). While false, the Land and Markets tabs, links and URLs are hidden and `data/lens.js` is not loaded or deployed. After sign-off: set it to `true`, include `data/lens.js` in the deploy, redeploy.
+**Publishing switch.** `budget-2027/data/config.js` → `showLenses`. **Now `true`** (approved for publication 2026-11-14; Land and Markets are live, sector-only, with the "not advice / not a valuation" banners). To withdraw them: set it to `false`, leave `data/lens.js` out of the deploy, redeploy.
 
 ## 7. Design decisions
 

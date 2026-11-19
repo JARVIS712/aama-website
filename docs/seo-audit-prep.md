@@ -34,7 +34,7 @@ Re-run: `python3 -m http.server 8765 &` then `PW=$(npm root -g)/playwright node 
 **Medium**
 4. **Ugly sub-page URLs:** `Predictive Analytics.html`, `Sentiment Mapping.html`, etc. (spaces, capitals, `.html`). Move to `/predictive-analytics` etc. with 301s from the old URLs (`vercel.json` redirects) and update the sitemap and canonicals.
 5. **The Budget explorer is one URL.** All views use `#/…`, which search engines ignore, so "Budget 2027 tax calculator" or "Budget 2027 sector totals" cannot rank separately. Fix: real paths per view (`/budget-2027/sectors/`) pre-rendered, or dedicated landing pages for the high-intent views.
-6. **The explorer is orphaned.** Nothing on the home page links to `/budget-2027/`. Add a nav or footer link (also passes authority).
+6. ~~**The explorer is orphaned.**~~ **Fixed:** "Budget 2027" is now in the home page's main nav (desktop and mobile menu; Tamil "வரவு செலவு 2027" and Sinhala "අයවැය 2027" labels, worth a native-speaker check). A footer link would add a second internal link if wanted.
 7. **Titles on sub-pages** repeat the brand and carry no search terms (e.g. "Predictive Voter Analytics, AAMA"). Fine technically; a copy decision.
 8. **Search Console / analytics not verified.** I could not see either. Add the domain property (DNS verification), submit `https://www.aama.lk/sitemap.xml`, and use URL Inspection on `/` and `/budget-2027/`.
 9. **`/uploads/` is public** (design notes and screenshots, 1.2 MB, including `DESIGN-elevenlabs.md`). `robots.txt` disallows crawling but does not hide the files. Consider excluding the folder from deploys.

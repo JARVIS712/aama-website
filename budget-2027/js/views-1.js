@@ -24,7 +24,7 @@
     ['Where does the money come from?', 'flow', 'Taxes, borrowing, grants and donors'],
     ['Where does it go?', 'flow', 'Interest, salaries, subsidies, investment'],
     ['Which sectors get what?', 'sectors', 'Treemap of announced allocations'],
-    ['How much for each initiative?', 'initiatives', 'Search all ' + counted.length + ' funded lines'],
+    ['How much for each initiative?', 'initiatives', 'Search all ' + counted.length + ' initiatives'],
     ['What is new this year?', 'new', '73 proposals · 84 capital projects · new laws'],
     ['Who pays for it?', 'sectors', 'Treasury, donors, state firms, private'],
     ['Which district or province?', 'map', 'Tile map, provinces, ministries'],
@@ -48,7 +48,7 @@
           <div>
             <div class="eyebrow mono">81st Budget Speech · 12 November 2026</div>
             <h1 class="display display-xl">Where Budget&nbsp;2027 gets its money, where it spends it, and who it affects.</h1>
-            <p class="lede">Built line by line from the speech and its seven annexures: ${list.length} initiatives, ${B.ANX2.length} new proposals, ${B.TAX.length} tax measures and ${B.LAWS.length} laws. Each one carries its section reference.</p>
+            <p class="lede">Built line by line from the speech and its seven annexures: ${counted.length} initiatives, ${B.ANX2.length} new proposals, ${B.TAX.length} tax measures and ${B.LAWS.length} laws. Each one carries its section reference.</p>
           </div>
           <div class="hero-fig"><div class="hf-l">Total spending, 2027</div><div class="hf-v">${fmt.bn(F.spend)}</div><div class="hf-s">Rs 7,673bn Budget + Rs 260bn Ditwah supplementary · 20.3% of GDP</div></div>
         </div>
@@ -171,7 +171,7 @@
       let mode = 'chart', sel = p.s || '';
       const items = Object.values(sectorStats).filter((s) => s.size > 0).map((s) => ({
         key: s.key, v: s.size, label: C.SHORT[s.key], value: fmt.rs(s.size, { plain: true }), fill: slot(s.theme), ink: slotText(s.theme),
-        tip: `${B.SECTORS[s.key].label}|${fmt.rs(s.size)} announced|${s.n} funded lines${s.env > s.item ? ' · speech states a ' + fmt.rs(s.env) + ' total' : ''}|Click for the list`
+        tip: `${B.SECTORS[s.key].label}|${fmt.rs(s.size)} announced|${s.n} initiatives${s.env > s.item ? ' · speech states a ' + fmt.rs(s.env) + ' total' : ''}|Click for the list`
       }));
       const total = items.reduce((s, x) => s + x.v, 0);
       const byF = {}; counted.forEach((i) => { byF[i.f] = byF[i.f] || { v: 0, n: 0 }; byF[i.f].v += i.a || 0; byF[i.f].n++; });
@@ -183,10 +183,10 @@
           : C.table(['Sector', 'Announced (Rs M)', 'Funded lines', 'Stated total (Rs M)'], items.sort((a, b) => b.v - a.v).map((s) => [`<a href="#/sectors?s=${s.key}">${esc(B.SECTORS[s.key].label)}</a>`, fmt.n(Math.round(s.v)), sectorStats[s.key].n, sectorStats[s.key].env ? fmt.n(sectorStats[s.key].env) : '—']));
         C.observe(box);
         const d = $('#sectordetail');
-        if (!sel) { d.innerHTML = '<p class="muted">Select a sector to see every funded line.</p>'; return; }
+        if (!sel) { d.innerHTML = '<p class="muted">Pick a sector to see its initiatives.</p>'; return; }
         const s = sectorStats[sel]; const rows = s.items.slice().sort((a, b) => (b.a || 0) - (a.a || 0));
         d.innerHTML = `<div class="sd-h"><h3 class="display display-md">${dotHtml(s.theme)} ${esc(B.SECTORS[sel].label)}</h3><button class="lnk" data-act="clearSector">Clear</button></div>
-          <p class="muted">${esc(B.SECTORS[sel].org)} · ${s.n} funded lines · ${fmt.rs(s.item)} itemised${s.env ? ` · speech-stated total ${fmt.rs(s.env)}` : ''}</p>
+          <p class="muted">${esc(B.SECTORS[sel].org)} · ${s.n} initiatives · ${fmt.rs(s.item)} itemised${s.env ? ` · speech-stated total ${fmt.rs(s.env)}` : ''}</p>
           ${s.env && s.env > s.item ? `<p class="fine">The speech gives a larger umbrella total for this sector than the lines it itemises, so some spending is not broken down.</p>` : ''}
           ${C.hbars(rows.filter((r) => r.a).slice(0, 14).map((r) => ({ label: r.t, v: r.a, fill: slot(s.theme), act: 'open', arg: r.id, tip: `${r.t}|${fmt.rs(r.a)}` })), { compact: true })}
           <a class="btn ghost" href="#/initiatives?s=${sel}">See all ${s.n} in the explorer</a>`;
@@ -215,17 +215,17 @@
     mount(root, p) {
       const opt = (m, all) => `<option value="">${all}</option>` + Object.entries(m).map(([k, v]) => `<option value="${k}">${esc(typeof v === 'string' ? v : v.label)}</option>`).join('');
       const places = `<option value="">Anywhere</option><option value="NAT">Nationwide</option>` + `<optgroup label="Province">${Object.entries(B.PROV).map(([k, v]) => `<option value="P:${k}">${v}</option>`).join('')}</optgroup><optgroup label="District">${BX.distNames.slice().sort().map((d) => `<option value="${d}">${d}</option>`).join('')}</optgroup>`;
-      root.innerHTML = `${head('How much for which initiative', 'Search all ' + counted.length + ' funded lines', 'Every allocation, loan scheme and project the speech gives a number or a date. Click a row for details.')}
+      root.innerHTML = `${head('How much for which initiative', 'Search all ' + counted.length + ' initiatives', 'Every allocation, loan scheme and project the speech puts a number or a date on. Click a row for details.')}
         <div class="filters" role="search">
-          <label class="f f-q"><span class="sr">Search</span><input type="search" id="q" placeholder="Search: expressway, fertiliser, Jaffna, ADB…" value="${esc(p.q || '')}" autocomplete="off"></label>
+          <label class="f f-q"><span class="sr">Search</span><input type="search" id="q" placeholder="Try “fertiliser”, “Jaffna” or “ADB”" value="${esc(p.q || '')}" autocomplete="off"></label>
           <label class="f"><span>Sector</span><select data-f="s">${opt(B.SECTORS, 'All sectors')}</select></label>
           <label class="f"><span>Status</span><select data-f="st">${opt(B.STATUS, 'Any status')}</select></label>
           <label class="f"><span>Paid by</span><select data-f="f">${opt(B.FUND, 'Any source')}</select></label>
           <label class="f"><span>Where</span><select data-f="w">${places}</select></label>
-          <label class="f"><span>Affects</span><select data-f="g">${opt(B.GROUPS, 'Anyone')}</select></label>
+          <label class="f"><span>Who it affects</span><select data-f="g">${opt(B.GROUPS, 'Everyone')}</select></label>
           <label class="f"><span>Sort</span><select data-f="o"><option value="">Largest 2027 allocation</option><option value="cost">Largest total cost</option><option value="start">Earliest start</option><option value="az">A–Z</option></select></label>
         </div>
-        <div class="resbar"><div id="count" aria-live="polite"></div><div class="rb-r"><label class="chk"><input type="checkbox" id="newonly"> New money only</label><button class="btn ghost" data-act="csv">Download CSV</button><button class="lnk" data-act="resetF">Reset</button></div></div>
+        <div class="resbar"><div id="count" aria-live="polite"></div><div class="rb-r"><label class="chk"><input type="checkbox" id="newonly"> New money only</label><button class="btn ghost" data-act="csv">Download as CSV</button><button class="lnk" data-act="resetF">Clear filters</button></div></div>
         <div id="results" class="rows"></div>`;
       let shown = STEP, lastKey = '';
       const sels = $$('[data-f]', root); sels.forEach((s) => { s.value = p[s.dataset.f] || ''; s.addEventListener('change', () => Router.param(s.dataset.f, s.value)); });
@@ -248,13 +248,13 @@
           <span class="r-w">${i.national ? 'Nationwide' : esc((i.dists.length ? i.dists.slice(0, 2).join(', ') + (i.dists.length > 2 ? ' +' + (i.dists.length - 2) : '') : i.provs.map((x) => B.PROV[x]).join(', ')) || '—')}</span>
           <span class="r-y mono">${i.y ? (i.y0 === i.y1 ? i.y0 : i.y0 + '–' + String(i.y1).slice(2)) : ''}</span>
           <span class="r-s">${chip(B.STATUS[i.st].replace(' this Budget', ''), 'st-' + i.st)}</span>
-          <span class="r-a">${i.a != null ? `<b>${fmt.rs(i.a)}</b>` : i.tc != null ? `<span class="muted">cost ${fmt.rs(i.tc)}</span>` : i.lv != null ? `<span class="muted">loans ${fmt.rs(i.lv)}</span>` : '<span class="muted">no amount</span>'}</span></button>`;
+          <span class="r-a">${i.a != null ? `<b>${fmt.rs(i.a)}</b>` : i.tc != null ? `<span class="muted">project cost ${fmt.rs(i.tc)}</span>` : i.lv != null ? `<span class="muted">unlocks ${fmt.rs(i.lv)} in loans</span>` : '<span class="muted">amount not stated</span>'}</span></button>`;
       const draw = (p) => {
         current = filt(p).sort(sorters[p.o || ''] || sorters['']);
         const key = JSON.stringify([p.q, p.s, p.st, p.f, p.w, p.g, p.o, p.n]); if (key !== lastKey) { shown = STEP; lastKey = key; }
         const tot = sum(current, (i) => i.a);
-        $('#count').innerHTML = `<b>${current.length}</b> of ${counted.length} lines · <b>${fmt.rs(tot)}</b> allocated in 2027`;
-        $('#results').innerHTML = current.length ? `<div class="rhead"><span>Initiative</span><span>Where</span><span>When</span><span>Status</span><span class="r-a">2027</span></div>` + current.slice(0, shown).map(rowHtml).join('') + (current.length > shown ? `<button class="btn more" data-act="more">Show ${Math.min(STEP, current.length - shown)} more (${current.length - shown} left)</button>` : '') : '<div class="empty"><b>No initiatives match.</b><p>Try fewer filters or a broader search.</p></div>';
+        $('#count').innerHTML = `<b>${current.length}</b> of ${counted.length} initiatives · <b>${fmt.rs(tot)}</b> allocated in 2027`;
+        $('#results').innerHTML = current.length ? `<div class="rhead"><span>Initiative</span><span>Where</span><span>When</span><span>Status</span><span class="r-a">2027</span></div>` + current.slice(0, shown).map(rowHtml).join('') + (current.length > shown ? `<button class="btn more" data-act="more">Show ${Math.min(STEP, current.length - shown)} more (${current.length - shown} left)</button>` : '') : `<div class="empty"><b>Nothing matches ${p.q ? '“' + esc(p.q) + '”' : 'these filters'}.</b><p>Try a shorter search, or take a filter off.</p><button class="btn ghost" data-act="resetF">Clear filters</button></div>`;
       };
       actions.more = () => { shown += STEP; draw(Router.params()); };
       actions.resetF = () => { qEl.value = ''; Router.go('initiatives', {}, true); sels.forEach((s) => s.value = ''); nEl.checked = false; };

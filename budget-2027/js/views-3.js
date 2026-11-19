@@ -88,7 +88,7 @@
     ['Spending by ethnicity', 'Not available', 'Not in the speech or annexures, and no official source known to us. We show what the speech names, plus geography.'],
     ['Where the money goes', 'Complete', 'Annexure III, IV.'],
     ['Where it comes from', 'Complete', 'Annexure III, IV, I; donors per initiative.'],
-    ['Amount per initiative', 'Strong', counted.length + ' funded lines; some items have no rupee figure.'],
+    ['Amount per initiative', 'Strong', counted.length + ' initiatives; some have no rupee figure in the speech.'],
     ['New initiatives', 'Complete', 'Annexure II & VII, all 157 rows.'],
     ['Where they come from', 'Strong', 'Funding source tagged per line.'],
     ['Future of initiatives', 'Strong', 'Dates & targets stated in the speech; no delivery forecast.'],
@@ -106,10 +106,10 @@
         <div class="two"><div class="card"><h3 class="mini">The ten Budget documents</h3><ul class="docs">${docs.map((d, i) => `<li class="${used[i] ? 'on' : ''}"><i></i>${i === 0 ? '<a href="https://www.treasury.gov.lk/api/file/ea495202-fcb1-4c78-b34e-58389cb20738" target="_blank" rel="noopener noreferrer">' + esc(d) + ' (Treasury, opens in a new tab)</a>' : esc(d)}<span>${used[i] ? (i === 8 ? 'Used (sector totals, key activities, cadre)' : 'Used (speech + Annexures I–VII)') : 'Not yet loaded'}</span></li>`).join('')}</ul>
           <p class="fine">The Citizens’ Budget gives official sector totals but not ministry-by-ministry figures. Those are in the Estimates (Volumes I–III), the next data load. The Citizens’ Budget was prepared before the speech and omits its new proposals; the Sectors page adds them back.</p></div>
           <div class="card"><h3 class="mini">Your questions → what we can answer today</h3><ul class="ask">${ASK.filter(([q]) => BX.LENSES || !/Land price|Share-price/.test(q)).map(([q, s, n]) => `<li><span class="ak ${s.toLowerCase().replace(/ /g, '')}">${s}</span><div><b>${esc(q)}</b><p>${esc(n)}</p></div></li>`).join('')}</ul></div></div>
-        <section class="sec tight"><h3 class="display display-md">Rules we follow</h3><div class="cards3">
-          <article class="card insight"><h3>Every number has a source</h3><p>Amounts come from the speech or its annexures. Rupees are never invented; USD items converted at Rs 300.6 (implied by the speech’s own Ditwah figures) are marked.</p></article>
-          <article class="card insight"><h3>Fact and analysis are labelled</h3><p>${tag('fact')} marks what the speech states. ${tag('analysis')} marks AAMA’s own reading, such as comparisons and what could slip.</p></article>
-          <article class="card insight"><h3>No double counting</h3><p>Umbrella totals (e.g. Rs 131bn health capex) are shown but not added to the projects inside them. Lines already included in another line are flagged.</p></article></div></section>
+        <section class="sec tight"><h3 class="display display-md">How we handle the numbers</h3><div class="cards3">
+          <article class="card insight"><h3>Where the numbers come from</h3><p>Every amount comes from the speech, its annexures or the Citizens’ Budget. We never fill a gap with a guess. Where we converted dollars, we used Rs 300.6 to the dollar, the rate implied by the speech’s own Ditwah figures, and marked the line.</p></article>
+          <article class="card insight"><h3>What is stated and what is our reading</h3><p>${tag('fact')} marks something the documents say. ${tag('analysis')} marks our own reading, such as a comparison or a risk of delay.</p></article>
+          <article class="card insight"><h3>Totals are added once</h3><p>When the speech gives an umbrella total, such as Rs 131bn for health capital spending, we show it but don’t add it to the projects inside it. A line already counted inside another line is flagged.</p></article></div></section>
         <section class="sec tight"><h3 class="display display-md">Sector totals: the speech’s stated total vs. the lines we itemised</h3>
           ${C.table(['Sector', 'Itemised lines (Rs M)', 'Stated umbrella (Rs M)', 'Used in treemap'], rows.map((s) => [esc(B.SECTORS[s.key].label), fmt.n(Math.round(s.item)), s.env ? fmt.n(s.env) : '—', '<b>' + fmt.n(Math.round(s.size)) + '</b>']))}
           <p class="fine">Treemap size is the larger of the two columns. The itemised lines cover ${(sum(counted, (i) => i.a) / (B.A3.expenditure[3] * 1000) * 100).toFixed(0)}% of the Rs ${fmt.n(B.A3.expenditure[3])}bn total; the rest is mainly interest (33%), salaries, running costs and transfers the speech doesn’t itemise.</p></section>

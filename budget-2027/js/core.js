@@ -132,7 +132,10 @@
     if (view !== curName) {
       if (cur && cur.destroy) cur.destroy();
       curName = view; const r = root(); r.innerHTML = '';
-      cur = views[view].mount(r, params) || {};
+      try { cur = views[view].mount(r, params) || {}; } catch (err) {
+        console.error(err); cur = {};
+        r.innerHTML = '<div class="empty"><h1 class="display display-lg">This page didn’t load</h1><p class="lede" style="margin:12px auto">Something went wrong while drawing it. Reloading usually fixes it. If it doesn’t, the figures are all in the Budget Speech on the Treasury site.</p><p><button class="btn" onclick="location.reload()">Reload the page</button> <a class="btn ghost" href="https://www.treasury.gov.lk/api/file/ea495202-fcb1-4c78-b34e-58389cb20738" target="_blank" rel="noopener noreferrer">Open the Budget Speech</a></p></div>';
+      }
       if (!r.querySelector('h1')) { const h = r.querySelector('.vh h2'); if (h) { const n = document.createElement('h1'); n.className = h.className; n.innerHTML = h.innerHTML; h.replaceWith(n); } }   // one h1 per view
       document.title = view === 'overview' ? 'Sri Lanka Budget 2027 explorer · AAMA' : (views[view].title || 'Explorer') + ' · Sri Lanka Budget 2027 · AAMA';
       $$('.tabs [data-view]').forEach((a) => { const on = a.dataset.view === view; a.classList.toggle('on', on); on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); const t = $('.tabs'); if (on && t && !opts.noscroll) { const l = a.offsetLeft - 24; t.scrollTo({ left: l, behavior: 'smooth' }); } });
@@ -184,7 +187,7 @@
         ${evs.length ? `<h3 class="mini">Dates</h3><ul class="plain">${evs.map((e) => `<li><span class="mono">${esc(e.d)}</span> ${esc(e.t)}</li>`).join('')}</ul>` : ''}
         ${land.length ? `<h3 class="mini">Land catalysts <span class="tag an">AAMA analysis</span></h3><ul class="plain">${land.map((l) => `<li><a href="#/land?l=${l.id}">${esc(l.name)}</a></li>`).join('')}</ul>` : ''}
         ${mk.length ? `<h3 class="mini">Market read-through <span class="tag an">AAMA analysis</span></h3><ul class="plain">${mk.map(([m, d]) => `<li><a href="#/markets?s=${m.id}">${esc(m.name)}</a> — ${d.dir > 0 ? 'tailwind' : d.dir < 0 ? 'headwind' : 'neutral'}</li>`).join('')}</ul>` : ''}
-        <div class="dr-f"><button class="btn ghost" data-act="copyLink">Copy link</button><a class="btn ghost" href="#/sources">How we got this</a></div>
+        <div class="dr-f"><button class="btn ghost" data-act="copyLink">Copy link</button><a class="btn ghost" href="#/sources">Method and sources</a></div>
         <p class="fine">Source: ${/^Citizens/.test(i.ref || '') ? esc(i.ref) : '81st Budget Speech 2027, ' + esc(i.ref || '')}. Amounts are as stated in the speech and annexures; place tags and groups are AAMA’s mapping.</p>
       </div>`;
     if (!dr.classList.contains('open')) { lastFocus = document.activeElement; }

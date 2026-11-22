@@ -104,14 +104,29 @@
     if (top + r.height > innerHeight - pad) top = y - r.height - 12;
     tip.style.left = Math.max(pad, left) + 'px'; tip.style.top = Math.max(pad, top) + 'px';
   }
-  /* Mouse only: touch fires emulated mouse events with no "out", which would leave a tooltip stuck after a tap. */
-  document.addEventListener('pointerover', (e) => { if (e.pointerType !== 'mouse') return; const t = e.target.closest('[data-tip]'); if (t) showTip(t, e.clientX, e.clientY); });
-  document.addEventListener('pointermove', (e) => { if (e.pointerType !== 'mouse' || tip.hidden) return; const t = e.target.closest('[data-tip]'); if (t) showTip(t, e.clientX, e.clientY); });
-  document.addEventListener('pointerout', (e) => { if (e.pointerType === 'mouse' && e.target.closest('[data-tip]')) tip.hidden = true; });
-  document.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') tip.hidden = true; }, { passive: true });
-  document.addEventListener('focusin', (e) => { const t = e.target.closest('[data-tip]'); if (t) { const r = t.getBoundingClientRect(); showTip(t, r.left + r.width / 2, r.top + r.height / 2); } });
-  document.addEventListener('focusout', () => { tip.hidden = true; });
-  document.addEventListener('scroll', () => { tip.hidden = true; }, { passive: true });
+  /* Mouse only: touch fires emulated mouse events with no "out", which would leave a tooltip stuck after a tap.
+     The tip also hides whenever its anchor is gone or no longer under the pointer (views re-render under it). */
+  let tipAnchor = null;
+  const hideTip = () => { tip.hidden = true; tipAnchor = null; };
+  document.addEventListener('pointerover', (e) => { if (e.pointerType !== 'mouse') return; const t = e.target.closest('[data-tip]'); if (t) { tipAnchor = t; showTip(t, e.clientX, e.clientY); } });
+  document.addEventListener('pointermove', (e) => {
+    if (tip.hidden) return;
+    const t = e.pointerType === 'mouse' && e.target.closest('[data-tip]');
+    if (!t || !t.isConnected) { hideTip(); return; }
+    tipAnchor = t; showTip(t, e.clientX, e.clientY);
+  });
+  document.addEventListener('pointerout', (e) => { if (e.pointerType === 'mouse' && e.target.closest('[data-tip]') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('[data-tip]'))) hideTip(); });
+  document.addEventListener('pointerdown', hideTip, { passive: true });
+  document.addEventListener('focusin', (e) => { const t = e.target.closest('[data-tip]'); if (t) { tipAnchor = t; const r = t.getBoundingClientRect(); showTip(t, r.left + r.width / 2, r.top + r.height / 2); } });
+  document.addEventListener('focusout', hideTip);
+  document.addEventListener('scroll', hideTip, { passive: true, capture: true });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideTip(); });
+  document.documentElement.addEventListener('mouseleave', hideTip);
+  window.addEventListener('blur', hideTip);
+  window.addEventListener('hashchange', hideTip);
+  document.addEventListener('visibilitychange', hideTip);
+  /* Anything that rewrites the page (a view, a filter, chart/table) removes the anchor without a pointerout */
+  new MutationObserver(() => { if (tipAnchor && !tipAnchor.isConnected) hideTip(); }).observe(document.body, { childList: true, subtree: true });
 
   /* ── router ── */
   const views = {}; let cur = null, curName = null; const root = () => $('#view');

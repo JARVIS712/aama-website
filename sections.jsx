@@ -290,7 +290,7 @@ function Nav({ lang, setLang, t, theme, setTheme }) {
   const links = [
     { href: '#engine', label: t.nav.engine },
     { href: '#ecosystem', label: t.nav.ecosystem },
-    { href: 'explainers/', label: t.nav.explainers },
+    { href: lang === 'en' ? 'explainers/' : `explainers/${lang}/`, label: t.nav.explainers },
     { href: '#deploy', label: t.nav.contact }
   ];
   return (

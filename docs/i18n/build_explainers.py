@@ -21,12 +21,11 @@ ALIAS = {
     'Explainers': 'home:nav.explainers',
     'Chemmani: what the record shows': 'social:img.chemmani',
     'Sri Lanka Budget 2027': 'social:img.budget',
-    'Court finding': 'social:img.grade.court',
-    'News report': 'social:img.grade.news',
-    # Short forms from the social image, used until the Chemmani grade labels are translated:
-    'Official or expert record': 'social:img.grade.record',
-    'Human-rights group': 'social:img.grade.ngo',
-    'Claim or position': 'social:img.grade.claim',
+    'Court finding': 'chemmani:GRADES.court.label',
+    'Official or expert record': 'chemmani:GRADES.record.label',
+    'Human-rights group': 'chemmani:GRADES.ngo.label',
+    'News report': 'chemmani:GRADES.news.label',
+    'Claim or position': 'chemmani:GRADES.claim.label',
 }
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 

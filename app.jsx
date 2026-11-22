@@ -2,7 +2,8 @@
 const { useEffect, useState } = React;
 
 function App() {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState(() => { try { const l = localStorage.getItem('aama-lang'); return ['en', 'ta', 'si'].includes(l) ? l : 'en'; } catch (e) { return 'en'; } });
+  useEffect(() => { try { localStorage.setItem('aama-lang', lang); } catch (e) {} }, [lang]);
   const [theme, setTheme] = useState(() => localStorage.getItem('aama-theme') || 'light');
 
   useEffect(() => {

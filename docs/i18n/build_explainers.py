@@ -43,9 +43,9 @@ missing = []
 
 def T(en, lang):
     """Translation of an English worksheet string (may contain {placeholders})."""
-    if en in SUPPLIED[lang]:
-        return SUPPLIED[lang][en]
     row = byid.get(ALIAS[en]) if en in ALIAS else by_en.get(en)
+    if (not row or not row[COL[lang]].strip()) and en in SUPPLIED[lang]:
+        return SUPPLIED[lang][en]
     val = row[COL[lang]].strip() if row else ''
     if not val:
         missing.append((lang, en))

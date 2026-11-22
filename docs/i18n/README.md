@@ -38,3 +38,7 @@ With a local server on port 8765: `node docs/i18n/extract.mjs`. Rows already tra
 `python3 docs/i18n/build_explainers.py` writes `explainers/ta/index.html` and `explainers/si/index.html` from `explainers/index.html` and the CSV. It stops with a list if any string is missing a translation. Re-run it after editing the English page or the CSV.
 
 Words the worksheet did not carry, supplied by AAMA and awaiting review: Jaffna (யாழ்ப்பாணம் / යාපනය), "Switch to light mode", "Language". Grade tags "Official or expert record", "Human-rights group" and "Claim or position" use the short social-image forms until the Chemmani grade labels are translated.
+
+## Stage 2 file
+
+`aama-translations-stage2.csv` (823 rows): all 630 Chemmani rows to translate first, then the 193 rows already translated (Explainers page, months, home page, social post) so they can be revised. Rows marked `review` hold suggestions or first-pass translations to check. Upload it back as is; changed cells replace the current text.

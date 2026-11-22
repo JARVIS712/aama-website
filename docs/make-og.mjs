@@ -39,7 +39,12 @@ const cards = {
     <div class="brand"><img src="${logo}" alt="AAMA"></div>
     <div class="eyebrow">Jaffna · 1996 to 2026 · 36 sources</div>
     <h1>Chemmani: what the record shows.</h1>
-    <div class="sub">Every figure and finding with its source and an evidence grade. Where sources disagree, both are shown.</div></div><div class="url">aama.lk/chemmani</div>`
+    <div class="sub">Every figure and finding with its source and an evidence grade. Where sources disagree, both are shown.</div></div><div class="url">aama.lk/chemmani</div>`,
+  [path.join(root, 'explainers', 'og.png')]: `${base}<div class="wrap">
+    <div class="brand"><img src="${logo}" alt="AAMA"></div>
+    <div class="eyebrow">Explainers · Budget 2027 · Chemmani</div>
+    <h1>Public issues, worked through from the documents.</h1>
+    <div class="sub" style="max-width:780px">Every figure links to the page it came from. Where sources disagree, you see both.</div></div><div class="url">aama.lk/explainers</div>`
 };
 
 const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });

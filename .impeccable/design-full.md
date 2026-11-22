@@ -28,6 +28,7 @@ colors:
   ramp-1: "#E6F1ED"
   ramp-3: "#A4D2C5"
   ramp-5: "#478F82"
+  ramp-6: "#2D6B62"
   ramp-7: "#1A3A39"
 typography:
   display:
@@ -93,6 +94,7 @@ typography:
     lineHeight: 1.32
 rounded:
   bar: "4px"
+  chip: "8px"
   field: "10px"
   row: "12px"
   tile: "14px"
@@ -158,7 +160,7 @@ components:
     rounded: "{rounded.pill}"
     padding: "5px 9px"
   grade-record:
-    backgroundColor: "{colors.ramp-5}"
+    backgroundColor: "{colors.ramp-6}"
     textColor: "#FFFFFF"
     rounded: "{rounded.pill}"
     padding: "5px 9px"
@@ -175,7 +177,7 @@ components:
   source-chip:
     backgroundColor: "{colors.paper-soft}"
     textColor: "{colors.ink-soft}"
-    rounded: "8px"
+    rounded: "{rounded.chip}"
     padding: "5px 10px"
 ---
 
@@ -223,7 +225,7 @@ Paper and ink first; two brand colours used sparingly; a validated data palette 
 
 ### Data
 - **Categorical slots** (fixed order): Data Blue (#2A78D6), Data Orange (#EB6834), Data Green (#1BAF7A), Data Amber (#EDA100), Data Pink (#E87BA4), Data Leaf (#008300), Data Violet (#6250D6), Data Red (#E34948); Data Neutral (#7D7A72) for "other". Each has a dark-mode twin in the stylesheet.
-- **Sequential ramp** (Lagoon Mint to Palmyra Ink, 7 steps, Ramp 1 #E6F1ED to Ramp 7 #1A3A39): choropleth maps and ordinal scales such as the evidence grades. Text on steps 5 to 7 is white; on 1 to 4 it is ink.
+- **Sequential ramp** (Lagoon Mint to Palmyra Ink, 7 steps, Ramp 1 #E6F1ED to Ramp 7 #1A3A39): choropleth maps and ordinal scales such as the evidence grades. Text on steps 5 to 7 is white; on 1 to 4 it is ink. Grade tags use steps 1, 3, 6 and 7 so white text on the record grade passes 4.5:1.
 
 ### Named Rules
 **The Paper-and-Ink Rule.** The page is paper, text is ink. Brand colour is a margin mark, never a wash: no full-bleed green or mint sections.
@@ -317,7 +319,7 @@ A Sheet Strong pill track (3px padding) holding pill buttons; the selected one b
 - **Bottom tab bar:** a floating pill of text tabs; the current tab is an Ink pill with Paper text, led by the "A" mark. It shrinks to the "A" mark, the current tab name and a three-dot grip while the page scrolls, and opens again on tap, hover or keyboard.
 
 ### Evidence grade tag (signature)
-A small mono uppercase pill that says what kind of source a statement rests on. Filled steps of the mint-to-ink ramp for record types (Court finding darkest, News lightest); a dashed outline for Claim, AAMA reading (orange dash) and Not established.
+A small mono uppercase pill (11px minimum) that says what kind of source a statement rests on. Filled steps of the mint-to-ink ramp for record types (Court finding darkest, News lightest); a dashed outline for Claim, AAMA reading (orange dash) and Not established.
 
 ### Citation chip (signature)
 A small Paper Soft button with a hairline border naming the source and the page ("Excavation report · §8, p. 8"). Opens a side panel (bottom sheet on phones) with the document, what was read, the original link and everything else that source supports.

@@ -7,7 +7,7 @@ const { useState, useEffect, useRef } = React;
 // for native-speaker review before this ships to real clients.
 const i18n = {
   en: {
-    nav: { engine: 'The Engine', ecosystem: 'Ecosystem', budget: 'Budget 2027', contact: 'Deploy' },
+    nav: { engine: 'The Engine', ecosystem: 'Ecosystem', explainers: 'Explainers', contact: 'Deploy' },
     hero: {
       eyebrow: 'AAMA / SRI LANKA / EST. 2026',
       h1a: 'Decoding Politics.',
@@ -95,7 +95,7 @@ const i18n = {
     }
   },
   ta: {
-    nav: { engine: 'எஞ்சின்', ecosystem: 'சூழமைவு', budget: 'வரவு செலவு 2027', contact: 'அனுப்பு' },
+    nav: { engine: 'எஞ்சின்', ecosystem: 'சூழமைவு', explainers: 'விளக்கங்கள்', contact: 'அனுப்பு' },
     hero: {
       eyebrow: 'AAMA / இலங்கை / 2024',
       h1a: 'அரசியலை விளக்குகிறோம்.',
@@ -183,7 +183,7 @@ const i18n = {
     }
   },
   si: {
-    nav: { engine: 'එන්ජිම', ecosystem: 'පරිසරය', budget: 'අයවැය 2027', contact: 'යෙදවීම' },
+    nav: { engine: 'එන්ජිම', ecosystem: 'පරිසරය', explainers: 'පැහැදිලි කිරීම්', contact: 'යෙදවීම' },
     hero: {
       eyebrow: 'AAMA / ශ්‍රී ලංකාව / 2024',
       h1a: 'දේශපාලනය විකේතනය කරමින්.',
@@ -290,7 +290,7 @@ function Nav({ lang, setLang, t, theme, setTheme }) {
   const links = [
     { href: '#engine', label: t.nav.engine },
     { href: '#ecosystem', label: t.nav.ecosystem },
-    { href: 'budget-2027/', label: t.nav.budget },
+    { href: 'explainers/', label: t.nav.explainers },
     { href: '#deploy', label: t.nav.contact }
   ];
   return (

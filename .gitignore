@@ -5,4 +5,5 @@ node_modules
 .impeccable/*
 !.impeccable/design.json
 !.impeccable/design-full.md
+!.impeccable/config.json
 .claude/settings.local.json

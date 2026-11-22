@@ -1,0 +1,74 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-22T04:43:06.256Z",
+        "reason": "Inter is AAMA's recorded body font in DESIGN.md"
+      },
+      {
+        "rule": "overused-font",
+        "value": "fraunces",
+        "createdAt": "2026-11-22T04:43:06.263Z",
+        "reason": "Fraunces is AAMA's recorded display font in DESIGN.md"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "explainers/index.html"
+        ],
+        "createdAt": "2026-11-22T04:43:11.189Z",
+        "reason": "Paper #F4F1EC is AAMA's recorded page colour in DESIGN.md"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "budget-2027/index.html"
+        ],
+        "createdAt": "2026-11-22T04:46:41.766Z",
+        "reason": "Paper #F4F1EC is AAMA's recorded page colour in DESIGN.md"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "chemmani/index.html"
+        ],
+        "createdAt": "2026-11-22T04:46:41.774Z",
+        "reason": "Paper #F4F1EC is AAMA's recorded page colour in DESIGN.md"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "explainers/index.html"
+        ],
+        "createdAt": "2026-11-22T04:46:41.783Z",
+        "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "budget-2027/index.html"
+        ],
+        "createdAt": "2026-11-22T04:46:41.792Z",
+        "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "chemmani/index.html"
+        ],
+        "createdAt": "2026-11-22T04:46:41.800Z",
+        "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
+      }
+    ]
+  }
+}

@@ -28,6 +28,7 @@ colors:
   ramp-1: "#E6F1ED"
   ramp-3: "#A4D2C5"
   ramp-5: "#478F82"
+  ramp-6: "#2D6B62"
   ramp-7: "#1A3A39"
 typography:
   display:
@@ -93,6 +94,7 @@ typography:
     lineHeight: 1.32
 rounded:
   bar: "4px"
+  chip: "8px"
   field: "10px"
   row: "12px"
   tile: "14px"
@@ -158,7 +160,7 @@ components:
     rounded: "{rounded.pill}"
     padding: "5px 9px"
   grade-record:
-    backgroundColor: "{colors.ramp-5}"
+    backgroundColor: "{colors.ramp-6}"
     textColor: "#FFFFFF"
     rounded: "{rounded.pill}"
     padding: "5px 9px"
@@ -175,7 +177,7 @@ components:
   source-chip:
     backgroundColor: "{colors.paper-soft}"
     textColor: "{colors.ink-soft}"
-    rounded: "8px"
+    rounded: "{rounded.chip}"
     padding: "5px 10px"
 ---
 
@@ -186,7 +188,7 @@ Name: AAMA
 Colors: primary: palmyra-ink #1A3A39; secondary: lagoon-mint #A4D2C5; neutral: paper #F4F1EC; data: data-blue #2A78D6; neutral: paper-soft #FAF8F4; neutral: sheet #FFFFFF (+21 more in the sidecar)
 Fonts: Fraunces (display, display-mega, headline, title); Inter (body, body-lg, figure, label); JetBrains Mono (mono); Noto Sans Tamil (tamil); Noto Serif Tamil (tamil-display); Noto Sans Sinhala (sinhala); Noto Serif Sinhala (sinhala-display)
 Spacing: gutter-mobile 16px, gutter 32px, gutter-wide 48px, card-mobile 18px, card 24px, section 48px, container 1280px
-Radius: bar 4px, field 10px, row 12px, tile 14px, card 18px, panel 22px, pill 9999px
+Radius: bar 4px, chip 8px, field 10px, row 12px, tile 14px, card 18px, panel 22px, pill 9999px
 North Star: "The Annotated Record"
 Rules:
 - The Paper-and-Ink Rule. The page is paper, text is ink.

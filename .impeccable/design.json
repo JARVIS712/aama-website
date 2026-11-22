@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-22T04:31:26+00:00",
+  "generatedAt": "2026-11-22T04:45:35+00:00",
   "title": "Design System: AAMA",
   "extensions": {
     "colorMeta": {
@@ -435,6 +435,22 @@
           "#C6DCDC",
           "#F0F5F5"
         ]
+      },
+      "ramp-6": {
+        "role": "data",
+        "displayName": "Ramp 6",
+        "canonical": "#2D6B62",
+        "dark": "#82C1B3",
+        "tonalRamp": [
+          "#1E2E2B",
+          "#32534D",
+          "#437A70",
+          "#52A394",
+          "#77B6AB",
+          "#9EC7BF",
+          "#C7DBD7",
+          "#F0F4F4"
+        ]
       }
     },
     "typographyMeta": {
@@ -617,7 +633,7 @@
       "refersTo": "grade-court",
       "description": "Signature: what kind of source a statement rests on.",
       "html": "<div class=\"ds-grades\"><span class=\"ds-gr ds-court\">Court finding</span><span class=\"ds-gr ds-record\">Official or expert record</span><span class=\"ds-gr ds-ngo\">Human-rights group</span><span class=\"ds-gr ds-news\">News report</span><span class=\"ds-gr ds-claim\">Claim or position</span><span class=\"ds-gr ds-an\">AAMA reading</span></div>",
-      "css": ".ds-grades{display:flex;flex-wrap:wrap;gap:6px}.ds-gr{display:inline-flex;font:600 10.5px/1 \"JetBrains Mono\",monospace;letter-spacing:.05em;text-transform:uppercase;padding:5px 9px;border-radius:9999px;border:1px solid transparent}.ds-court{background:#1A3A39;color:#fff}.ds-record{background:#478F82;color:#fff}.ds-ngo{background:#A4D2C5;color:#0F0F0E}.ds-news{background:#E6F1ED;color:#0F0F0E;border-color:#DCD7CC}.ds-claim{color:#2A2A28;border:1px dashed #BFB8A9}.ds-an{color:#2A2A28;border:1px dashed #EB6834}"
+      "css": ".ds-grades{display:flex;flex-wrap:wrap;gap:6px}.ds-gr{display:inline-flex;font:600 11px/1 \"JetBrains Mono\",monospace;letter-spacing:.05em;text-transform:uppercase;padding:5px 9px;border-radius:9999px;border:1px solid transparent}.ds-court{background:#1A3A39;color:#fff}.ds-record{background:#2D6B62;color:#fff}.ds-ngo{background:#A4D2C5;color:#0F0F0E}.ds-news{background:#E6F1ED;color:#0F0F0E;border-color:#DCD7CC}.ds-claim{color:#2A2A28;border:1px dashed #BFB8A9}.ds-an{color:#2A2A28;border:1px dashed #EB6834}"
     },
     {
       "name": "Citation Chip",

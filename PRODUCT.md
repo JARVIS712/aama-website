@@ -40,7 +40,7 @@ A Sri Lankan political-data company that works natively in Tamil, Sinhala and En
 - Deployed directly to Vercel (production: www.aama.lk; aama.lk redirects to it). `docs/` and `.claude/` are not deployed.
 - Main site is trilingual (en, ta, si). Some ta/si blocks are first-pass machine translations awaiting native-speaker review. Explainers are English only so far.
 - Explainer terminology: evidence grades are Court finding, Official or expert record, Human-rights group, News report, Claim or position; plus "AAMA reading" for AAMA's own arithmetic or observations and "Not established" for open questions. The Budget explorer separates "From the speech" from "AAMA analysis".
-- Open: the founding year. The English home page says "EST. 2026"; the Tamil version says 2024. Do not state either until confirmed.
+- Founding year: all three language versions of the home page now say 2026 ("EST. 2026"; the Tamil and Sinhala lines were revised by the user's translator in November 2026). Earlier the Tamil said 2024.
 
 ## Brand Commitments
 

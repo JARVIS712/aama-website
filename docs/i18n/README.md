@@ -46,3 +46,7 @@ Words the worksheet did not carry, supplied by AAMA and awaiting review: Jaffna 
 ## Stage 3 (final) file
 
 `aama-translations-stage3-final.csv` (2,956 rows, about 19,900 words): everything not yet translated, in this order: Chemmani data (timeline, sources, report, disputes, counts), the four home sub-pages, then Budget 2027. Each English text appears once; where it occurs in several places, the notes say how many, and your translation is applied to all of them on import. Rows marked `review (reused)` are filled from a translation you already gave elsewhere.
+
+## Building the Chemmani explainer in Tamil and Sinhala
+
+`node docs/i18n/build_chemmani.mjs` writes `chemmani/data/i18n/ch.ta.js` and `ch.si.js` (the data, translated by row id, plus the interface map) and the page shells `chemmani/ta/index.html` and `chemmani/si/index.html`. `chemmani/js/i18n.js` translates the interface text after each render. Where a translation puts repeated placeholders in a different order from the English, the `ORDER` table in the build script says which value goes where; check it when those rows change. Sinhala dates are written year first, as in the translated data.

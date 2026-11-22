@@ -129,3 +129,26 @@
 /* closed drawer is fully hidden (not just off-screen), so it never shows or takes focus */
 .drawer:not(.open) { visibility: hidden; transition: transform .26s cubic-bezier(.2,.8,.2,1), visibility 0s linear .26s; }
 .stat .src { font-size: 11px; padding: 4px 8px; }
+
+/* Tamil and Sinhala (DESIGN.md: The Script-Native Rule). Labels drop uppercase and tracking: neither script has capitals. */
+:root[lang="ta"] body { font-family: 'Noto Sans Tamil', var(--font-body); }
+:root[lang="si"] body { font-family: 'Noto Sans Sinhala', var(--font-body); }
+:root[lang="ta"] .display, :root[lang="ta"] .state h3, :root[lang="ta"] .qt, :root[lang="ta"] .tl-yl, :root[lang="ta"] .rd h3, :root[lang="ta"] .dp h3 { font-family: 'Noto Serif Tamil', var(--font-display); letter-spacing: -.005em; line-height: 1.3; }
+:root[lang="si"] .display, :root[lang="si"] .state h3, :root[lang="si"] .qt, :root[lang="si"] .tl-yl, :root[lang="si"] .rd h3, :root[lang="si"] .dp h3 { font-family: 'Noto Serif Sinhala', var(--font-display); letter-spacing: -.005em; line-height: 1.4; }
+:root[lang="ta"] .display-xl, :root[lang="si"] .display-xl { font-size: clamp(30px, 4.4vw, 52px); }
+:root[lang="ta"] .display-lg, :root[lang="si"] .display-lg { font-size: clamp(24px, 3.2vw, 38px); }
+:root[lang="ta"] .gr, :root[lang="ta"] .tag, :root[lang="ta"] .eyebrow, :root[lang="ta"] h3.mini, :root[lang="ta"] h4.mini, :root[lang="ta"] .src .k, :root[lang="ta"] .bandl, :root[lang="ta"] .dt thead th, :root[lang="ta"] .et { font-family: 'Noto Sans Tamil', var(--font-body); text-transform: none; letter-spacing: 0; }
+:root[lang="si"] .gr, :root[lang="si"] .tag, :root[lang="si"] .eyebrow, :root[lang="si"] h3.mini, :root[lang="si"] h4.mini, :root[lang="si"] .src .k, :root[lang="si"] .bandl, :root[lang="si"] .dt thead th, :root[lang="si"] .et { font-family: 'Noto Sans Sinhala', var(--font-body); text-transform: none; letter-spacing: 0; }
+:root[lang="ta"] .gr, :root[lang="si"] .gr { font-size: 12.5px; font-weight: 600; }
+:root[lang="ta"] .eyebrow, :root[lang="si"] .eyebrow, :root[lang="ta"] h3.mini, :root[lang="si"] h3.mini { font-size: 13px; }
+:root[lang="ta"] .ev-h .mono, :root[lang="ta"] .srclist .sd, :root[lang="ta"] .e-date { font-family: 'Noto Sans Tamil', var(--font-body); }
+:root[lang="si"] .ev-h .mono, :root[lang="si"] .srclist .sd, :root[lang="si"] .e-date { font-family: 'Noto Sans Sinhala', var(--font-body); }
+:root[lang="ta"] .lede, :root[lang="ta"] .ev-t, :root[lang="ta"] .state ul, :root[lang="ta"] .say p, :root[lang="ta"] .notes li, :root[lang="ta"] .rd-c p, :root[lang="ta"] .dp > p, :root[lang="ta"] .unk p, :root[lang="ta"] .cnote { line-height: 1.75; }
+:root[lang="si"] .lede, :root[lang="si"] .ev-t, :root[lang="si"] .state ul, :root[lang="si"] .say p, :root[lang="si"] .notes li, :root[lang="si"] .rd-c p, :root[lang="si"] .dp > p, :root[lang="si"] .unk p, :root[lang="si"] .cnote { line-height: 1.8; }
+:root[lang="ta"] .tabs a, :root[lang="ta"] .dock-mini { font-family: 'Noto Sans Tamil', var(--font-body); }
+:root[lang="si"] .tabs a, :root[lang="si"] .dock-mini { font-family: 'Noto Sans Sinhala', var(--font-body); }
+:root[lang="ta"] .chart text, :root[lang="si"] .chart text { font-family: var(--font-body); }
+/* Long Tamil and Sinhala grade names wrap instead of widening their card */
+:root[lang="ta"] .gr, :root[lang="si"] .gr { white-space: normal; max-width: 100%; line-height: 1.35; }
+:root[lang="ta"] .rd-c .who, :root[lang="si"] .rd-c .who { flex-wrap: wrap; }
+.key, .rd-c, .state { min-width: 0; }

@@ -89,18 +89,7 @@ body { caret-color: var(--forest); }
 .foot .container { max-width: calc(1120px + 64px); }
 @media (max-width: 900px) { .foot .container { max-width: calc(1120px + 32px); } }
 
-/* Language switch and script-native type (DESIGN.md: The Script-Native Rule) */
-.lang { display: inline-flex; padding: 3px; border-radius: 9999px; background: var(--surface-strong); gap: 2px; }
-.lang a { display: inline-flex; align-items: center; min-height: 32px; padding: 0 11px; border-radius: 9999px; font: 500 12.5px var(--font-body); color: var(--ink-soft); text-decoration: none; white-space: nowrap; }
-.lang a[lang="en"] { font: 600 11.5px var(--font-mono); letter-spacing: .04em; }
-.lang a[lang="ta"] { font-family: 'Noto Sans Tamil', var(--font-body); }
-.lang a[lang="si"] { font-family: 'Noto Sans Sinhala', var(--font-body); }
-.lang a:hover { color: var(--ink); }
-.lang a[aria-current="page"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
-.lang a:focus-visible { outline: 2px solid var(--c1); outline-offset: 1px; }
-@media (max-width: 480px) { .lang a { padding: 0 8px; } }
-@media (pointer: coarse) { .lang a { min-height: 36px; } }
-
+/* Script-native type (DESIGN.md: The Script-Native Rule); the language switch itself is in budget.css */
 :root[lang="ta"] body, :root[lang="ta"] .ex-sec .col > p, :root[lang="ta"] .ex-def { font-family: 'Noto Sans Tamil', var(--font-body); }
 :root[lang="si"] body, :root[lang="si"] .ex-sec .col > p, :root[lang="si"] .ex-def { font-family: 'Noto Sans Sinhala', var(--font-body); }
 :root[lang="ta"] .ex-head h1, :root[lang="ta"] .ex-sec > h2, :root[lang="ta"] .e-title { font-family: 'Noto Serif Tamil', var(--font-display); letter-spacing: -.005em; }
@@ -123,4 +112,3 @@ body { caret-color: var(--forest); }
 :root[lang="ta"] .ex-head, :root[lang="si"] .ex-head { grid-template-columns: minmax(0, 1fr); gap: 18px; align-items: start; }
 :root[lang="ta"] .ex-def, :root[lang="si"] .ex-def { max-width: 72ch; }
 /* Phones: the language switch takes the breadcrumb's place; the page heading names the page */
-@media (max-width: 480px) { .nav:has(.lang) > .nav-sep, .nav:has(.lang) > .nav-title { display: none; } .nav:has(.lang) .nav-r { margin-left: auto; } }

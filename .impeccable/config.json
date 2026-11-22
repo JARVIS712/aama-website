@@ -212,6 +212,42 @@
         ],
         "createdAt": "2026-11-22T14:09:33.363Z",
         "reason": "Sinhala social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Sinhala faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "chemmani/ta/index.html"
+        ],
+        "createdAt": "2026-11-22T15:23:39.654Z",
+        "reason": "Paper #F4F1EC is AAMA's recorded page colour in DESIGN.md"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "chemmani/ta/index.html"
+        ],
+        "createdAt": "2026-11-22T15:23:39.663Z",
+        "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "chemmani/si/index.html"
+        ],
+        "createdAt": "2026-11-22T15:23:39.672Z",
+        "reason": "Paper #F4F1EC is AAMA's recorded page colour in DESIGN.md"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "chemmani/si/index.html"
+        ],
+        "createdAt": "2026-11-22T15:23:39.682Z",
+        "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
       }
     ]
   }

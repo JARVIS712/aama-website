@@ -72,6 +72,8 @@ def date(d, lang):
     day, mon, yr = m.groups()
     i = [x[:3] for x in MONTHS].index(mon)
     name = byid[f'common:month.{i + 1}'][COL[lang]].strip() or MONTHS[i]
+    if lang == 'si':  # Sinhala dates read year, month, day (as in the translated Chemmani dates)
+        return f'{yr} {name} {day}' if day else f'{yr} {name}'
     return f'{day} {name} {yr}' if day else f'{name} {yr}'
 
 

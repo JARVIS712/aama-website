@@ -31,6 +31,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.aama.lk/chemmani/ta/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.aama.lk/chemmani/si/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.aama.lk/Predictive%20Analytics.html</loc>
     <lastmod>2026-09-14</lastmod>
     <priority>0.7</priority>

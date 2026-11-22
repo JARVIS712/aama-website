@@ -4,8 +4,10 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const fdate = (d) => { const [y, m, dd] = String(d).split('-'); if (!m) return y; if (!dd) return `${MON[+m - 1]} ${y}`; return `${+dd} ${MON[+m - 1]} ${y}`; };
+  // Month names follow the page language when a translation file (CH_I18N) is loaded
+  const MON = (window.CH_I18N && window.CH_I18N.months) || ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const YEAR_FIRST = !!(window.CH_I18N && window.CH_I18N.lang === 'si');   // Sinhala dates read year, month, day
+  const fdate = (d) => { const [y, m, dd] = String(d).split('-'); if (!m) return y; if (!dd) return YEAR_FIRST ? `${y} ${MON[+m - 1]}` : `${MON[+m - 1]} ${y}`; return YEAR_FIRST ? `${y} ${MON[+m - 1]} ${+dd}` : `${+dd} ${MON[+m - 1]} ${y}`; };
 
   /* ── citations ── */
   const SHORT = { rep: 'Excavation report', sc: 'Supreme Court', itjp: 'ITJP 2023', hrc: 'HRCSL report', hrcpn: 'HRCSL press notice' };
@@ -173,7 +175,7 @@
       const x = (d) => { const [y, m, dd] = d.split('-').map(Number); return L + (Date.UTC(y, m - 1, dd) - t0) / (t1 - t0) * (W - L - R); };
       const y = (v) => T + (1 - v / 700) * (H - T - B);
       const grid = [0, 100, 200, 300, 400, 500, 600, 700].map((v) => `<line class="gl" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`).join('');
-      const ticks = ['2025-05-01', '2025-08-01', '2025-11-01', '2026-02-01', '2026-05-01', '2026-08-01', '2026-11-01'].map((d) => `<text x="${x(d)}" y="${H - B + 18}" text-anchor="middle">${MON[+d.slice(5, 7) - 1]} ${d.slice(2, 4)}</text>`).join('');
+      const ticks = ['2025-05-01', '2025-08-01', '2025-11-01', '2026-02-01', '2026-05-01', '2026-08-01', '2026-11-01'].map((d) => `<text x="${x(d)}" y="${H - B + 18}" text-anchor="middle">${window.CH_I18N ? fdate(d.slice(0, 7)) : MON[+d.slice(5, 7) - 1] + ' ' + d.slice(2, 4)}</text>`).join('');
       // pauses in digging, from the timeline
       const pauses = [['2025-09-06', '2026-04-27', 'No digging'], ['2026-08-19', '2026-11-15', 'Digging ended']].map(([a, b, l]) => `<rect class="band" x="${x(a)}" y="${T}" width="${x(b) - x(a)}" height="${H - T - B}" opacity=".55"/><text class="bandl" x="${(x(a) + x(b)) / 2}" y="${H - B - 10}" text-anchor="middle">${l}</text>`).join('');
       // Solid while digging; dashed across the pause (count held at 240) and the unrecorded weeks after the restart
@@ -193,7 +195,7 @@
         return `<g class="pt" data-tip="${esc(tipTxt)}" tabindex="0" role="img" aria-label="${esc(tipTxt.replace(/\|/g, '. '))}"><circle class="hit" cx="${cx}" cy="${cy}" r="14"/>${shape}<text class="val" x="${cx + o[0]}" y="${cy + o[1]}" text-anchor="${o[2]}">${c.m === 'over' ? '>' : ''}${c.v}</text></g>`;
       };
       return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="group" aria-label="Reported number of remains, May 2025 to November 2026">${pauses}${grid}<line class="ax" x1="${L}" x2="${W - R}" y1="${y(0)}" y2="${y(0)}"/>${ticks}${line}${C.COUNTS.map(mark).join('')}</svg>
-        <ul class="mk-legend"><li><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="var(--c1)"/></svg>Sets identified (news)</li><li><svg width="14" height="14"><path d="M7,1 L13,12 L1,12 Z" fill="var(--c3)"/></svg>“Over” (HRCSL)</li><li><svg width="14" height="14"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="var(--c2)"/></svg>Minimum number of individuals (report)</li><li><svg width="14" height="14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="var(--ink-soft)" stroke-width="1.6" stroke-dasharray="2 2"/></svg>Figure given by a lawyer</li></ul>`;
+        <ul class="mk-legend"><li><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="var(--c1)"/></svg>Sets identified (news)</li><li><svg width="14" height="14"><path d="M7,1 L13,12 L1,12 Z" fill="var(--c3)"/></svg>“Over” (HRCSL)</li><li><svg width="14" height="14"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="var(--c2)"/></svg>${esc(C.MEASURES.mni)}</li><li><svg width="14" height="14"><circle cx="7" cy="7" r="5.5" fill="none" stroke="var(--ink-soft)" stroke-width="1.6" stroke-dasharray="2 2"/></svg>${esc(C.MEASURES.claim)}</li></ul>`;
     }
     function table() {
       return `<div class="tscroll"><table class="dt"><caption class="sr">Reported number of remains by date</caption><thead><tr><th scope="col">Date</th><th scope="col" class="num">Figure</th><th scope="col">Measure</th><th scope="col">Grade</th><th scope="col">Source</th></tr></thead><tbody>${C.COUNTS.map((c) => `<tr><th scope="row">${esc(c.dl)}</th><td class="num">${c.m === 'over' ? '>' : ''}${c.v}${c.v2 ? ` <span class="muted">(${c.v2} recovered)</span>` : ''}</td><td>${esc(C.MEASURES[c.m])}${c.note ? `<div class="small muted">${esc(c.note)}</div>` : ''}</td><td>${grade(c.g)}</td><td>${c.s.map(cite).join(' ')}</td></tr>`).join('')}</tbody></table></div>`;

@@ -140,6 +140,78 @@
         ],
         "createdAt": "2026-11-22T05:26:58.083Z",
         "reason": "Tamil social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Tamil faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "explainers/ta/index.html"
+        ],
+        "createdAt": "2026-11-22T14:09:08.686Z",
+        "reason": "Paper #F4F1EC is AAMA's recorded page colour in DESIGN.md"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "explainers/ta/index.html"
+        ],
+        "createdAt": "2026-11-22T14:09:08.694Z",
+        "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "explainers/si/index.html"
+        ],
+        "createdAt": "2026-11-22T14:09:08.701Z",
+        "reason": "Paper #F4F1EC is AAMA's recorded page colour in DESIGN.md"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "explainers/si/index.html"
+        ],
+        "createdAt": "2026-11-22T14:09:08.709Z",
+        "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-si.html"
+        ],
+        "createdAt": "2026-11-22T14:09:33.338Z",
+        "reason": "Sinhala social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Sinhala faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-si.html"
+        ],
+        "createdAt": "2026-11-22T14:09:33.346Z",
+        "reason": "Sinhala social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Sinhala faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-si.html"
+        ],
+        "createdAt": "2026-11-22T14:09:33.355Z",
+        "reason": "Sinhala social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Sinhala faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-si.html"
+        ],
+        "createdAt": "2026-11-22T14:09:33.363Z",
+        "reason": "Sinhala social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Sinhala faces are in DESIGN.md; paper is the brand colour"
       }
     ]
   }

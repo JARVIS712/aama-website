@@ -11,6 +11,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.aama.lk/explainers/ta/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.aama.lk/explainers/si/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.aama.lk/budget-2027/</loc>
     <lastmod>2026-11-14</lastmod>
     <priority>0.9</priority>

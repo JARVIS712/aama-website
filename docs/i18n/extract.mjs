@@ -10,6 +10,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PW || 'playwright');
 const root = process.cwd(); const BASE = 'http://localhost:8765/';
+// STATES=1 also captures Budget text that appears only after a click; OUT=<file> writes somewhere other than the master CSV
+const STATES = !!process.env.STATES, OUT = process.env.OUT || 'docs/i18n/aama-translations.csv';
 const rows = []; const seen = new Set();
 const add = (r) => { const k = r.id; if (seen.has(k)) return; seen.add(k); rows.push({ tamil: '', sinhala: '', status: 'new', notes: '', ...r }); };
 const hash = (s) => crypto.createHash('sha1').update(s).digest('hex').slice(0, 10);
@@ -122,7 +124,8 @@ const collect = () => {
     const inlineOnly = [...el.childNodes].every((c) => c.nodeType === 3 || (c.nodeType === 1 && getComputedStyle(c).display === 'inline'));
     const prose = [...el.childNodes].some((c) => c.nodeType === 3 && /[A-Za-z]{2,}/.test(c.textContent)) && [...el.childNodes].every((c) => c.nodeType === 3 || (c.nodeType === 1 && /^inline/.test(getComputedStyle(c).display)));
     if (inlineOnly || prose) push(el.textContent, 'visible text');
-    else el.childNodes.forEach((c) => { if (c.nodeType === 3) push(c.textContent, 'visible text'); });
+    // mixed block: its own text, and inline children such as <b>Key facts</b> next to a <p>
+    else el.childNodes.forEach((c) => { if (c.nodeType === 3 || (c.nodeType === 1 && getComputedStyle(c).display === 'inline')) push(c.textContent, 'visible text'); });
   });
   document.querySelectorAll('[aria-label]').forEach((e) => push(e.getAttribute('aria-label'), 'screen-reader label'));
   document.querySelectorAll('[title]').forEach((e) => push(e.getAttribute('title'), 'hover hint'));
@@ -145,6 +148,31 @@ for (const [surface, url, routes] of pages) {
     // Open the first source/initiative panel on the views that have one
     if (surface === 'chemmani' && r === '#/report') { await p.click('.src >> nth=0'); await p.waitForTimeout(300); await grab('source panel'); await p.keyboard.press('Escape'); }
     if (surface === 'budget' && r === '#/initiatives') { const btn = await p.$('[data-act="open"]'); if (btn) { await btn.click(); await p.waitForTimeout(300); await grab('initiative panel'); await p.keyboard.press('Escape'); } }
+    // STATES=1: also click through each Budget view's controls (tabs, toggles, selects, drawers), so text that
+    // only appears after an interaction is captured too
+    if (STATES && surface === 'budget') {
+      const SEL = '#view button, #view select, #view .seg a, #view [role="tab"], #view summary';
+      const n = await p.evaluate((q) => document.querySelectorAll(q).length, SEL);
+      for (let i = 0; i < Math.min(n, 60); i++) {
+        try {
+          const h = (await p.$$(SEL))[i]; if (!h) continue;
+          if (await h.evaluate((e) => e.tagName === 'SELECT')) {
+            for (const o of (await h.evaluate((e) => [...e.options].map((x) => x.value))).slice(1)) { await h.selectOption(o); await p.waitForTimeout(120); await grab(view + ' (after a choice)'); }
+            await h.selectOption({ index: 0 }); continue;
+          }
+          if (!(await h.isVisible())) continue;
+          await h.click({ timeout: 1500 }); await p.waitForTimeout(220); await grab(view + ' (after a click)');
+          if (await p.$('.drawer.open')) { await p.keyboard.press('Escape'); await p.waitForTimeout(150); }
+          if (!p.url().endsWith(r)) { await p.goto(BASE + url + r); await p.waitForTimeout(350); }
+        } catch (e) { }
+      }
+      if (r === '#/initiatives') { await p.fill('#view input', 'zzzzqq'); await p.waitForTimeout(400); await grab('initiatives (no results)'); }
+    }
+  }
+  if (STATES && surface === 'budget') { // the error state, shown if a view fails to draw
+    await p.goto(BASE + url + '#/overview'); await p.waitForTimeout(400);
+    await p.evaluate(() => { window.BX.views.flow.mount = () => { throw new Error('test'); }; location.hash = '#/flow'; }); await p.waitForTimeout(400);
+    for (const [t, where] of await p.evaluate(collect)) { const k = surface + '|' + t; if (!ui.has(k)) ui.set(k, { surface, t, where, view: 'error state' }); }
   }
   await p.close();
 }
@@ -216,6 +244,6 @@ const cols = ['id', 'surface', 'file', 'context', 'english', 'tamil', 'sinhala',
 const q = (v) => { v = String(v ?? ''); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
 const csv = '﻿' + [cols.join(','), ...rows.map((r) => cols.map((c) => q(r[c])).join(','))].join('\r\n') + '\r\n';
 fs.mkdirSync(path.join(root, 'docs/i18n'), { recursive: true });
-fs.writeFileSync(path.join(root, 'docs/i18n/aama-translations.csv'), csv);
+fs.writeFileSync(path.isAbsolute(OUT) ? OUT : path.join(root, OUT), csv);
 const by = {}; rows.forEach((r) => { by[r.surface] = by[r.surface] || { rows: 0, words: 0 }; by[r.surface].rows++; by[r.surface].words += r.english.split(/\s+/).length; });
 console.log(JSON.stringify(by), 'total rows', rows.length);

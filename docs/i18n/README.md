@@ -31,7 +31,7 @@ About 3,850 rows and 24,000 English words. Most of it is the Budget 2027 data (a
 
 ## Regenerating
 
-With a local server on port 8765: `node docs/i18n/extract.mjs`. Rows already translated keep their ids, so a re-run can be merged with your work.
+With a local server on port 8765: `node docs/i18n/extract.mjs`. Rows already translated keep their ids, so a re-run can be merged with your work. The script rewrites the master CSV with empty translation cells, so to look for new strings write elsewhere and compare ids: `STATES=1 OUT=/tmp/new.csv node docs/i18n/extract.mjs`. `STATES=1` also clicks through every Budget view's tabs, filters, charts and panels, and captures the error state, so text that only appears after an interaction is found too.
 
 ## Building the translated pages
 
@@ -49,4 +49,16 @@ Words the worksheet did not carry, supplied by AAMA and awaiting review: Jaffna 
 
 ## Building the Chemmani explainer in Tamil and Sinhala
 
-`node docs/i18n/build_chemmani.mjs` writes `chemmani/data/i18n/ch.ta.js` and `ch.si.js` (the data, translated by row id, plus the interface map) and the page shells `chemmani/ta/index.html` and `chemmani/si/index.html`. `chemmani/js/i18n.js` translates the interface text after each render. Where a translation puts repeated placeholders in a different order from the English, the `ORDER` table in the build script says which value goes where; check it when those rows change. Sinhala dates are written year first, as in the translated data.
+`node docs/i18n/build_chemmani.mjs` writes `chemmani/data/i18n/ch.ta.js` and `ch.si.js` (the data, translated by row id, plus the interface map) and the page shells `chemmani/ta/index.html` and `chemmani/si/index.html`. `assets/i18n/runtime.js` translates the interface text after each render. Where a translation puts repeated placeholders in a different order from the English, the `ORDER` table in the build script says which value goes where; check it when those rows change. Sinhala dates are written year first, as in the translated data.
+
+## Building the Budget 2027 explorer in Tamil and Sinhala
+
+`node docs/i18n/build_budget.mjs` writes `budget-2027/data/i18n/b27.ta.js` and `b27.si.js` and the page shells `budget-2027/ta/index.html` and `budget-2027/si/index.html`. Each data file loads after the English data and sets every translated string onto `B27` by its row id; then `assets/i18n/runtime.js` (shared with Chemmani) translates the interface text after each render.
+
+- District names are the keys the initiatives point to, so they stay English in the data and are swapped as whole words on screen. `TAX[].who` (group ids) and the "Other, non-categorised" cadre row (found by the code) also stay English; none of them is shown as-is.
+- Amounts the app formats use the rupee sign the translations use: ரூ. and රු.
+- Where a translation reorders repeated placeholders, the `ORDER_BOTH` table says which English value goes where. Every template with a repeated placeholder must be listed there or in `IN_ORDER`; the build stops and names any new one.
+
+## Stage 4 file
+
+`aama-translations-stage4.csv` (132 rows, about 780 words): Budget interface text that only appears after a click (the Sectors treemap and panel, the Flow table, map tabs, the laws pipeline, the initiative panel, Land and Markets labels, the Sources table) and the short sector names on charts. Found by `STATES=1` above. Until these are translated they show in English.

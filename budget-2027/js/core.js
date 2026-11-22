@@ -7,11 +7,13 @@
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
   /* ── formatters ── */
+  // Rupee sign: "Rs" in English; the Tamil and Sinhala pages set their own (ரூ. / රු.) in data/i18n/b27.<lang>.js
+  const RS = (window.CH_I18N && window.CH_I18N.rs) || 'Rs ';
   const trim = (n, d) => { const s = n.toFixed(d); return s.includes('.') ? s.replace(/0+$/, '').replace(/\.$/, '') : s; };
   const fmt = {
     rs(m, o = {}) {                                  // m = Rs million
       if (m == null || isNaN(m)) return '—';
-      const a = Math.abs(m), sg = m < 0 ? '−' : '', p = o.plain ? '' : 'Rs ';
+      const a = Math.abs(m), sg = m < 0 ? '−' : '', p = o.plain ? '' : RS;
       if (a >= 1e6) return `${sg}${p}${trim(a / 1e6, 2)}tn`;
       if (a >= 1000) return `${sg}${p}${trim(a / 1000, a >= 100000 ? 0 : a >= 10000 ? 1 : 1)}bn`;
       return `${sg}${p}${trim(a, 1)}M`;

@@ -92,7 +92,7 @@ for (const [lang, col] of Object.entries(LANGS)) {
   const fam = { ta: 'Noto+Sans+Tamil:wght@400;500;600&family=Noto+Serif+Tamil:wght@400;500&family=Noto+Sans+Sinhala:wght@500', si: 'Noto+Sans+Sinhala:wght@400;500;600&family=Noto+Serif+Sinhala:wght@400;500&family=Noto+Sans+Tamil:wght@500' }[lang];
   h = h.replace(/family=Noto\+Sans\+Tamil:wght@500&family=Noto\+Sans\+Sinhala:wght@500&family=Fraunces:/, `family=${fam}&family=Fraunces:`);
   rep('<script src="data/sources.js"></script>\n<script src="data/facts.js"></script>', `<script src="../data/i18n/ch.${lang}.js"></script>`);
-  rep('<script src="js/app.js"></script>', '<script src="../js/i18n.js"></script>\n<script src="../js/app.js"></script>');
+  rep('<script src="js/app.js"></script>', '<script src="../assets/i18n/runtime.js"></script>\n<script src="../js/app.js"></script>');
   // language switch: current page is this language
   h = h.replace(/<div class="lang"([^>]*)>[\s\S]*?<\/div>/, `<div class="lang"$1>\n      <a href="../" lang="en" hreflang="en">EN</a>${lang === 'ta' ? '<a href="./" lang="ta" aria-current="page">தமிழ்</a><a href="../si/" lang="si" hreflang="si">සිංහල</a>' : '<a href="../ta/" lang="ta" hreflang="ta">தமிழ்</a><a href="./" lang="si" aria-current="page">සිංහල</a>'}\n    </div>`);
   h = h.replace('href="../explainers/"', `href="../explainers/${lang}/"`);

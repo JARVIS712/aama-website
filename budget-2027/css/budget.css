@@ -298,3 +298,24 @@ button.hrow:hover { background: var(--surface-strong); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 @media (forced-colors: active) { .tm, .sg, .tile, .hb, .dvb { border: 1px solid CanvasText; } }
 @media print { .nav, .dock, .drawer, .scrim { display: none !important; } .top-pad { padding-top: 0; } }
+
+/* Tamil and Sinhala (DESIGN.md: The Script-Native Rule). Script faces come first; labels drop uppercase
+   and tracking, since neither script has capitals. Chemmani layers its own rules on top of these. */
+:root[lang="ta"] { --font-body: 'Noto Sans Tamil', 'Inter', system-ui, sans-serif; --font-display: 'Noto Serif Tamil', 'Fraunces', serif; --font-mono: 'JetBrains Mono', 'Noto Sans Tamil', ui-monospace, monospace; }
+:root[lang="si"] { --font-body: 'Noto Sans Sinhala', 'Inter', system-ui, sans-serif; --font-display: 'Noto Serif Sinhala', 'Fraunces', serif; --font-mono: 'JetBrains Mono', 'Noto Sans Sinhala', ui-monospace, monospace; }
+:root[lang="ta"] body { line-height: 1.7; } :root[lang="si"] body { line-height: 1.75; }
+:root[lang="ta"] .display, :root[lang="si"] .display { font-weight: 400; letter-spacing: -.005em; line-height: 1.3; }
+:root[lang="ta"] .tag, :root[lang="si"] .tag, :root[lang="ta"] .eyebrow, :root[lang="si"] .eyebrow, :root[lang="ta"] h3.mini, :root[lang="si"] h3.mini, :root[lang="ta"] h4.mini, :root[lang="si"] h4.mini,
+:root[lang="ta"] .dt thead th, :root[lang="si"] .dt thead th, :root[lang="ta"] .rhead, :root[lang="si"] .rhead, :root[lang="ta"] .note b, :root[lang="si"] .note b,
+:root[lang="ta"] .et, :root[lang="si"] .et, :root[lang="ta"] .wr b, :root[lang="si"] .wr b { text-transform: none; letter-spacing: 0; }
+:root[lang="ta"] .tag, :root[lang="si"] .tag { font-family: var(--font-body); line-height: 1.25; white-space: normal; max-width: 100%; }
+/* Tamil and Sinhala glyphs run larger than Fraunces at the same size: step the display sizes down */
+:root[lang="ta"] .display-xl, :root[lang="si"] .display-xl { font-size: clamp(28px, 3.6vw, 44px); letter-spacing: 0; }
+:root[lang="ta"] .display-lg, :root[lang="si"] .display-lg { font-size: clamp(24px, 3vw, 36px); }
+:root[lang="ta"] .display-md, :root[lang="si"] .display-md { font-size: clamp(19px, 2.2vw, 25px); }
+:root[lang="ta"] .eyebrow.mono, :root[lang="si"] .eyebrow.mono { font-family: var(--font-body); }
+/* Long single words (போக்குவரத்து) must break inside narrow treemap tiles rather than push past the page edge */
+:root[lang="ta"] .tm .n, :root[lang="si"] .tm .n { font-size: 12.5px; max-width: 100%; overflow-wrap: anywhere; }
+:root[lang="ta"] .tm, :root[lang="si"] .tm { overflow: hidden; }
+:root[lang="ta"] .ask li, :root[lang="si"] .ask li { grid-template-columns: 92px minmax(0, 1fr); }
+:root[lang="ta"] .ak, :root[lang="si"] .ak { font: 600 11.5px/1.3 var(--font-body); text-transform: none; letter-spacing: 0; overflow-wrap: anywhere; }

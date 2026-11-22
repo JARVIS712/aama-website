@@ -1,8 +1,10 @@
-/* Interface translation for the Chemmani explainer (and any page that loads a CH_I18N map).
-   The data (timeline, sources, report, disputes) arrives already translated in data/i18n/ch.<lang>.js;
+/* Interface translation for the explainers (Chemmani, Budget 2027): any page that loads a CH_I18N map.
+   The data arrives already translated (chemmani/data/i18n/ch.<lang>.js, budget-2027/data/i18n/b27.<lang>.js);
    this layer translates the interface text the app writes around it: labels, headings, tooltips,
    screen-reader labels and the page title. It runs after every render.
-   Map: window.CH_I18N = { lang, months, exact: { english: translation }, templates: [[english, translation], ...] } */
+   Map: window.CH_I18N = { lang, months, exact: { english: translation }, templates: [[english, translation], ...],
+                           words: { english: translation } }  words: names the data uses as keys (e.g. districts),
+   replaced as whole words wherever they are still in English after the pass. */
 (function () {
   var I = window.CH_I18N; if (!I) return;
   var norm = function (s) { return String(s == null ? '' : s).replace(/\s+/g, ' ').trim(); };
@@ -25,6 +27,8 @@
     MRX.lastIndex = 0;
     return v.replace(MRX, monthName);
   }
+  var W = I.words && Object.keys(I.words).length ? new RegExp('\\b(' + Object.keys(I.words).sort(function (a, b) { return b.length - a.length; }).map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|') + ')\\b', 'g') : null;
+  function words(v) { return W ? v.replace(W, function (w) { return I.words[w]; }) : v; }
   var cache = Object.create(null);
   function tr(s) {
     s = norm(s); if (!s || !hasWords(s)) return null;
@@ -32,11 +36,15 @@
     var r = I.exact[s] || null;
     if (!r) for (var i = 0; i < T.length; i++) {
       var m = s.match(T[i].rx); if (!m) continue;
-      var vals = {}; T[i].names.forEach(function (n, k) { var v = m[k + 1]; (vals[n] = vals[n] || []).push(I.exact[norm(v)] || months(v)); });
+      var vals = {}; T[i].names.forEach(function (n, k) { var v = m[k + 1]; if (n === '{amount}') { v = v.replace(/[\s.,]+$/, ''); if (I.rs) v = v.replace(/^([−+-]?)Rs\s?(?=\d)/, '$1' + I.rs); } v = norm(v); (vals[n] = vals[n] || []).push(I.exact[v] || words(months(v))); });
       // {n} fills in order; {n#2} takes the 2nd English value (set by the build where a translation reorders them)
       var used = {}; r = T[i].out.replace(/\{([a-z]+)(?:#(\d+))?\}/g, function (ph, name, idx) { var key = '{' + name + '}', arr = vals[key] || []; if (idx) return arr[+idx - 1] != null ? arr[+idx - 1] : ph; used[key] = (used[key] || 0) + 1; return arr[used[key] - 1] != null ? arr[used[key] - 1] : ph; });
       break;
     }
+    // "Health · Ministry of Health" where one side is already translated data: translate each side
+    if (!r && s.indexOf(' · ') > 0) { var parts = s.split(' · '), hit = false; parts = parts.map(function (x) { var t = tr(x); if (t) hit = true; return t || x; }); if (hit) r = parts.join(' · '); }
+    // a bare date ("13 Nov 2026", "Jan 2027")
+    if (!r) { var md = months(s); if (md !== s && !hasWords(md)) r = md; }
     return (cache[s] = r);
   }
 
@@ -52,6 +60,8 @@
     if (!els.length) { el.textContent = t; return; }
     if (!direct && els.length === 1) { applyBlock(els[0], t); return; }
     if (!el.querySelector('a,button,input,select,textarea,svg')) { el.textContent = t; return; }
+    // links within this page only (e.g. "#/initiatives"): the translated sentence replaces them; links to sources are kept
+    if (!el.querySelector('button,input,select,textarea,svg') && Array.prototype.every.call(el.querySelectorAll('a'), function (a) { return /^#/.test(a.getAttribute('href') || ''); })) { el.textContent = t; return; }
     eachText(el, textNode); // keep links and controls: translate their pieces instead
   }
   function blockOf(n) { var el = n.parentElement; while (el && el !== document.body && INLINE(el) && el.parentElement) el = el.parentElement; return el; }
@@ -87,8 +97,15 @@
         if (el.getAttribute('aria-label') === before) el.setAttribute('aria-label', parts.join('. '));
       }
     });
+    if (W) {
+      eachText(document.body, function (n) { var p = n.parentElement; if (p && !/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.tagName)) { W.lastIndex = 0; if (W.test(n.data)) n.data = words(n.data); } });
+      ['aria-label', 'title', 'data-tip'].forEach(function (a) { document.querySelectorAll('[' + a + ']').forEach(function (el) { var v = el.getAttribute(a), t = words(v); if (t !== v) el.setAttribute(a, t); }); });
+    }
     var dt = tr(document.title); if (dt) document.title = dt;
   }
+
+  // for docs/i18n tooling: what a given English string becomes on this page
+  I.translate = function (s) { var t = tr(s); return words(t || norm(s)); };
 
   var queued = false, obs;
   function run() { queued = false; obs.disconnect(); try { pass(); } finally { obs.observe(document.body, { childList: true, subtree: true }); } }

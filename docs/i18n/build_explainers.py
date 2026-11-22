@@ -216,6 +216,11 @@ def build(lang):
     h = h.replace('href="../', 'href="../../').replace('href="css/', 'href="../css/')
     # language-switch links were rewritten above with their own depth; undo the blanket ../ change for them
     h = h.replace('href="../../" lang="en"', 'href="../" lang="en"').replace('href="../../ta/" lang="ta"', 'href="../ta/" lang="ta"').replace('href="../../si/" lang="si"', 'href="../si/" lang="si"')
+    # the tiles open each explainer in this language
+    for ex in ('chemmani', 'budget-2027'):
+        if f'<a class="entry" href="../../{ex}/">' not in h:
+            sys.exit(f'[{lang}] explainer tile not found, update the builder: {ex}')
+        h = h.replace(f'<a class="entry" href="../../{ex}/">', f'<a class="entry" href="../../{ex}/{lang}/">')
     out = ROOT / f'explainers/{lang}/index.html'
     out.parent.mkdir(exist_ok=True)
     out.write_text(h, encoding='utf-8')

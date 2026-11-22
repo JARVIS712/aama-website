@@ -56,7 +56,10 @@ button:active:not(:disabled), .tile:active, .qcard:active, .pc:active { transfor
 /* nav */
 .nav { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 50; display: flex; align-items: center; gap: 12px; padding: 8px 10px 8px 20px; border-radius: 9999px; background: color-mix(in oklch, var(--canvas) 74%, transparent); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%); border: 1px solid var(--hairline); width: calc(100% - 24px); max-width: 860px; box-shadow: 0 8px 32px -16px rgba(15,15,14,.18); }
 .wordmark { font-family: var(--font-display); font-weight: 300; font-size: 19px; letter-spacing: -.02em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-.wordmark-glyph { width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, var(--mint), transparent 65%), var(--ink); }
+/* AAMA logo and "A" mark: PNG alpha used as a mask, so the colour follows the theme */
+.aama-logo { display: block; width: 66px; height: 34px; background: var(--brand, #1C3A39); -webkit-mask: url(../../assets/aama-logo-mask.png) center / contain no-repeat; mask: url(../../assets/aama-logo-mask.png) center / contain no-repeat; }
+[data-theme="dark"] { --brand: #F4F1EC; }
+.wordmark { padding: 2px 0; }
 .nav-sep { color: var(--muted-soft); } .nav-title { font-size: 14px; font-weight: 500; color: var(--ink-soft); }
 .nav-r { margin-left: auto; display: flex; align-items: center; gap: 6px; }
 .nav-link { font-size: 14px; font-weight: 500; text-decoration: none; padding: 8px 12px; border-radius: 9999px; color: var(--ink-soft); } .nav-link:hover { background: var(--surface-strong); }
@@ -75,9 +78,8 @@ button:active:not(:disabled), .tile:active, .qcard:active, .pc:active { transfor
 .tabs a { flex: none; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 9999px; font-size: 14px; font-weight: 500; color: var(--ink-soft); text-decoration: none; white-space: nowrap; transition: background-color .18s, color .18s; }
 .tabs a:hover { background: var(--surface-strong); }
 .tabs a.on { background: var(--ink); color: var(--canvas); }
-.dock-glyph { width: 30px; height: 30px; border-radius: 50%; flex: none; background: radial-gradient(circle at 30% 30%, var(--mint), transparent 65%), var(--ink); box-shadow: 0 0 0 1px var(--hairline-strong); }
-.dock-glyph.sm { width: 18px; height: 18px; box-shadow: none; background: radial-gradient(circle at 30% 30%, var(--mint), transparent 65%), var(--canvas); }
-.tabs a:not(.on) .dock-glyph.sm { background: radial-gradient(circle at 30% 30%, var(--mint), transparent 65%), var(--ink); }
+.dock-glyph { width: 30px; height: 30px; flex: none; background: var(--brand, #1C3A39); -webkit-mask: url(../../assets/aama-mark-mask.png) center / contain no-repeat; mask: url(../../assets/aama-mark-mask.png) center / contain no-repeat; }
+.dock-glyph.sm { width: 20px; height: 20px; background: currentColor; }
 .dock-grip { display: flex; gap: 3px; margin-left: 2px; } .dock-grip i { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
 .dock[data-state="open"] .dock-mini { opacity: 0; visibility: hidden; transform: scale(.9); pointer-events: none; }
 .dock[data-state="min"] .tabs { opacity: 0; visibility: hidden; transform: scale(.94); pointer-events: none; }

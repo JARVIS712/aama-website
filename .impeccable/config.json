@@ -68,6 +68,42 @@
         ],
         "createdAt": "2026-11-22T04:46:41.800Z",
         "reason": "Hatch from shared budget.css (.hatch) encodes a data category in the Budget money-flow chart; not decoration"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post.html"
+        ],
+        "createdAt": "2026-11-22T05:20:45.731Z",
+        "reason": "Social image canvas (1080x1350), not a web page: sizes scaled for feeds; JetBrains Mono is in DESIGN.md (shorthand parse); paper is the brand colour"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post.html"
+        ],
+        "createdAt": "2026-11-22T05:20:45.740Z",
+        "reason": "Social image canvas (1080x1350), not a web page: sizes scaled for feeds; JetBrains Mono is in DESIGN.md (shorthand parse); paper is the brand colour"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post.html"
+        ],
+        "createdAt": "2026-11-22T05:20:45.748Z",
+        "reason": "Social image canvas (1080x1350), not a web page: sizes scaled for feeds; JetBrains Mono is in DESIGN.md (shorthand parse); paper is the brand colour"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post.html"
+        ],
+        "createdAt": "2026-11-22T05:20:45.757Z",
+        "reason": "Social image canvas (1080x1350), not a web page: sizes scaled for feeds; JetBrains Mono is in DESIGN.md (shorthand parse); paper is the brand colour"
       }
     ]
   }

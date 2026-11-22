@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Explainers social card</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1080px; height: 1350px; background: #F4F1EC; color: #0F0F0E; font-family: Inter, system-ui, sans-serif; position: relative; overflow: hidden; }
+  .wrap { position: absolute; inset: 0; padding: 84px 84px 72px; display: flex; flex-direction: column; }
+  .logo { height: 84px; width: auto; display: block; align-self: flex-start; }
+  h1 { font: 300 168px/0.92 Fraunces, serif; letter-spacing: -0.04em; margin-top: 96px; }
+  .def { font-size: 34px; line-height: 1.4; color: #4A4843; margin-top: 30px; max-width: 860px; }
+  .toc { margin-top: 56px; background: #fff; border: 2px solid #DCD7CC; border-radius: 28px; overflow: hidden; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 28px; padding: 30px 36px; align-items: center; }
+  .row + .row { border-top: 2px solid #DCD7CC; }
+  .t { font: 400 42px/1.1 Fraunces, serif; letter-spacing: -0.015em; }
+  .m { font: 500 21px/1.5 'JetBrains Mono', ui-monospace, monospace; color: #6B675E; margin-top: 10px; }
+  .m b { color: #2A2A28; font-weight: 600; }
+  .arrow { color: #6B675E; }
+  .grades { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 44px; }
+  .gr { font: 600 18px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; padding: 11px 15px; border-radius: 999px; border: 2px solid transparent; }
+  .court { background: #1A3A39; color: #fff; } .record { background: #2D6B62; color: #fff; } .ngo { background: #A4D2C5; color: #0F0F0E; }
+  .news { background: #E6F1ED; color: #0F0F0E; border-color: #DCD7CC; } .claim { color: #2A2A28; border: 2px dashed #BFB8A9; }
+  .gnote { font-size: 22px; color: #6B675E; margin-top: 16px; }
+  .foot { margin-top: auto; display: flex; justify-content: space-between; align-items: baseline; border-top: 2px solid #DCD7CC; padding-top: 28px; }
+  .url { font: 600 34px 'JetBrains Mono', ui-monospace, monospace; letter-spacing: -0.01em; }
+  .free { font-size: 24px; color: #6B675E; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="logo" src="../../assets/logo-main.png" alt="AAMA">
+  <h1>Explainers</h1>
+  <p class="def">Public issues in Sri Lanka, worked through from the documents. Every figure links to the page it came from. Where sources disagree, you see both.</p>
+  <div class="toc">
+    <div class="row"><div><div class="t">Chemmani: what the record shows</div><div class="m"><b>36</b> sources · <b>43</b> dated events · <b>9</b> disputes side by side</div></div><svg class="arrow" width="34" height="34" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h14M12 5l6 6-6 6"/></svg></div>
+    <div class="row"><div><div class="t">Sri Lanka Budget 2027</div><div class="m"><b>267</b> initiatives · <b>84</b> capital projects · <b>29</b> laws</div></div><svg class="arrow" width="34" height="34" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h14M12 5l6 6-6 6"/></svg></div>
+  </div>
+  <div class="grades"><span class="gr court">Court finding</span><span class="gr record">Official record</span><span class="gr ngo">Rights group</span><span class="gr news">News report</span><span class="gr claim">Claim</span></div>
+  <p class="gnote">Each statement is tagged by the kind of source behind it.</p>
+  <div class="foot"><span class="url">aama.lk/explainers</span><span class="free">Free to read · More coming</span></div>
+</div>
+</body>
+</html>

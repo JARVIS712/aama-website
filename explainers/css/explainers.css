@@ -62,7 +62,9 @@ body { caret-color: var(--forest); }
 .grades { margin: 14px 0 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 18px; align-items: baseline; }
 .grades dt { margin: 0; }
 .grades dd { margin: 0; font-size: 14.5px; color: var(--body); line-height: 1.5; }
-.grades .gap { grid-column: 1 / -1; height: 1px; background: var(--hairline-soft); margin: 4px 0; }
+.grades .sep { border-top: 1px solid var(--hairline-soft); padding-top: 14px; margin-top: 4px; }
+.grades dt.sep { margin-right: -18px; padding-right: 18px; }
+@media (max-width: 560px) { .grades dt.sep { margin-right: 0; padding-right: 0; } .grades dd.sep { border-top: 0; padding-top: 0; margin-top: 0; } }
 @media (max-width: 560px) { .grades { grid-template-columns: 1fr; gap: 4px; } .grades dd { margin-bottom: 10px; } }
 .demo { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
 .demo .src { cursor: default; }
@@ -82,3 +84,7 @@ body { caret-color: var(--forest); }
 
 /* Top bar: a link back up the trail */
 .nav-crumb { font-size: 14px; font-weight: 500; color: var(--ink-soft); text-decoration: none; }
+
+/* Footer lines up with the page grid */
+.foot .container { max-width: calc(1120px + 64px); }
+@media (max-width: 900px) { .foot .container { max-width: calc(1120px + 32px); } }

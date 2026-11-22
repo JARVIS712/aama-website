@@ -42,3 +42,7 @@ Words the worksheet did not carry, supplied by AAMA and awaiting review: Jaffna 
 ## Stage 2 file
 
 `aama-translations-stage2.csv` (823 rows): all 630 Chemmani rows to translate first, then the 193 rows already translated (Explainers page, months, home page, social post) so they can be revised. Rows marked `review` hold suggestions or first-pass translations to check. Upload it back as is; changed cells replace the current text.
+
+## Stage 3 (final) file
+
+`aama-translations-stage3-final.csv` (2,956 rows, about 19,900 words): everything not yet translated, in this order: Chemmani data (timeline, sources, report, disputes, counts), the four home sub-pages, then Budget 2027. Each English text appears once; where it occurs in several places, the notes say how many, and your translation is applied to all of them on import. Rows marked `review (reused)` are filled from a translation you already gave elsewhere.

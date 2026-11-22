@@ -34,7 +34,12 @@ const cards = {
     <div class="brand"><img src="${logo}" alt="AAMA"></div>
     <div class="eyebrow">Budget 2027 explorer · 81st Budget Speech</div>
     <h1>Where the Budget gets its money, where it goes, and who it affects.</h1>
-    <div class="chips"><div class="chip"><b>Rs 6.18tn</b><span>Revenue and grants</span></div><div class="chip"><b>Rs 7.93tn</b><span>Total spending</span></div><div class="chip"><b>Rs 1.75tn</b><span>Deficit, 4.5% of GDP</span></div></div></div><div class="url">aama.lk/budget-2027</div>`
+    <div class="chips"><div class="chip"><b>Rs 6.18tn</b><span>Revenue and grants</span></div><div class="chip"><b>Rs 7.93tn</b><span>Total spending</span></div><div class="chip"><b>Rs 1.75tn</b><span>Deficit, 4.5% of GDP</span></div></div></div><div class="url">aama.lk/budget-2027</div>`,
+  [path.join(root, 'chemmani', 'og.png')]: `${base}<div class="wrap">
+    <div class="brand"><img src="${logo}" alt="AAMA"></div>
+    <div class="eyebrow">Jaffna · 1996 to 2026 · 36 sources</div>
+    <h1>Chemmani: what the record shows.</h1>
+    <div class="sub">Every figure and finding with its source and an evidence grade. Where sources disagree, both are shown.</div></div><div class="url">aama.lk/chemmani</div>`
 };
 
 const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });

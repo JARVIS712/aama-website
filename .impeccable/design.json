@@ -1,0 +1,701 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-22T04:29:21+00:00",
+  "title": "Design System: AAMA",
+  "extensions": {
+    "colorMeta": {
+      "palmyra-ink": {
+        "role": "primary",
+        "displayName": "Palmyra Ink",
+        "canonical": "#1A3A39",
+        "dark": "#F4F1EC",
+        "tonalRamp": [
+          "#1D2F2F",
+          "#305554",
+          "#407D7B",
+          "#4DA8A5",
+          "#73BAB8",
+          "#9CC9C8",
+          "#C6DCDC",
+          "#F0F5F5"
+        ]
+      },
+      "lagoon-mint": {
+        "role": "secondary",
+        "displayName": "Lagoon Mint",
+        "canonical": "#A4D2C5",
+        "dark": "#A4D2C5",
+        "tonalRamp": [
+          "#1E2E2A",
+          "#325349",
+          "#437A6A",
+          "#52A38C",
+          "#77B6A4",
+          "#9EC7BB",
+          "#C7DBD5",
+          "#F0F4F3"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#F4F1EC",
+        "dark": "#0F0F0E",
+        "tonalRamp": [
+          "#2D2820",
+          "#4F4635",
+          "#746449",
+          "#9A825A",
+          "#B09D7D",
+          "#C2B6A3",
+          "#D9D3C9",
+          "#F4F3F1"
+        ]
+      },
+      "paper-soft": {
+        "role": "neutral",
+        "displayName": "Paper Soft",
+        "canonical": "#FAF8F4",
+        "dark": "#161614",
+        "tonalRamp": [
+          "#2F291D",
+          "#554830",
+          "#7D6840",
+          "#A7894E",
+          "#BAA273",
+          "#C9BA9C",
+          "#DCD5C6",
+          "#F5F3F0"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet",
+        "canonical": "#FFFFFF",
+        "dark": "#1A1A18",
+        "tonalRamp": [
+          "#262626",
+          "#424242",
+          "#5E5E5E",
+          "#7A7A7A",
+          "#969696",
+          "#B2B2B2",
+          "#D1D1D1",
+          "#F2F2F2"
+        ]
+      },
+      "sheet-strong": {
+        "role": "neutral",
+        "displayName": "Sheet Strong",
+        "canonical": "#ECE7DE",
+        "dark": "#242420",
+        "tonalRamp": [
+          "#2D2820",
+          "#4F4635",
+          "#746549",
+          "#9B845A",
+          "#B09E7D",
+          "#C3B7A2",
+          "#D9D3C9",
+          "#F4F3F1"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0F0F0E",
+        "dark": "#F4F1EC",
+        "tonalRamp": [
+          "#272725",
+          "#444441",
+          "#61615C",
+          "#7F7F76",
+          "#9A9A93",
+          "#B5B5B0",
+          "#D2D2D0",
+          "#F2F2F2"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "#2A2A28",
+        "dark": "#DCD7CC",
+        "tonalRamp": [
+          "#272726",
+          "#434341",
+          "#60605C",
+          "#7D7D77",
+          "#999994",
+          "#B4B4B1",
+          "#D2D2D0",
+          "#F2F2F2"
+        ]
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Body",
+        "canonical": "#4A4843",
+        "dark": "#A8A39A",
+        "tonalRamp": [
+          "#272725",
+          "#454340",
+          "#62605A",
+          "#807D74",
+          "#9B9892",
+          "#B5B4B0",
+          "#D3D2D0",
+          "#F3F2F2"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#6B675E",
+        "dark": "#8D897F",
+        "tonalRamp": [
+          "#282725",
+          "#45443F",
+          "#646059",
+          "#827D73",
+          "#9D9990",
+          "#B6B4AF",
+          "#D3D2CF",
+          "#F3F2F2"
+        ]
+      },
+      "muted-soft": {
+        "role": "neutral",
+        "displayName": "Muted Soft",
+        "canonical": "#A8A39A",
+        "dark": "#4A4843",
+        "tonalRamp": [
+          "#282724",
+          "#46433F",
+          "#646058",
+          "#837D71",
+          "#9D988F",
+          "#B7B4AE",
+          "#D3D2CF",
+          "#F3F2F2"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#DCD7CC",
+        "dark": "#2C2C2A",
+        "tonalRamp": [
+          "#2B2822",
+          "#4B4639",
+          "#6D644F",
+          "#918364",
+          "#A89D85",
+          "#BEB7A7",
+          "#D7D3CC",
+          "#F3F3F1"
+        ]
+      },
+      "hairline-soft": {
+        "role": "neutral",
+        "displayName": "Hairline Soft",
+        "canonical": "#E8E3D8",
+        "dark": "#1F1F1D",
+        "tonalRamp": [
+          "#2C2920",
+          "#4F4736",
+          "#736649",
+          "#99865C",
+          "#AFA07E",
+          "#C2B8A3",
+          "#D9D4C9",
+          "#F4F3F1"
+        ]
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "#BFB8A9",
+        "dark": "#383835",
+        "tonalRamp": [
+          "#2A2823",
+          "#49453B",
+          "#6A6352",
+          "#8C8169",
+          "#A49B89",
+          "#BBB6AA",
+          "#D5D3CD",
+          "#F3F3F1"
+        ]
+      },
+      "data-blue": {
+        "role": "data",
+        "displayName": "Data Blue",
+        "canonical": "#2A78D6",
+        "dark": "#3987E5",
+        "tonalRamp": [
+          "#162536",
+          "#213F63",
+          "#285995",
+          "#2973CB",
+          "#5791D6",
+          "#8AAFDB",
+          "#BDCFE5",
+          "#EEF2F7"
+        ]
+      },
+      "data-orange": {
+        "role": "data",
+        "displayName": "Data Orange",
+        "canonical": "#EB6834",
+        "dark": "#D95926",
+        "tonalRamp": [
+          "#3A1E13",
+          "#6A311A",
+          "#A1421C",
+          "#DD5018",
+          "#E47549",
+          "#E39D82",
+          "#EAC7B9",
+          "#F8F0ED"
+        ]
+      },
+      "data-green": {
+        "role": "data",
+        "displayName": "Data Green",
+        "canonical": "#1BAF7A",
+        "dark": "#199E70",
+        "tonalRamp": [
+          "#15372B",
+          "#1F664C",
+          "#239A6F",
+          "#23D293",
+          "#51DBAA",
+          "#87DEBF",
+          "#BBE7D7",
+          "#EEF7F4"
+        ]
+      },
+      "data-amber": {
+        "role": "data",
+        "displayName": "Data Amber",
+        "canonical": "#EDA100",
+        "dark": "#C98500",
+        "tonalRamp": [
+          "#3E2F0F",
+          "#735412",
+          "#AF7B0D",
+          "#F2A503",
+          "#F5B838",
+          "#EEC877",
+          "#EFDCB3",
+          "#F9F5EC"
+        ]
+      },
+      "data-pink": {
+        "role": "data",
+        "displayName": "Data Pink",
+        "canonical": "#E87BA4",
+        "dark": "#D55181",
+        "tonalRamp": [
+          "#371622",
+          "#65203A",
+          "#972550",
+          "#CF2666",
+          "#D95486",
+          "#DC89A8",
+          "#E6BCCC",
+          "#F7EEF1"
+        ]
+      },
+      "data-leaf": {
+        "role": "data",
+        "displayName": "Data Leaf",
+        "canonical": "#008300",
+        "dark": "#0CA30C",
+        "tonalRamp": [
+          "#0F3E0F",
+          "#127312",
+          "#0DAF0D",
+          "#03F203",
+          "#38F538",
+          "#77EE77",
+          "#B3EFB3",
+          "#ECF9EC"
+        ]
+      },
+      "data-violet": {
+        "role": "data",
+        "displayName": "Data Violet",
+        "canonical": "#6250D6",
+        "dark": "#9085E9",
+        "tonalRamp": [
+          "#1C1835",
+          "#2C2461",
+          "#3A2C91",
+          "#4430C5",
+          "#6C5CD1",
+          "#978DD8",
+          "#C4BFE4",
+          "#EFEEF6"
+        ]
+      },
+      "data-red": {
+        "role": "data",
+        "displayName": "Data Red",
+        "canonical": "#E34948",
+        "dark": "#E66767",
+        "tonalRamp": [
+          "#381515",
+          "#661F1E",
+          "#9A2423",
+          "#D22422",
+          "#DC5251",
+          "#DE8787",
+          "#E7BCBB",
+          "#F7EEEE"
+        ]
+      },
+      "data-neutral": {
+        "role": "data",
+        "displayName": "Data Neutral",
+        "canonical": "#7D7A72",
+        "dark": "#8D897F",
+        "tonalRamp": [
+          "#272725",
+          "#454340",
+          "#62605B",
+          "#807D75",
+          "#9B9892",
+          "#B5B4B0",
+          "#D2D2D0",
+          "#F3F2F2"
+        ]
+      },
+      "ramp-1": {
+        "role": "data",
+        "displayName": "Ramp 1",
+        "canonical": "#E6F1ED",
+        "dark": "#1D2F2C",
+        "tonalRamp": [
+          "#202D28",
+          "#355046",
+          "#487565",
+          "#599C84",
+          "#7CB19E",
+          "#A2C3B7",
+          "#C9D9D3",
+          "#F0F4F3"
+        ]
+      },
+      "ramp-3": {
+        "role": "data",
+        "displayName": "Ramp 3",
+        "canonical": "#A4D2C5",
+        "dark": "#2E5A52",
+        "tonalRamp": [
+          "#1E2E2A",
+          "#325349",
+          "#437A6A",
+          "#52A38C",
+          "#77B6A4",
+          "#9EC7BB",
+          "#C7DBD5",
+          "#F0F4F3"
+        ]
+      },
+      "ramp-5": {
+        "role": "data",
+        "displayName": "Ramp 5",
+        "canonical": "#478F82",
+        "dark": "#5A9E91",
+        "tonalRamp": [
+          "#1E2E2B",
+          "#32534D",
+          "#437A70",
+          "#52A394",
+          "#77B6AB",
+          "#9EC7BF",
+          "#C7DBD7",
+          "#F0F4F4"
+        ]
+      },
+      "ramp-7": {
+        "role": "data",
+        "displayName": "Ramp 7",
+        "canonical": "#1A3A39",
+        "dark": "#B6E0D4",
+        "tonalRamp": [
+          "#1D2F2F",
+          "#305554",
+          "#407D7B",
+          "#4DA8A5",
+          "#73BAB8",
+          "#9CC9C8",
+          "#C6DCDC",
+          "#F0F5F5"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display-mega": {
+        "displayName": "Display Mega",
+        "purpose": "Home-page hero only."
+      },
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "View titles inside explainers."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section and card headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All reading text."
+      },
+      "body-lg": {
+        "displayName": "Body Large",
+        "purpose": "Ledes."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Headline numbers in stat cards."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Eyebrows and mini headings, uppercase."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Dates, page references, axis ticks, grade tags."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating-bar",
+        "value": "0 1px 0 rgba(255,255,255,.4) inset, 0 8px 32px -16px rgba(15,15,14,.18)",
+        "purpose": "Top nav."
+      },
+      {
+        "name": "tab-bar",
+        "value": "0 1px 0 rgba(255,255,255,.35) inset, 0 14px 38px -14px rgba(15,15,14,.38)",
+        "purpose": "Bottom tab bar."
+      },
+      {
+        "name": "hover-lift",
+        "value": "0 18px 40px -24px rgba(15,15,14,.18)",
+        "purpose": "Home-page cards on hover, with a 4px rise."
+      },
+      {
+        "name": "drawer",
+        "value": "0 18px 40px -24px rgba(15,15,14,.28)",
+        "purpose": "Side panel and mobile bottom sheet over a 38% ink scrim."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-soft",
+        "value": "cubic-bezier(.2,.8,.2,1)",
+        "purpose": "Drawers and card hover (260–380ms)."
+      },
+      {
+        "name": "ease-dock",
+        "value": "cubic-bezier(.2,.9,.25,1)",
+        "purpose": "Tab bar open/shrink (420ms)."
+      },
+      {
+        "name": "theme",
+        "value": "background-color .28s, color .28s",
+        "purpose": "Light/dark switch."
+      },
+      {
+        "name": "press",
+        "value": "transform: scale(.985)",
+        "purpose": "Pressed buttons and cards."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transition: none",
+        "purpose": "All transitions off under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "480px"
+      },
+      {
+        "name": "small",
+        "value": "640px"
+      },
+      {
+        "name": "tablet",
+        "value": "900px"
+      },
+      {
+        "name": "home-nav",
+        "value": "880px"
+      },
+      {
+        "name": "wide",
+        "value": "1600px"
+      },
+      {
+        "name": "ultrawide",
+        "value": "2000px"
+      }
+    ],
+    "themes": {
+      "switch": "data-theme=\"light|dark\" on <html>, saved in localStorage key aama-theme"
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action in a view.",
+      "html": "<button class=\"ds-btn\">Open the original</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 18px;border-radius:9999px;border:1px solid #0F0F0E;background:#0F0F0E;color:#F4F1EC;font:500 14px Inter,system-ui,sans-serif;cursor:pointer;transition:background-color .18s}.ds-btn:hover{background:#2A2A28}.ds-btn:focus-visible{outline:2px solid #2A78D6;outline-offset:2px}.ds-btn:active{transform:scale(.985)}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary actions.",
+      "html": "<button class=\"ds-btn-ghost\">Copy link</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;min-height:40px;padding:8px 18px;border-radius:9999px;border:1px solid #BFB8A9;background:transparent;color:#0F0F0E;font:500 14px Inter,system-ui,sans-serif;cursor:pointer;transition:background-color .18s}.ds-btn-ghost:hover{background:#ECE7DE}.ds-btn-ghost:focus-visible{outline:2px solid #2A78D6;outline-offset:2px}"
+    },
+    {
+      "name": "Filter Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Filters; the selected chip inverts to ink.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip ds-on\" aria-pressed=\"true\">All grades</button><button class=\"ds-chip\" aria-pressed=\"false\">Court finding</button><button class=\"ds-chip\" aria-pressed=\"false\">News report</button></div>",
+      "css": ".ds-chips{display:flex;gap:6px;flex-wrap:wrap}.ds-chip{font:12px/1.2 Inter,system-ui,sans-serif;padding:5px 10px;border-radius:9999px;background:#ECE7DE;color:#2A2A28;border:1px solid transparent;cursor:pointer}.ds-chip:hover{border-color:#BFB8A9}.ds-chip.ds-on{background:#0F0F0E;color:#F4F1EC}.ds-chip:focus-visible{outline:2px solid #2A78D6;outline-offset:2px}"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "custom",
+      "refersTo": "segmented",
+      "description": "View switches such as Chart / Table.",
+      "html": "<div class=\"ds-seg\" role=\"group\"><button class=\"ds-on\" aria-pressed=\"true\">Chart</button><button aria-pressed=\"false\">Table</button></div>",
+      "css": ".ds-seg{display:inline-flex;padding:3px;gap:2px;border-radius:9999px;background:#ECE7DE}.ds-seg button{border:0;background:transparent;padding:8px 15px;min-height:36px;border-radius:9999px;font:500 13.5px Inter,system-ui,sans-serif;color:#2A2A28;cursor:pointer}.ds-seg button.ds-on{background:#fff;color:#0F0F0E;box-shadow:0 1px 2px rgba(0,0,0,.12)}.ds-seg button:focus-visible{outline:2px solid #2A78D6;outline-offset:2px}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Content container on paper.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-eyebrow\">The numbers</div><h3 class=\"ds-title\">How the count grew</h3><p class=\"ds-body\">Each point is a figure as a source stated it, on the date it was stated.</p></div>",
+      "css": ".ds-card{background:#fff;border:1px solid #DCD7CC;border-radius:18px;padding:24px;max-width:420px}.ds-eyebrow{font:500 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6B675E;margin-bottom:10px}.ds-title{font:300 26px/1.15 Fraunces,\"Times New Roman\",serif;letter-spacing:-.012em;color:#0F0F0E;margin:0 0 8px}.ds-body{font:400 15px/1.55 Inter,sans-serif;color:#4A4843;margin:0}"
+    },
+    {
+      "name": "Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Search and select fields.",
+      "html": "<input class=\"ds-field\" placeholder=\"Search initiatives\">",
+      "css": ".ds-field{font:14px Inter,system-ui,sans-serif;color:#0F0F0E;background:#FAF8F4;border:1px solid #DCD7CC;border-radius:10px;padding:9px 10px;min-height:42px;width:260px}.ds-field::placeholder{color:#6B675E}.ds-field:focus-visible{outline:2px solid #2A78D6;outline-offset:2px}"
+    },
+    {
+      "name": "Top Nav",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Floating pill nav with the AAMA wordmark.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-mark\">AAMA</span><span class=\"ds-sep\">/</span><span class=\"ds-sec\">Chemmani</span><a class=\"ds-link\" href=\"#\">Sources</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:12px;padding:8px 10px 8px 20px;border-radius:9999px;background:rgba(244,241,236,.74);backdrop-filter:blur(18px) saturate(140%);border:1px solid #DCD7CC;box-shadow:0 8px 32px -16px rgba(15,15,14,.18);max-width:560px}.ds-mark{font:300 19px Fraunces,serif;color:#1A3A39}.ds-sep{color:#A8A39A}.ds-sec{font:500 14px Inter,sans-serif;color:#2A2A28}.ds-link{margin-left:auto;font:500 14px Inter,sans-serif;color:#2A2A28;text-decoration:none;padding:8px 12px;border-radius:9999px}.ds-link:hover{background:#ECE7DE}.ds-link:focus-visible{outline:2px solid #2A78D6;outline-offset:2px}"
+    },
+    {
+      "name": "Evidence Grade Tags",
+      "kind": "custom",
+      "refersTo": "grade-court",
+      "description": "Signature: what kind of source a statement rests on.",
+      "html": "<div class=\"ds-grades\"><span class=\"ds-gr ds-court\">Court finding</span><span class=\"ds-gr ds-record\">Official or expert record</span><span class=\"ds-gr ds-ngo\">Human-rights group</span><span class=\"ds-gr ds-news\">News report</span><span class=\"ds-gr ds-claim\">Claim or position</span><span class=\"ds-gr ds-an\">AAMA reading</span></div>",
+      "css": ".ds-grades{display:flex;flex-wrap:wrap;gap:6px}.ds-gr{display:inline-flex;font:600 10.5px/1 \"JetBrains Mono\",monospace;letter-spacing:.05em;text-transform:uppercase;padding:5px 9px;border-radius:9999px;border:1px solid transparent}.ds-court{background:#1A3A39;color:#fff}.ds-record{background:#478F82;color:#fff}.ds-ngo{background:#A4D2C5;color:#0F0F0E}.ds-news{background:#E6F1ED;color:#0F0F0E;border-color:#DCD7CC}.ds-claim{color:#2A2A28;border:1px dashed #BFB8A9}.ds-an{color:#2A2A28;border:1px dashed #EB6834}"
+    },
+    {
+      "name": "Citation Chip",
+      "kind": "custom",
+      "refersTo": "source-chip",
+      "description": "Signature: names the source and page; opens the source panel.",
+      "html": "<button class=\"ds-src\"><span>Excavation report</span><span class=\"ds-loc\">§8, p. 8</span></button>",
+      "css": ".ds-src{display:inline-flex;align-items:center;gap:6px;font:12px/1.25 Inter,sans-serif;padding:5px 10px;min-height:30px;border-radius:8px;border:1px solid #DCD7CC;background:#FAF8F4;color:#2A2A28;cursor:pointer}.ds-src:hover{border-color:#BFB8A9;background:#ECE7DE}.ds-loc{color:#6B675E}.ds-src:focus-visible{outline:2px solid #2A78D6;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Annotated Record",
+    "overview": "**Creative North Star: \"The Annotated Record\"**\n\nAAMA's pages read like a well-kept record on warm paper: dark ink for what is said, a quiet serif for what matters, and small, exact margin marks that say where each thing came from. Nothing on the page is decoration for its own sake. A tag, a hairline, a figure in mono: each is there because a source, a measurement or a choice put it there. The mood is calm, exact and warm. It suits a campaign client weighing whether to trust AAMA with data, and a reader working through a court judgment or a budget.\n\nDensity follows the job. Campaign pages breathe: large Fraunces headlines, generous sections, a single idea per block. Explainers are denser but never crowded: cards on paper, tables when the reader wants the numbers, and every claim carrying its citation chip within reach. Both live in the same world: same paper, same ink, same pill-shaped controls, same light and dark themes.\n\nColour is held back so that it can mean something. The palette is paper and ink; Palmyra Ink and Lagoon Mint are the brand; the data colours appear only inside charts, and the evidence-grade ramp only on grade tags.",
+    "keyCharacteristics": [
+      "Warm paper canvas (never pure white as the page), near-black ink, Fraunces 300 for display, Inter for reading, JetBrains Mono for figures and margin marks.",
+      "Flat surfaces with hairline borders; shadows only on floating bars and on hover.",
+      "Pill-shaped controls; 18px cards; nothing sharp, nothing bubbly.",
+      "Every claim on a public page carries a citation chip and, where relevant, an evidence-grade tag.",
+      "Full light and dark themes, switched with `data-theme` on the root element.",
+      "Tamil and Sinhala get their own Noto faces and looser line heights, not Latin fallbacks."
+    ],
+    "rules": [
+      {
+        "name": "The Paper-and-Ink Rule",
+        "body": "The page is paper, text is ink. Brand colour is a margin mark, never a wash: no full-bleed green or mint sections.",
+        "section": "colors"
+      },
+      {
+        "name": "The Charts-Only Rule",
+        "body": "Categorical data colours appear only inside charts and their legends. A button, link or heading is never Data Blue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Strength-Is-Darkness Rule",
+        "body": "Ordinal scales run light to dark, weakest to strongest. A dashed outline, not a colour, marks claims, AAMA readings and \"Not established\".",
+        "section": "colors"
+      },
+      {
+        "name": "The Light Serif Rule",
+        "body": "Fraunces is set at weight 300 only (400–500 at small heading sizes). Never bold.",
+        "section": "typography"
+      },
+      {
+        "name": "The Figures-in-Sans Rule",
+        "body": "Numbers that carry meaning are Inter 600 or JetBrains Mono, with tabular figures in tables. Never Fraunces.",
+        "section": "typography"
+      },
+      {
+        "name": "The Script-Native Rule",
+        "body": "Tamil and Sinhala text switch to Noto Sans/Serif Tamil and Sinhala with looser display line heights (1.18 and 1.32) and near-zero tracking.",
+        "section": "typography"
+      },
+      {
+        "name": "The One-Column Truth Rule",
+        "body": "Reading text never runs wider than about 76 characters, even inside wide cards.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-at-Rest Rule",
+        "body": "A card at rest has a hairline, not a shadow. If something needs to stand out, change its tone or border, not its elevation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** keep pages on Paper (#F4F1EC) and put content on Sheet cards with 1px Hairline borders.",
+      "**Do** set titles in Fraunces 300 and every meaningful number in Inter 600 or JetBrains Mono.",
+      "**Do** give every public-facing figure a citation chip, and a grade tag where the source type matters.",
+      "**Do** offer a table view beside any chart, and keep chart bars 24px or thinner with 4px rounded ends.",
+      "**Do** define colours as tokens with dark-mode twins; test both themes.",
+      "**Do** draw the logo and \"A\" mark from the masked PNGs so they follow the theme."
+    ],
+    "donts": [
+      "**Don't** use photographs of human remains or graphic imagery on explainers about violence.",
+      "**Don't** flood a section with Palmyra Ink or Lagoon Mint; brand colour stays a mark.",
+      "**Don't** use the categorical data colours outside charts and their legends.",
+      "**Don't** bold Fraunces or set figures in it.",
+      "**Don't** add resting shadows to cards.",
+      "**Don't** show tooltips on touch, or leave one on screen after the content under it changes."
+    ]
+  }
+}

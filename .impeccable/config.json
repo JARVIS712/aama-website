@@ -104,6 +104,42 @@
         ],
         "createdAt": "2026-11-22T05:20:45.757Z",
         "reason": "Social image canvas (1080x1350), not a web page: sizes scaled for feeds; JetBrains Mono is in DESIGN.md (shorthand parse); paper is the brand colour"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-ta.html"
+        ],
+        "createdAt": "2026-11-22T05:26:58.057Z",
+        "reason": "Tamil social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Tamil faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-ta.html"
+        ],
+        "createdAt": "2026-11-22T05:26:58.066Z",
+        "reason": "Tamil social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Tamil faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-ta.html"
+        ],
+        "createdAt": "2026-11-22T05:26:58.075Z",
+        "reason": "Tamil social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Tamil faces are in DESIGN.md; paper is the brand colour"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "docs/social/explainers-post-ta.html"
+        ],
+        "createdAt": "2026-11-22T05:26:58.083Z",
+        "reason": "Tamil social image canvas (1080x1350), not a web page: sizes scaled for feeds; Noto Tamil faces are in DESIGN.md; paper is the brand colour"
       }
     ]
   }

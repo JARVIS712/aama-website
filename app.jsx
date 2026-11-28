@@ -1,8 +1,12 @@
-/* global React, ReactDOM, Nav, Hero, Engine, Bento, Impact, Process, Faq, Trust, ContactFooter, i18n, useReveal */
+/* global React, ReactDOM, Nav, Hero, Practices, Paperly, Engine, Bento, Impact, Process, Faq, Trust, ContactFooter, i18n, useReveal */
 const { useEffect, useState } = React;
 
 function App() {
   const [lang, setLang] = useState('en');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('lang', lang);
+  }, [lang]);
   const [theme, setTheme] = useState(() => localStorage.getItem('aama-theme') || 'light');
 
   useEffect(() => {
@@ -19,6 +23,8 @@ function App() {
       <Nav lang={lang} setLang={setLang} t={t} theme={theme} setTheme={setTheme} />
       <main>
         <Hero heroBg="mesh" t={t} lang={lang} />
+        <Practices t={t} lang={lang} />
+        <Paperly t={t} lang={lang} />
         <Engine t={t} lang={lang} />
         <Bento density="expanded" t={t} lang={lang} />
         <Impact t={t} lang={lang} />

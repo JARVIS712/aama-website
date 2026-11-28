@@ -1,276 +1,7 @@
 /* global React, ParticleMesh, PillarViz, BentoNewsViz, BentoTalksViz */
 const { useState, useEffect, useRef } = React;
 
-// ===== i18n =====
-// NOTE: the `engine`, `ecosystem`, `impact`, `process`, `faq`, `trust`, and
-// `deploy` blocks for ta/si are a first-pass machine translation. Flagged
-// for native-speaker review before this ships to real clients.
-const i18n = {
-  en: {
-    nav: { engine: 'The Engine', ecosystem: 'Ecosystem', contact: 'Deploy' },
-    hero: {
-      eyebrow: 'AAMA / SRI LANKA / EST. 2026',
-      h1a: 'Decoding Politics.',
-      h1b: 'Engineering ',
-      h1c: 'Victory.',
-      sub: 'AAMA is a political media and campaign infrastructure company in Sri Lanka, running predictive modelling, trilingual sentiment tracking, and secured campaign operations under one system.',
-      coords: '06.9271° N · 79.8612° E'
-    },
-    engine: {
-      h2a: 'Not just strategy. ',
-      h2b: 'Algorithmic precision.',
-      intro: 'A machine-learning framework built for Sri Lankan and South Asian electoral data. Three pillars support every campaign we deploy.',
-      pillars: [
-        { tag: 'INFERENCE', title: 'Predictive Voter Analytics', body: 'Multivariate models trained on 12 years of electoral, demographic, and behavioural signal, surfacing swing turnout 90 days out.' },
-        { tag: 'PERCEPTION', title: 'Automated Sentiment Mapping', body: 'Trilingual NLP across Tamil, Sinhala, and English social streams, mapped to district-level heat in near real time.' },
-        { tag: 'INTEGRITY', title: 'Cyber-Secured Campaign Infrastructure', body: 'Air-gapped war rooms, end-to-end encrypted message logistics, and red-team rehearsed disinformation defence.' }
-      ]
-    },
-    ecosystem: {
-      h2a: 'Two products. ',
-      h2b: 'One signal.',
-      news: { tag: 'Freemium · AI News Delivery', desc: "An AI-curated newsroom focused on political integrity: Sri Lanka's daily political signal, distilled into one feed, free at the tier most readers need." },
-      talks: { tag: 'Full-fledged Tamil Podcast', desc: 'Long-form Tamil-language conversations with organisers, journalists, and dissenting voices in Sri Lankan public life.' },
-      roadmap: { tag: 'Roadmap', title: 'AAMA Atlas', desc: 'Interactive electoral cartography. Public release window: Q4.' },
-      comingSoon: 'Coming soon'
-    },
-    impact: {
-      h2a: 'Built on ',
-      h2b: 'twelve years of signal.',
-      stats: [
-        { value: '12 yrs', label: 'District-level electoral, demographic and behavioural data trained into the model' },
-        { value: '3', label: 'Working languages, Tamil, Sinhala and English, across every model and feed' },
-        { value: '2', label: 'Offices on the ground, in Colombo and Jaffna' },
-        { value: '4', label: 'Phase roadmap, Foundation to full-spectrum intelligence, 2025 to 2026' }
-      ]
-    },
-    process: {
-      h2a: 'How a ',
-      h2b: 'campaign gets built.',
-      steps: [
-        { n: '01', title: 'Intake', body: "District-level electoral history, campaign goals, and the terrain we're modelling for." },
-        { n: '02', title: 'Model & map', body: 'Predictive voter analytics and sentiment mapping calibrated to the specific electorate.' },
-        { n: '03', title: 'Deploy', body: 'Air-gapped war room, encrypted message logistics, red-team tested before anything goes live.' },
-        { n: '04', title: 'Monitor', body: 'Real-time sentiment dashboards for campaign operators, through election day and beyond.' }
-      ]
-    },
-    faq: {
-      h2a: 'Questions ',
-      h2b: 'worth asking.',
-      items: [
-        { q: 'How is campaign data kept secure?', a: 'Infrastructure runs air-gapped, with end-to-end encrypted message logistics and red-team rehearsed disinformation defence before deployment.' },
-        { q: 'What does "trilingual" actually cover?', a: 'Tamil, Sinhala, and English. Sentiment mapping and content run across all three, not English with translated labels.' },
-        { q: 'How are predictions validated?', a: 'Models train on twelve years of district-level electoral, demographic, and behavioural data, not a single election cycle.' },
-        { q: 'When are AAMA News and AAMA Talks launching?', a: 'Both are in progress. See the Roadmap for the current phase and public release window.' }
-      ]
-    },
-    trust: {
-      h2a: 'What the engine ',
-      h2b: 'is built on.',
-      line: 'Every model in the Engine runs on the same foundation.',
-      items: ['12 years of district-level electoral records', 'Tamil · Sinhala · English sentiment data', 'Air-gapped, red-team-tested infrastructure']
-    },
-    deploy: {
-      h2a: 'Ready to talk about your ',
-      h2b: 'campaign?',
-      sub: "Leave your email and our team will reach out within 24 hours.",
-      placeholder: 'you@example.com',
-      cta: 'Get in touch',
-      sendingLabel: 'Sending',
-      sentLabel: 'Sent',
-      statusSending: 'Sending your message...',
-      statusDone: "Thanks. We'll be in touch within 24 hours.",
-      statusErr: "That doesn't look like a valid email. Please try again.",
-      statusFail: 'Something went wrong. Please try again or email us directly.'
-    },
-    footer: {
-      tag: 'Aadhi Media Agency',
-      sub: 'A tech-driven political campaign and media house operating across Sri Lanka.',
-      cols: [
-      { title: 'Ecosystem', items: ['AAMA News', 'AAMA Talks', 'Roadmap'] },
-      { title: 'Engine', items: ['Predictive Analytics', 'Sentiment Mapping', 'Cyber Infrastructure'] },
-      { title: 'Office', items: ['Colombo', 'Jaffna', 'Press Inquiries'] }],
-
-      legal: 'AAMA · Aadhi Media Agency Pvt Ltd'
-    }
-  },
-  ta: {
-    nav: { engine: 'எஞ்சின்', ecosystem: 'சூழமைவு', contact: 'அனுப்பு' },
-    hero: {
-      eyebrow: 'AAMA / இலங்கை / 2024',
-      h1a: 'அரசியலை விளக்குகிறோம்.',
-      h1b: 'வெற்றியை ',
-      h1c: 'வடிவமைக்கிறோம்.',
-      sub: 'AAMA இலங்கையின் அரசியல் ஊடக மற்றும் பிரச்சார உள்கட்டமைப்பு நிறுவனம். முன்கணிப்பு மாதிரியாக்கம், மும்மொழி உணர்வு கண்காணிப்பு, மற்றும் பாதுகாக்கப்பட்ட பிரச்சார செயல்பாடுகளை ஒரே அமைப்பில் இயக்குகிறோம்.',
-      coords: '06.9271° N · 79.8612° E'
-    },
-    engine: {
-      h2a: 'வெறும் மூலோபாயம் மட்டுமல்ல. ',
-      h2b: 'வழிமுறைத் துல்லியம்.',
-      intro: 'இலங்கை மற்றும் தென்னாசிய தேர்தல் தரவுக்கென வடிவமைக்கப்பட்ட இயந்திரக் கற்றல் கட்டமைப்பு. நாங்கள் நடத்தும் ஒவ்வொரு பிரச்சாரத்தையும் மூன்று தூண்கள் ஆதரிக்கின்றன.',
-      pillars: [
-        { tag: 'INFERENCE', title: 'முன்கணிப்பு வாக்காளர் பகுப்பாய்வு', body: '12 ஆண்டுகால தேர்தல், மக்கள்தொகை, மற்றும் நடத்தை தரவுகளால் பயிற்றுவிக்கப்பட்ட பல்மாறி மாதிரிகள், வாக்குப்பதிவு மாற்றத்தை 90 நாட்களுக்கு முன்னரே கணிக்கின்றன.' },
-        { tag: 'PERCEPTION', title: 'தானியங்கு உணர்வு வரைபடமாக்கல்', body: 'தமிழ், சிங்களம், ஆங்கிலம் ஆகிய மூன்று மொழிகளிலான சமூக ஊடக தரவுகளை பகுப்பாய்வு செய்யும் மும்மொழி NLP, மாவட்ட அளவிலான வெப்ப-வரைபடமாக கிட்டத்தட்ட நேரடியாக காட்டப்படுகிறது.' },
-        { tag: 'INTEGRITY', title: 'சைபர்-பாதுகாக்கப்பட்ட பிரச்சார உள்கட்டமைப்பு', body: 'வெளி இணைப்பற்ற போர் அறைகள், முனை-க்கு-முனை மறையாக்கம் செய்யப்பட்ட செய்தி பரிமாற்றம், மற்றும் ரெட்-டீம் பயிற்சி பெற்ற தவறான தகவல் தடுப்பு.' }
-      ]
-    },
-    ecosystem: {
-      h2a: 'இரண்டு தயாரிப்புகள். ',
-      h2b: 'ஒரே சமிக்ஞை.',
-      news: { tag: 'இலவசம் · AI செய்தி வழங்கல்', desc: 'அரசியல் நேர்மையை மையமாகக் கொண்ட AI-தொகுக்கப்பட்ட செய்தியறை: இலங்கையின் அன்றாட அரசியல் சமிக்ஞையை ஒரே ஊட்டமாக வடிகட்டுகிறது, பெரும்பாலான வாசகர்களுக்குத் தேவையான நிலையில் இலவசமாக.' },
-      talks: { tag: 'முழு அளவிலான தமிழ் பாட்காஸ்ட்', desc: 'இலங்கையின் பொதுவாழ்வில் அமைப்பாளர்கள், பத்திரிகையாளர்கள், மற்றும் மாற்றுக் குரல்களுடன் நீண்ட-நேர தமிழ்-மொழி உரையாடல்கள்.' },
-      roadmap: { tag: 'திட்டப்பாதை', title: 'AAMA அட்லஸ்', desc: 'ஊடாடும் தேர்தல் புவியியல் வரைபடம். பொது வெளியீட்டு காலம்: நான்காம் காலாண்டு (Q4).' },
-      comingSoon: 'விரைவில் வருகிறது'
-    },
-    impact: {
-      h2a: 'பன்னிரண்டு ஆண்டுகால ',
-      h2b: 'தரவின் அடிப்படையில்.',
-      stats: [
-        { value: '12 ஆண்டுகள்', label: 'மாதிரியில் பயிற்றுவிக்கப்பட்ட மாவட்ட அளவிலான தேர்தல், மக்கள்தொகை மற்றும் நடத்தை தரவு' },
-        { value: '3', label: 'ஒவ்வொரு மாதிரியிலும் ஊட்டத்திலும் இயங்கும் மொழிகள்: தமிழ், சிங்களம், ஆங்கிலம்' },
-        { value: '2', label: 'கொழும்பு மற்றும் யாழ்ப்பாணத்தில் களப் பணியகங்கள்' },
-        { value: '4', label: '2025-2026 காலப்பகுதியில் அடித்தளம் முதல் முழு-நிறமாலை நுண்ணறிவு வரையான கட்ட திட்டப்பாதை' }
-      ]
-    },
-    process: {
-      h2a: 'ஒரு பிரச்சாரம் ',
-      h2b: 'எப்படி கட்டமைக்கப்படுகிறது.',
-      steps: [
-        { n: '01', title: 'உள்ளீடு', body: 'மாவட்ட அளவிலான தேர்தல் வரலாறு, பிரச்சார இலக்குகள், நாங்கள் மாதிரியாக்கும் பகுதி.' },
-        { n: '02', title: 'மாதிரி & வரைபடம்', body: 'குறிப்பிட்ட தொகுதிக்கேற்ப அளவுசெய்யப்பட்ட முன்கணிப்பு வாக்காளர் பகுப்பாய்வு மற்றும் உணர்வு வரைபடமாக்கல்.' },
-        { n: '03', title: 'வரிசைப்படுத்தல்', body: 'வெளி இணைப்பற்ற போர் அறை, மறையாக்கம் செய்யப்பட்ட செய்தி பரிமாற்றம், நேரடியாகும் முன் ரெட்-டீம் சோதனை.' },
-        { n: '04', title: 'கண்காணிப்பு', body: 'தேர்தல் நாள் வரையும் அதற்குப் பின்னரும் பிரச்சார செயற்பாட்டாளர்களுக்கான நேரடி உணர்வு டாஷ்போர்டுகள்.' }
-      ]
-    },
-    faq: {
-      h2a: 'கேட்கத் தகுந்த ',
-      h2b: 'கேள்விகள்.',
-      items: [
-        { q: 'பிரச்சார தரவு எப்படி பாதுகாக்கப்படுகிறது?', a: 'உள்கட்டமைப்பு வெளி இணைப்பற்றதாக இயங்குகிறது, முனை-க்கு-முனை மறையாக்கம் செய்யப்பட்ட செய்தி பரிமாற்றம் மற்றும் நேரடியாகும் முன் ரெட்-டீம் தவறான தகவல் தடுப்புடன்.' },
-        { q: '"மும்மொழி" என்பது உண்மையில் எதை உள்ளடக்குகிறது?', a: 'தமிழ், சிங்களம், ஆங்கிலம். உணர்வு வரைபடமாக்கலும் உள்ளடக்கமும் மொழிபெயர்க்கப்பட்ட லேபிள்கள் கொண்ட ஆங்கிலம் அல்ல, மூன்று மொழிகளிலும் இயங்குகிறது.' },
-        { q: 'முன்கணிப்புகள் எப்படி உறுதிப்படுத்தப்படுகின்றன?', a: 'மாதிரிகள் ஒரு தேர்தல் சுழற்சியில் அல்ல, பன்னிரண்டு ஆண்டுகால மாவட்ட அளவிலான தேர்தல், மக்கள்தொகை, நடத்தை தரவில் பயிற்றுவிக்கப்படுகின்றன.' },
-        { q: 'AAMA செய்தி மற்றும் AAMA பேச்சு எப்போது வெளியிடப்படும்?', a: 'இரண்டும் வளர்ச்சியில் உள்ளன. தற்போதைய கட்டம் மற்றும் பொது வெளியீட்டு காலத்திற்கு திட்டப்பாதையைப் பார்க்கவும்.' }
-      ]
-    },
-    trust: {
-      h2a: 'எஞ்சின் எதன் மீது ',
-      h2b: 'கட்டமைக்கப்பட்டுள்ளது.',
-      line: 'எஞ்சினில் உள்ள ஒவ்வொரு மாதிரியும் ஒரே அடித்தளத்தில் இயங்குகிறது.',
-      items: ['12 ஆண்டுகால மாவட்ட அளவிலான தேர்தல் பதிவுகள்', 'தமிழ் · சிங்களம் · ஆங்கில உணர்வு தரவு', 'வெளி இணைப்பற்ற, ரெட்-டீம் சோதிக்கப்பட்ட உள்கட்டமைப்பு']
-    },
-    deploy: {
-      h2a: 'உங்கள் பிரச்சாரத்தைப் பற்றி ',
-      h2b: 'பேச தயாரா?',
-      sub: 'உங்கள் மின்னஞ்சலை பகிரவும், எங்கள் குழு 24 மணி நேரத்திற்குள் தொடர்பு கொள்ளும்.',
-      placeholder: 'you@example.com',
-      cta: 'தொடர்பு கொள்ளுங்கள்',
-      sendingLabel: 'அனுப்புகிறது',
-      sentLabel: 'அனுப்பப்பட்டது',
-      statusSending: 'உங்கள் செய்தி அனுப்பப்படுகிறது...',
-      statusDone: 'நன்றி. 24 மணி நேரத்திற்குள் தொடர்பு கொள்வோம்.',
-      statusErr: 'சரியான மின்னஞ்சல் அல்ல. மீண்டும் முயற்சிக்கவும்.',
-      statusFail: 'ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும் அல்லது நேரடியாக எங்களுக்கு மின்னஞ்சல் அனுப்பவும்.'
-    },
-    footer: {
-      tag: 'ஆதி மீடியா ஏஜென்சி',
-      sub: 'இலங்கை முழுவதும் செயல்படும் தொழில்நுட்பம் சார்ந்த அரசியல் பிரச்சார மற்றும் ஊடக நிறுவனம்.',
-      cols: [
-      { title: 'சூழமைவு', items: ['AAMA செய்தி', 'AAMA உரையாடல்', 'திட்டப்பாதை'] },
-      { title: 'எஞ்சின்', items: ['முன்கணிப்பு பகுப்பாய்வு', 'உணர்வு வரைபடம்', 'சைபர் உள்கட்டமைப்பு'] },
-      { title: 'அலுவலகம்', items: ['கொழும்பு', 'யாழ்ப்பாணம்', 'பத்திரிக்கை விசாரணை'] }],
-
-      legal: 'AAMA · ஆதி மீடியா ஏஜென்சி (பிரைவேட்) லிமிடெட்'
-    }
-  },
-  si: {
-    nav: { engine: 'එන්ජිම', ecosystem: 'පරිසරය', contact: 'යෙදවීම' },
-    hero: {
-      eyebrow: 'AAMA / ශ්‍රී ලංකාව / 2024',
-      h1a: 'දේශපාලනය විකේතනය කරමින්.',
-      h1b: 'ජයග්‍රහණය ',
-      h1c: 'නිර්මාණය කරමින්.',
-      sub: 'AAMA යනු ශ්‍රී ලංකාවේ දේශපාලන මාධ්‍ය හා ව්‍යාපාර යටිතල පහසුකම් සමාගමකි. පුරෝකථන ආකෘතිකරණය, ත්‍රිභාෂා හැඟීම් නිරීක්ෂණය, සහ ආරක්‍ෂිත ව්‍යාපාර මෙහෙයුම් එකම පද්ධතියක් යටතේ ක්‍රියාත්මක කරයි.',
-      coords: '06.9271° N · 79.8612° E'
-    },
-    engine: {
-      h2a: 'උපායමාර්ගය පමණක් නොවේ. ',
-      h2b: 'ඇල්ගොරිතමික නිරවද්‍යතාවය.',
-      intro: 'ශ්‍රී ලංකා සහ දකුණු ආසියාවේ මැතිවරණ දත්ත සඳහා නිර්මාණය කළ යන්ත්‍ර ඉගෙනුම් රාමුවකි. අප දියත් කරන සෑම ව්‍යාපාරයක්ම කුළුණු තුනකින් සහාය ලබයි.',
-      pillars: [
-        { tag: 'INFERENCE', title: 'පුරෝකථන ඡන්දදායක විශ්ලේෂණය', body: 'වසර 12ක මැතිවරණ, ජනවිකාස, සහ හැසිරීම් සංඥා මත පුහුණු කරන ලද බහුවිචල්‍ය ආකෘති, දින 90කට පෙර පැනීමේ ප්‍රවණතාවය හඳුනා ගනී.' },
-        { tag: 'PERCEPTION', title: 'ස්වයංක්‍රීය හැඟීම් සිතියම්කරණය', body: 'දෙමළ, සිංහල, ඉංග්‍රීසි යන භාෂා තුනෙන්ම සමාජ මාධ්‍ය ප්‍රවාහ විශ්ලේෂණය කරන ත්‍රිභාෂා NLP, දිස්ත්‍රික් මට්ටමේ තාප සිතියමකට පාහේ තථ්‍ය කාලීනව සිතියම්ගත කෙරේ.' },
-        { tag: 'INTEGRITY', title: 'සයිබර්-ආරක්‍ෂිත ව්‍යාපාර යටිතල පහසුකම්', body: 'වාතාශ්‍රය-විරහිත යුධ කාමර, කෙළවරේ සිට කෙළවර දක්වා සංකේතනය කළ පණිවිඩ සැපයුම, සහ රතු-කණ්ඩායම් පුහුණු ව්‍යාජ තොරතුරු ප්‍රතිරෝධය.' }
-      ]
-    },
-    ecosystem: {
-      h2a: 'නිෂ්පාදන දෙකක්. ',
-      h2b: 'එක් සංඥාවක්.',
-      news: { tag: 'නොමිලේ · AI පුවත් සැපයුම', desc: 'දේශපාලන අඛණ්ඩතාව වටා ගොඩනගා ඇති AI-සංස්කරණය කළ පුවත් කාමරයක්: ශ්‍රී ලංකාවේ දෛනික දේශපාලන සංඥාව එකම සම්පාදනයකට සකසයි, බොහෝ පාඨකයන්ට අවශ්‍ය මට්ටමින් නොමිලේ.' },
-      talks: { tag: 'සම්පූර්ණ දෙමළ පොඩ්කාස්ට්', desc: 'ශ්‍රී ලාංකික මහජන ජීවිතයේ සංවිධායකයින්, පත්‍රකලාවේදීන්, සහ විරුද්ධ මත දරන්නන් සමඟ දිගු-ආකෘති දෙමළ-භාෂා සංවාද.' },
-      roadmap: { tag: 'මාර්ග සිතියම', title: 'AAMA ඇට්ලස්', desc: 'අන්තර්ක්‍රියාකාරී මැතිවරණ සිතියම්කරණය. පොදු නිකුත් කිරීමේ කාලය: හතරවන කාර්තුව.' },
-      comingSoon: 'ඉක්මනින් පැමිණේ'
-    },
-    impact: {
-      h2a: 'වසර දොළහක ',
-      h2b: 'දත්ත මත ගොඩනැගී ඇත.',
-      stats: [
-        { value: 'වසර 12', label: 'ආකෘතියට පුහුණු කළ දිස්ත්‍රික් මට්ටමේ මැතිවරණ, ජනවිකාස සහ හැසිරීම් දත්ත' },
-        { value: '3', label: 'සෑම ආකෘතියක්ම හා සම්පාදනයක්ම ක්‍රියාත්මක වන භාෂා: දෙමළ, සිංහල, ඉංග්‍රීසි' },
-        { value: '2', label: 'කොළඹ සහ යාපනයේ ක්ෂේත්‍ර කාර්යාල' },
-        { value: '4', label: '2025-2026 කාලය තුළ පදනමේ සිට සම්පූර්ණ-වර්ණාවලි බුද්ධිය දක්වා අදියර සිතියම' }
-      ]
-    },
-    process: {
-      h2a: 'ව්‍යාපාරයක් ',
-      h2b: 'ගොඩනගන ආකාරය.',
-      steps: [
-        { n: '01', title: 'ලබාගැනීම', body: 'දිස්ත්‍රික් මට්ටමේ මැතිවරණ ඉතිහාසය, ව්‍යාපාර ඉලක්ක, සහ අප ආකෘතිගත කරන භූමිය.' },
-        { n: '02', title: 'ආකෘති සහ සිතියම්', body: 'නිශ්චිත ඡන්ද කොට්ඨාශයට අනුව සකසන ලද පුරෝකථන ඡන්දදායක විශ්ලේෂණය සහ හැඟීම් සිතියම්කරණය.' },
-        { n: '03', title: 'යෙදවීම', body: 'වාතාශ්‍රය-විරහිත යුධ කාමරය, සංකේතනය කළ පණිවිඩ සැපයුම, ක්‍රියාත්මක වීමට පෙර රතු-කණ්ඩායම් පරීක්ෂාව.' },
-        { n: '04', title: 'නිරීක්ෂණය', body: 'මැතිවරණ දිනය දක්වාත් ඉන් පසුවත් ව්‍යාපාර මෙහෙයුම්කරුවන් සඳහා තථ්‍ය කාලීන හැඟීම් උපකරණ පුවරු.' }
-      ]
-    },
-    faq: {
-      h2a: 'අසන්න වටින ',
-      h2b: 'ප්‍රශ්න.',
-      items: [
-        { q: 'ව්‍යාපාර දත්ත ආරක්ෂා කරන්නේ කෙසේද?', a: 'යටිතල පහසුකම් වාතාශ්‍රය-විරහිතව ක්‍රියාත්මක වේ, කෙළවරේ සිට කෙළවර දක්වා සංකේතනය කළ පණිවිඩ සැපයුම සහ ක්‍රියාත්මක වීමට පෙර රතු-කණ්ඩායම් ව්‍යාජ තොරතුරු ප්‍රතිරෝධය සමඟ.' },
-        { q: '"ත්‍රිභාෂා" ඇත්තටම ආවරණය කරන්නේ කුමක්ද?', a: 'දෙමළ, සිංහල, ඉංග්‍රීසි. හැඟීම් සිතියම්කරණය සහ අන්තර්ගතය පරිවර්තිත ලේබල් සහිත ඉංග්‍රීසි නොව, තුනෙන්ම ක්‍රියාත්මක වේ.' },
-        { q: 'පුරෝකථන තහවුරු කරන්නේ කෙසේද?', a: 'ආකෘති එක් මැතිවරණ චක්‍රයක් නොව, වසර දොළහක දිස්ත්‍රික් මට්ටමේ මැතිවරණ, ජනවිකාස සහ හැසිරීම් දත්ත මත පුහුණු වේ.' },
-        { q: 'AAMA පුවත් සහ AAMA කතාබහ දියත් වන්නේ කවදාද?', a: 'දෙකම ප්‍රගතියේ පවතී. වත්මන් අදියර සහ පොදු නිකුත් කිරීමේ කාලය සඳහා මාර්ග සිතියම බලන්න.' }
-      ]
-    },
-    trust: {
-      h2a: 'එන්ජිම ගොඩනැගී ඇත්තේ ',
-      h2b: 'කුමක් මතද.',
-      line: 'එන්ජිමේ සෑම ආකෘතියක්ම එකම පදනම මත ක්‍රියාත්මක වේ.',
-      items: ['වසර 12ක දිස්ත්‍රික් මට්ටමේ මැතිවරණ වාර්තා', 'දෙමළ · සිංහල · ඉංග්‍රීසි හැඟීම් දත්ත', 'වාතාශ්‍රය-විරහිත, රතු-කණ්ඩායම් පරීක්ෂිත යටිතල පහසුකම්']
-    },
-    deploy: {
-      h2a: 'ඔබේ ව්‍යාපාරය ගැන ',
-      h2b: 'කතා කරන්නද?',
-      sub: 'ඔබේ විද්‍යුත් තැපෑල ලබා දෙන්න, අපගේ කණ්ඩායම පැය 24ක් ඇතුළත සම්බන්ධ වනු ඇත.',
-      placeholder: 'you@example.com',
-      cta: 'සම්බන්ධ වන්න',
-      sendingLabel: 'යවමින්',
-      sentLabel: 'යවන ලදී',
-      statusSending: 'ඔබේ පණිවිඩය යවමින්...',
-      statusDone: 'ස්තුතියි. පැය 24ක් ඇතුළත සම්බන්ධ වෙමු.',
-      statusErr: 'එය වලංගු විද්‍යුත් තැපැල් ලිපිනයක් නොවේ. නැවත උත්සාහ කරන්න.',
-      statusFail: 'යමක් වැරදුණි. නැවත උත්සාහ කරන්න හෝ අප වෙත සෘජුවම විද්‍යුත් තැපෑලක් යවන්න.'
-    },
-    footer: {
-      tag: 'Aadhi මාධ්‍ය ඒජන්සිය',
-      sub: 'ශ්‍රී ලංකාව පුරා ක්‍රියාත්මක වන තාක්ෂණය මත පදනම් වූ දේශපාලන ව්‍යාපාර හා මාධ්‍ය ආයතනයකි.',
-      cols: [
-      { title: 'පරිසරය', items: ['AAMA පුවත්', 'AAMA කතාබහ', 'මාර්ග සිතියම'] },
-      { title: 'එන්ජිම', items: ['පුරෝකථන විශ්ලේෂණය', 'හැඟීම් සිතියම්කරණය', 'සයිබර් යටිතල පහසුකම්'] },
-      { title: 'කාර්යාලය', items: ['කොළඹ', 'යාපනය', 'මාධ්‍ය විමසුම්'] }],
-
-      legal: 'AAMA · Aadhi Media Agency (පෞද්.) සමාගම'
-    }
-  }
-};
+// Strings live in i18n.jsx (window.i18n).
 
 // ===== Reveal hook =====
 function useReveal() {
@@ -284,12 +15,48 @@ function useReveal() {
   }, []);
 }
 
+
+// ===== Shared email form logic =====
+// Both forms post to the same Formspree endpoint; `source` tells them apart.
+function useEmailForm(source) {
+  const [val, setVal] = useState('');
+  const [status, setStatus] = useState('idle'); // idle | sending | done | err | fail
+
+  async function submit(e, extra) {
+    e.preventDefault();
+    if (status === 'sending') return;
+    if (!/^\S+@\S+\.\S+$/.test(val.trim())) {
+      setStatus('err');return;
+    }
+    setStatus('sending');
+    try {
+      const res = await fetch('https://formspree.io/f/mwlevwwn', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val.trim(), source, ...(extra || {}) })
+      });
+      setStatus(res.ok ? 'done' : 'fail');
+    } catch {
+      setStatus('fail');
+    }
+  }
+
+  function onChange(e) {
+    setVal(e.target.value);
+    if (status === 'err' || status === 'fail') setStatus('idle');
+  }
+
+  return { val, status, submit, onChange };
+}
+
 // ===== Nav =====
 function Nav({ lang, setLang, t, theme, setTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const links = [
+    { href: '#practices', label: t.nav.practices },
+    { href: '#paperly', label: t.nav.paperly },
     { href: '#engine', label: t.nav.engine },
-    { href: '#ecosystem', label: t.nav.ecosystem },
+    { href: '#media', label: t.nav.media },
     { href: '#deploy', label: t.nav.contact }
   ];
   return (
@@ -344,20 +111,74 @@ function Nav({ lang, setLang, t, theme, setTheme }) {
 
 }
 
+// ===== Paperly wordmark =====
+function PaperlyMark({ size = 22 }) {
+  return (
+    <span className="pp-wordmark" style={{ fontSize: size }} aria-label="Paperly">
+      paperly<span className="pp-dot">.</span>
+    </span>);
+}
+
+// ===== Hero mark card =====
+// A sample marked answer, showing what Paperly does in one glance.
+function MarkCard({ t, lang }) {
+  const c = t.card;
+  return (
+    <figure className="mark-card" lang={lang} aria-label={c.badge}>
+      <div className="mark-card-top">
+        <PaperlyMark size={17} />
+        <span className="mark-card-badge mono">{c.badge}</span>
+      </div>
+      <div className="mark-card-subject mono">{c.subject}</div>
+      <p className="mark-card-q">{c.question}</p>
+
+      <div className="mark-card-sheet" aria-hidden="true">
+        <div className="hand hand-1">V = IR</div>
+        <div className="hand hand-2">I = 12 / 6</div>
+        <div className="hand hand-3">I = <span className="hl">2</span></div>
+        <div className="hand-margin">{c.margin}</div>
+        <div className="mark-score">2<span>/4</span></div>
+      </div>
+
+      <ul className="mark-scheme">
+        {c.scheme.map((s, i) =>
+        <li key={i} className={'mark-scheme-row ' + (s.ok ? 'ok' : 'lost')} style={{ animationDelay: (900 + i * 450) + 'ms' }}>
+            <span className="mark-scheme-icon" aria-hidden="true">{s.ok ? '✓' : '✗'}</span>
+            <span className="mark-scheme-label">{s.label}</span>
+            <span className="mark-scheme-marks mono">{s.marks}</span>
+          </li>
+        )}
+      </ul>
+
+      <figcaption className="mark-feedback">{c.feedback}</figcaption>
+    </figure>);
+}
+
 // ===== Hero =====
 function Hero({ heroBg, t, lang }) {
   return (
     <section className="hero" data-screen-label="01 Hero" lang={lang}>
       <ParticleMesh variant={heroBg} />
       <div className="hero-content container">
-        <div className="hero-meta reveal mono" style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-          <span>{t.hero.eyebrow}</span>
+        <div className="hero-grid">
+          <div className="hero-copy">
+            <div className="hero-meta reveal mono" style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+              <span>{t.hero.eyebrow}</span>
+            </div>
+            <h1 className="display display-mega hero-h1 reveal">
+              {t.hero.h1a}<br />
+              {t.hero.h1b}<em>{t.hero.h1c}</em>
+            </h1>
+            <p className="hero-sub reveal">{t.hero.sub}</p>
+            <div className="hero-ctas reveal">
+              <a className="btn btn-primary" href="#paperly">{t.hero.ctaPrimary} <span aria-hidden="true">→</span></a>
+              <a className="btn btn-ghost" href="#practices">{t.hero.ctaSecondary}</a>
+            </div>
+          </div>
+          <div className="hero-visual reveal">
+            <MarkCard t={t} lang={lang} />
+          </div>
         </div>
-        <h1 className="display display-mega hero-h1 reveal">
-          {t.hero.h1a}<br />
-          {t.hero.h1b}<em>{t.hero.h1c}</em>
-        </h1>
-        <p className="hero-sub reveal">{t.hero.sub}</p>
       </div>
       <div className="hero-foot">
         <div className="hero-foot-row container">
@@ -368,14 +189,140 @@ function Hero({ heroBg, t, lang }) {
 
 }
 
+// ===== Practices =====
+function Practices({ t, lang }) {
+  const p = t.practices;
+  return (
+    <section id="practices" className="section container" data-screen-label="02 Practices" lang={lang}>
+      <div className="section-head reveal-stagger">
+        <span className="section-head-label mono">{p.label}</span>
+        <h2 className="display display-lg">{p.h2a}<em style={{ fontStyle: 'italic' }}>{p.h2b}</em></h2>
+      </div>
+      <p className="body-lg reveal" style={{ maxWidth: '64ch', marginBottom: 56 }}>{p.intro}</p>
+      <div className="practices reveal-stagger">
+        {p.items.map((it) =>
+        <a key={it.n} href={it.href} className={'practice' + (it.isNew ? ' practice-new' : '')}>
+            <div className="pillar-number">
+              <span>{it.n}</span>
+              <span>{it.isNew ? <span className="practice-new-tag">{p.newLabel}</span> : null}{it.tag}</span>
+            </div>
+            <h3>{it.title}</h3>
+            <p>{it.body}</p>
+            <ul className="practice-links">
+              {it.links.map((l) => <li key={l}>{l}</li>)}
+            </ul>
+            <span className="bento-link practice-cta">{it.cta} <span className="arrow">→</span></span>
+          </a>
+        )}
+      </div>
+    </section>);
+}
+
+// ===== Paperly spotlight =====
+const PP_FEATURE_ICONS = { Papers: '▤', Mark: '✓', Progress: '↗', Mock: '◷' };
+
+function Paperly({ t, lang }) {
+  const p = t.paperly;
+  const form = useEmailForm('paperly-waitlist');
+  const busy = form.status === 'sending' || form.status === 'done';
+
+  return (
+    <section id="paperly" className="section container" data-screen-label="03 Paperly" lang={lang}>
+      <div className="pp reveal">
+        <div className="pp-head">
+          <div className="pp-brand">
+            <PaperlyMark size={40} />
+            <span className="pp-by mono">{p.by}</span>
+          </div>
+          <span className="pp-status mono"><span className="pp-status-dot" aria-hidden="true"></span>{p.status}</span>
+        </div>
+
+        <div className="pp-intro">
+          <h2 className="pp-h2">{p.h2}</h2>
+          <p className="pp-sub">{p.sub}</p>
+        </div>
+
+        <blockquote className="pp-quote">
+          {p.quoteA}<mark>{p.quoteB}</mark>
+        </blockquote>
+
+        <div className="pp-features">
+          {p.features.map((f) =>
+          <article key={f.name} className="pp-feature">
+              <span className="pp-feature-icon" aria-hidden="true">{PP_FEATURE_ICONS[f.name]}</span>
+              <h3>{f.name}</h3>
+              <p>{f.body}</p>
+            </article>
+          )}
+        </div>
+
+        <div className="pp-curricula">
+          <span className="pp-label mono">{p.curriculaLabel}</span>
+          <ul>
+            {p.curricula.map((c) => <li key={c}>{c}</li>)}
+          </ul>
+        </div>
+
+        <div className="pp-stats">
+          {p.stats.map((s, i) =>
+          <div key={i} className="pp-stat">
+              <div className="pp-stat-value">{s.value}</div>
+              <p>{s.label}</p>
+            </div>
+          )}
+        </div>
+
+        <div className="pp-audiences">
+          {p.audiences.map((a) =>
+          <article key={a.who} className="pp-audience">
+              <span className="pp-label mono">{a.who}</span>
+              <h3>{a.head}</h3>
+              <p>{a.line}</p>
+            </article>
+          )}
+        </div>
+
+        <div className="pp-cta">
+          <div className="pp-cta-copy">
+            <h3>{p.waitlistTitle}</h3>
+            <p>{p.waitlistSub}</p>
+            <p className="pp-launch">{p.launch}</p>
+          </div>
+          <div className="pp-cta-form">
+            <form className="pp-form" onSubmit={(e) => form.submit(e, { lang })}>
+              <input
+                type="email"
+                value={form.val}
+                onChange={form.onChange}
+                placeholder={p.placeholder}
+                disabled={busy}
+                aria-label="Email" />
+              <button type="submit" disabled={busy}>
+                {form.status === 'sending' ? t.deploy.sendingLabel : form.status === 'done' ? t.deploy.sentLabel : p.cta}
+              </button>
+            </form>
+            <div className={'pp-form-status' + (form.status === 'done' ? ' success' : '')} role="status">
+              {form.status === 'sending' && t.deploy.statusSending}
+              {form.status === 'done' && p.statusDone}
+              {form.status === 'err' && t.deploy.statusErr}
+              {form.status === 'fail' && t.deploy.statusFail}
+            </div>
+            <a className="pp-site mono" href="https://paperly.academy" target="_blank" rel="noopener">{p.site} ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>);
+}
+
 // ===== Engine =====
 function Engine({ t, lang }) {
   const kinds = ['predictive', 'sentiment', 'cyber'];
   const pillars = t.engine.pillars.map((p, i) => ({ ...p, n: '0' + (i + 1), kind: kinds[i] }));
 
   return (
-    <section id="engine" className="section container" data-screen-label="02 Engine" lang={lang}>
+    <section id="engine" className="section container" data-screen-label="04 Engine" lang={lang}>
       <div className="section-head reveal-stagger">
+        <span className="section-head-label mono">{t.engine.label}</span>
         <h2 className="display display-lg">{t.engine.h2a}<em style={{ fontStyle: 'italic' }}>{t.engine.h2b}</em></h2>
       </div>
       <p className="body-lg reveal" style={{ maxWidth: '64ch', marginBottom: 64 }}>
@@ -397,12 +344,14 @@ function Engine({ t, lang }) {
 
 }
 
-// ===== Bento =====
+// ===== Bento (media) =====
 function Bento({ density, t, lang }) {
   const showSoon = density !== 'minimal';
   return (
-    <section id="ecosystem" className="section container" data-screen-label="03 Ecosystem" lang={lang}>
+    <section id="media" className="section container" data-screen-label="05 Media" lang={lang}>
+      <span id="ecosystem" aria-hidden="true"></span>
       <div className="section-head reveal-stagger">
+        <span className="section-head-label mono">{t.ecosystem.label}</span>
         <h2 className="display display-lg">{t.ecosystem.h2a}<em style={{ fontStyle: 'italic' }}>{t.ecosystem.h2b}</em></h2>
       </div>
       <div className="bento reveal-stagger">
@@ -443,8 +392,9 @@ function Bento({ density, t, lang }) {
 // ===== Impact =====
 function Impact({ t, lang }) {
   return (
-    <section id="impact" className="section container" data-screen-label="04 Impact" lang={lang}>
+    <section id="impact" className="section container" data-screen-label="06 Impact" lang={lang}>
       <div className="section-head reveal-stagger">
+        <span className="section-head-label mono">{t.impact.label}</span>
         <h2 className="display display-lg">{t.impact.h2a}<em style={{ fontStyle: 'italic' }}>{t.impact.h2b}</em></h2>
       </div>
       <div className="impact-stats reveal-stagger">
@@ -462,8 +412,9 @@ function Impact({ t, lang }) {
 // ===== Process =====
 function Process({ t, lang }) {
   return (
-    <section id="process" className="section container" data-screen-label="05 Process" lang={lang}>
+    <section id="process" className="section container" data-screen-label="07 Process" lang={lang}>
       <div className="section-head reveal-stagger">
+        <span className="section-head-label mono">{t.process.label}</span>
         <h2 className="display display-lg">{t.process.h2a}<em style={{ fontStyle: 'italic' }}>{t.process.h2b}</em></h2>
       </div>
       <ol className="process-steps reveal-stagger">
@@ -484,8 +435,9 @@ function Process({ t, lang }) {
 // ===== FAQ =====
 function Faq({ t, lang }) {
   return (
-    <section id="faq" className="section container" data-screen-label="06 FAQ" lang={lang}>
+    <section id="faq" className="section container" data-screen-label="08 FAQ" lang={lang}>
       <div className="section-head reveal-stagger">
+        <span className="section-head-label mono">{t.faq.label}</span>
         <h2 className="display display-lg">{t.faq.h2a}<em style={{ fontStyle: 'italic' }}>{t.faq.h2b}</em></h2>
       </div>
       <div className="faq-list reveal-stagger">
@@ -503,7 +455,7 @@ function Faq({ t, lang }) {
 // ===== Trust =====
 function Trust({ t, lang }) {
   return (
-    <section id="trust" className="section container section-tight" data-screen-label="07 Trust" lang={lang}>
+    <section id="trust" className="section container section-tight" data-screen-label="09 Trust" lang={lang}>
       <div className="trust-strip reveal">
         <p className="trust-line">{t.trust.line}</p>
         <div className="trust-items mono">
@@ -518,30 +470,13 @@ function Trust({ t, lang }) {
 
 // ===== Contact + Footer =====
 function ContactFooter({ t, lang }) {
-  const [val, setVal] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | sending | done | err | fail
-
-  async function submit(e) {
-    e.preventDefault();
-    if (status === 'sending') return;
-    if (!/^\S+@\S+\.\S+$/.test(val.trim())) {
-      setStatus('err');return;
-    }
-    setStatus('sending');
-    try {
-      const res = await fetch('https://formspree.io/f/mwlevwwn', {
-        method: 'POST',
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: val.trim() })
-      });
-      setStatus(res.ok ? 'done' : 'fail');
-    } catch {
-      setStatus('fail');
-    }
-  }
+  const form = useEmailForm('contact');
+  const [topic, setTopic] = useState('');
+  const busy = form.status === 'sending' || form.status === 'done';
+  const cols = t.footer.cols;
 
   return (
-    <section id="deploy" className="deploy-section" data-screen-label="08 Deploy">
+    <section id="deploy" className="deploy-section" data-screen-label="10 Contact">
       <div className="container">
         <div className="deploy-panel reveal" lang={lang}>
           <h2 className="display display-lg" style={{ color: 'var(--on-dark)' }}>
@@ -549,24 +484,39 @@ function ContactFooter({ t, lang }) {
           </h2>
           <p className="deploy-sub">{t.deploy.sub}</p>
 
-          <form className="deploy-form" onSubmit={submit}>
+          <div className="deploy-topics" role="group" aria-label={t.deploy.topicsLabel}>
+            <span className="deploy-topics-label mono">{t.deploy.topicsLabel}</span>
+            {t.deploy.topics.map((tp) =>
+            <button
+              key={tp.id}
+              type="button"
+              className={'deploy-topic' + (topic === tp.id ? ' is-active' : '')}
+              aria-pressed={topic === tp.id}
+              disabled={busy}
+              onClick={() => setTopic(topic === tp.id ? '' : tp.id)}>
+                {tp.label}
+              </button>
+            )}
+          </div>
+
+          <form className="deploy-form" onSubmit={(e) => form.submit(e, { interest: topic || 'unspecified', lang })}>
             <input
               type="email"
-              value={val}
-              onChange={(e) => {setVal(e.target.value);if (status === 'err' || status === 'fail') setStatus('idle');}}
+              value={form.val}
+              onChange={form.onChange}
               placeholder={t.deploy.placeholder}
-              disabled={status === 'sending' || status === 'done'}
+              disabled={busy}
               aria-label="Email" />
 
-            <button type="submit" disabled={status === 'sending' || status === 'done'}>
-              {status === 'sending' ? t.deploy.sendingLabel : status === 'done' ? t.deploy.sentLabel : t.deploy.cta}
+            <button type="submit" disabled={busy}>
+              {form.status === 'sending' ? t.deploy.sendingLabel : form.status === 'done' ? t.deploy.sentLabel : t.deploy.cta}
             </button>
           </form>
-          <div className={'deploy-status' + (status === 'done' ? ' success' : '')} role="status">
-            {status === 'sending' && t.deploy.statusSending}
-            {status === 'done' && t.deploy.statusDone}
-            {status === 'err' && t.deploy.statusErr}
-            {status === 'fail' && t.deploy.statusFail}
+          <div className={'deploy-status' + (form.status === 'done' ? ' success' : '')} role="status">
+            {form.status === 'sending' && t.deploy.statusSending}
+            {form.status === 'done' && t.deploy.statusDone}
+            {form.status === 'err' && t.deploy.statusErr}
+            {form.status === 'fail' && t.deploy.statusFail}
           </div>
         </div>
 
@@ -576,7 +526,7 @@ function ContactFooter({ t, lang }) {
             <p className="footer-brand-sub">{t.footer.sub}</p>
           </div>
           <div className="footer-col">
-            <h4>{t.footer.cols[0].title}</h4>
+            <h4>{cols[0]}</h4>
             <ul>
               <li>AAMA News <span className="footer-soon">({t.ecosystem.comingSoon})</span></li>
               <li>AAMA Talks <span className="footer-soon">({t.ecosystem.comingSoon})</span></li>
@@ -584,7 +534,7 @@ function ContactFooter({ t, lang }) {
             </ul>
           </div>
           <div className="footer-col">
-            <h4>{t.footer.cols[1].title}</h4>
+            <h4>{cols[1]}</h4>
             <ul>
               <li><a href="Predictive Analytics.html">Predictive Analytics</a></li>
               <li><a href="Sentiment Mapping.html">Sentiment Mapping</a></li>
@@ -592,11 +542,19 @@ function ContactFooter({ t, lang }) {
             </ul>
           </div>
           <div className="footer-col">
-            <h4>{t.footer.cols[2].title}</h4>
+            <h4>{cols[2]}</h4>
             <ul>
-              <li>Colombo</li>
-              <li>Jaffna</li>
-              <li><a href="https://wa.me/94721271999" target="_blank" rel="noopener">Press Inquiries ↗</a></li>
+              <li><a href="#paperly">Paperly</a></li>
+              <li><a href="#paperly">{t.footer.paperlyWaitlist}</a></li>
+              <li><a href="https://paperly.academy" target="_blank" rel="noopener">paperly.academy ↗</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>{cols[3]}</h4>
+            <ul>
+              <li>{t.footer.office[0]}</li>
+              <li>{t.footer.office[1]}</li>
+              <li><a href="https://wa.me/94721271999" target="_blank" rel="noopener">{t.footer.office[2]} ↗</a></li>
             </ul>
           </div>
         </div>
@@ -609,4 +567,4 @@ function ContactFooter({ t, lang }) {
 
 }
 
-Object.assign(window, { useReveal, Nav, Hero, Engine, Bento, Impact, Process, Faq, Trust, ContactFooter, i18n });
+Object.assign(window, { useReveal, Nav, Hero, Practices, Paperly, Engine, Bento, Impact, Process, Faq, Trust, ContactFooter });
